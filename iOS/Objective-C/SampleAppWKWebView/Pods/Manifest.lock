@@ -1,5 +1,5 @@
 PODS:
-  - Minkasu2FA (1.0.0)
+  - Minkasu2FA (1.0.1)
 
 DEPENDENCIES:
   - Minkasu2FA
@@ -9,7 +9,7 @@ SPEC REPOS:
     - Minkasu2FA
 
 SPEC CHECKSUMS:
-  Minkasu2FA: b8d8670be01eeb8ec5af421c22da7427dbf57660
+  Minkasu2FA: 19affb22c8b00236e609f7cc4dc8c30295ccbea1
 
 PODFILE CHECKSUM: 59d7aec7722ef25feb8763546ec78ee43b4d696b
 
