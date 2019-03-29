@@ -74,15 +74,15 @@ func initMinkasu2FA(){
     customer.firstName = "TestFirstName"
     customer.lastName = "TestLastName"
     customer.email = "test@xyz.com"
-    customer.phone = "+919876543210"
+    customer.phone = "+919876543210"        // Format: +91XXXXXXXXXX (no spaces)
 
     let address = Minkasu2FAAddress()
     address.line1 = "123 Test Way"
     address.line2 = "Test Apartments"
     address.city = "Mumbai"
-    address.state = "Maharashtra"
+    address.state = "Maharashtra"           // Unabbreviated e.g. Maharashtra (not MH)
     address.country = "India"
-    address.zipCode = "400068"
+    address.zipCode = "400068"              // Format: XXXXXX (no spaces)
     customer.address = address
 
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
