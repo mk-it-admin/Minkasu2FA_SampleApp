@@ -75,7 +75,9 @@ class ViewController: UIViewController,UIWebViewDelegate {
         //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-        Minkasu2FA.initWith(uiWebView, andConfiguration: config)
+        //Minkasu2FA.initWith(uiWebView, andConfiguration: config)
+        
+        Minkasu2FA.initWith(uiWebView, andConfiguration: config, inViewController: nil);
     }
 
     @IBAction func clickNetBanking(_ sender: Any) {

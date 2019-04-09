@@ -95,7 +95,10 @@
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
     //Initializing Minkasu2FA SDK with WKWebView object
-    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    //[Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    
+    //Initializing Minkasu2FA SDK with UIWebView object and merchant's ViewController
+    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config inViewController:nil];
 }
 //****END Minkasu2FA Code***************
 
