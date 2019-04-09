@@ -40,7 +40,7 @@ Add NSFaceIDUsageDescription to Info.plist
 
 ### Working with Swift
 
-- You can easily use the SDK with Swift using Objective-C Bridging Header. Apple has some nice documentation on subject. 
+- You can easily use the SDK with Swift using Objective-C Bridging Header. Apple has some nice documentation on subject.
 - To begin, create a new file (File > New > File > iOS > Source > Header File) and name it YourProjectName-Bridging-Header.h.
 - Open the file and insert following line to it:
 
@@ -49,7 +49,7 @@ Add NSFaceIDUsageDescription to Info.plist
 #import <Minkasu2FA/Minkasu2FAHeader.h>
 ```
 
-- Next, go to your project's build settings, and type "bridging" to filter options. Look for an option named Objective-C Bridging Header and set its value to path of your file. 
+- Next, go to your project's build settings, and type "bridging" to filter options. Look for an option named Objective-C Bridging Header and set its value to path of your file.
 
 ## Initializing the SDK for UIWebView Based integration
 
@@ -65,6 +65,17 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 }
 ```
 - Initialize the UIWebView object.
+- Add the following code to customize the look and feel of Minkasu2FA SDK as part of Minkasu2FAConfig initialization.
+
+```Swift
+//Use this to set custom color theme
+let mkColorTheme = Minkasu2FACustomTheme()
+mkColorTheme.navigationBarColor = UIColor.blue
+mkColorTheme.navigationBarTextColor = UIColor.white
+mkColorTheme.buttonBackgroundColor = UIColor.blue
+mkColorTheme.buttonTextColor = UIColor.white
+config.customTheme = mkColorTheme;
+```
 - Add following code to your ViewController to inialize Minkasu2FA SDK with the UIWebView object. The following code must be executed before making a payment to enable Minkasu 2FA.
 
 ```Swift

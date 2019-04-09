@@ -52,6 +52,16 @@ Add NSFaceIDUsageDescription to Info.plist
 }
 ```
 - Initialize the UIWebView object.
+- Add the following code to customize the look and feel of Minkasu2FA SDK as part of Minkasu2FAConfig initialization.
+
+```Objective-C
+//Use this to set custom color theme
+Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
+mkcolorTheme.navigationBarColor = UIColor.blueColor;
+mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
+mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
+mkcolorTheme.buttonTextColor = UIColor.whiteColor;
+```
 - Add following code to your ViewController to inialize Minkasu2FA SDK with the UIWebView object. The following code must be executed before making a payment to enable Minkasu 2FA.
 
 ```Objective-C
