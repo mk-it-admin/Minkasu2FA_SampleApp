@@ -74,7 +74,6 @@ mkColorTheme.navigationBarColor = UIColor.blue
 mkColorTheme.navigationBarTextColor = UIColor.white
 mkColorTheme.buttonBackgroundColor = UIColor.blue
 mkColorTheme.buttonTextColor = UIColor.white
-config.customTheme = mkColorTheme;
 ```
 - Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the UIWebView object and merchant's ViewController or just the UIWebView object. The following code must be executed before making a payment to enable Minkasu 2FA.
 
@@ -119,13 +118,8 @@ func initMinkasu2FA(){
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-    //Initializing Minkasu2FA SDK with UIWebView object
-    //Minkasu2FA.initWith(uiWebView, andConfiguration: config)
-
-    //or
-
-    //Initializing Minkasu2FA SDK with UIWebView object and merchant's ViewController
-    Minkasu2FA.initWith(uiWebView, andConfiguration: config, inViewController: nil);
+    //Initializing Minkasu2FA SDK with UIWebView object and the ViewController
+    Minkasu2FA.initWith(uiWebView, andConfiguration: config, inViewController: self);
 }
 ```
 

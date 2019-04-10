@@ -23,10 +23,10 @@
     self.uiWebView = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y+150, self.view.frame.size.width, self.view.frame.size.height)];
     _uiWebView.delegate = self;
     [self.view addSubview:_uiWebView];
-    
+
     [self.btnNetBanking.layer setCornerRadius:6.0];
     [self.btnCreditDebit.layer setCornerRadius:6.0];
-    
+
     merchantCustomerId = @"M_C001";
 }
 
@@ -38,7 +38,7 @@
     customer.lastName = @"TestLastName";
     customer.email = @"test@minkasupay.com";
     customer.phone = @"+919876543210";          // Format: +91XXXXXXXXXX (no spaces)
-    
+
     Minkasu2FAAddress *address = [Minkasu2FAAddress new];
     address.line1 = @"123 Test way";
     address.line2 = @"Test Apartments";
@@ -47,7 +47,7 @@
     address.country= @"India";
     address.zipCode = @"400068";                // Format: XXXXXX (no spaces)
     customer.address = address;
-    
+
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     Minkasu2FAConfig *config = [Minkasu2FAConfig new];
@@ -56,11 +56,11 @@
     config.merchantCustomerId =<merchant_customer_id>;
     //add customer to the Config object
     config.customerInfo = customer;
-    
+
     Minkasu2FAOrderInfo *orderInfo = [Minkasu2FAOrderInfo new];
     orderInfo.orderId = <order_id>;
     config.orderInfo = orderInfo;
-    
+
     //Use this to set custom color theme
     Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
     mkcolorTheme.navigationBarColor = UIColor.blueColor;
@@ -68,16 +68,13 @@
     mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
     mkcolorTheme.buttonTextColor = UIColor.whiteColor;
     config.customTheme = mkcolorTheme;
-    
+
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
-    
-    //Initializing Minkasu2FA SDK with UIWebView object
-    //[Minkasu2FA initWithUIWebView:_uiWebView andConfiguration:config];
-    
-    //Initializing Minkasu2FA SDK with UIWebView object and merchant's ViewController
-    [Minkasu2FA initWithWKWebView:_uiWebView andConfiguration:config inViewController:nil];
-    
+
+    //Initializing Minkasu2FA SDK with UIWebView object and the ViewController
+    [Minkasu2FA initWithWKWebView:_uiWebView andConfiguration:config inViewController:self];
+
 }
 //****END Minkasu2FA Code***************
 
@@ -112,7 +109,7 @@
             mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
             mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
             mkcolorTheme.buttonTextColor = UIColor.whiteColor;
-            
+
             UIAlertAction *action = nil;
             if(operation.intValue == MINKASU2FA_CHANGE_PAYPIN) {
                 action = [UIAlertAction
@@ -144,19 +141,19 @@
             }
             [menuOptionsActionSheet addAction:action];
         }
-        
+
         [menuOptionsActionSheet addAction:[UIAlertAction
                                            actionWithTitle:@"Cancel"
                                            style:UIAlertActionStyleCancel
                                            handler:^(UIAlertAction * action) {
                                                [self dismissViewControllerAnimated:YES completion:nil];
                                            }]];
-        
+
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             [menuOptionsActionSheet popoverPresentationController].barButtonItem = self.btnItemMenuOption;
         }
-        
+
         [self presentViewController:menuOptionsActionSheet animated:YES completion:nil];
     }
 }
