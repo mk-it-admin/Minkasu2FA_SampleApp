@@ -73,12 +73,13 @@ class ViewController: UIViewController, WKUIDelegate {
         mkColorTheme.navigationBarTextColor = UIColor.white
         mkColorTheme.buttonBackgroundColor = UIColor.blue
         mkColorTheme.buttonTextColor = UIColor.white
-        config.customTheme = mkColorTheme;
+        config.customTheme = mkColorTheme
 
         //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-        Minkasu2FA.initWith(wkWebView, andConfiguration: config, in: self);
+        //Initializing Minkasu2FA SDK with WKWebView object and the ViewController containing the WKWebView
+        Minkasu2FA.initWith(wkWebView, andConfiguration: config, in: self)
     }
 
     @IBAction func clickNetBanking(_ sender: Any) {
@@ -98,7 +99,7 @@ class ViewController: UIViewController, WKUIDelegate {
         if(minkasu2FAOperations.count > 0){
             let menuOptionsActionSheet = UIAlertController.init(title: nil, message: "Menu", preferredStyle: UIAlertController.Style.actionSheet)
             for case let operation as Int in minkasu2FAOperations {
-                let mkColorTheme = Minkasu2FACustomTheme();
+                let mkColorTheme = Minkasu2FACustomTheme()
                 mkColorTheme.navigationBarColor = UIColor.blue
                 mkColorTheme.navigationBarTextColor = UIColor.white
                 mkColorTheme.buttonBackgroundColor = UIColor.blue

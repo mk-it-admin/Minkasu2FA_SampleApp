@@ -75,7 +75,7 @@ mkColorTheme.navigationBarTextColor = UIColor.white
 mkColorTheme.buttonBackgroundColor = UIColor.blue
 mkColorTheme.buttonTextColor = UIColor.white
 ```
-- Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the UIWebView object and merchant's ViewController or just the UIWebView object. The following code must be executed before making a payment to enable Minkasu 2FA.
+- Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the UIWebView object and merchant's ViewController. The following code must be executed before making a payment to enable Minkasu 2FA.
 
 ```Swift
 func initMinkasu2FA(){
