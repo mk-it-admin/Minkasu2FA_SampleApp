@@ -40,7 +40,7 @@ Add NSFaceIDUsageDescription to Info.plist
 
 ### Working with Swift
 
-- You can easily use the SDK with Swift using Objective-C Bridging Header. Apple has some nice documentation on subject. 
+- You can easily use the SDK with Swift using Objective-C Bridging Header. Apple has some nice documentation on subject.
 - To begin, create a new file (File > New > File > iOS > Source > Header File) and name it YourProjectName-Bridging-Header.h.
 - Open the file and insert following line to it:
 
@@ -49,13 +49,23 @@ Add NSFaceIDUsageDescription to Info.plist
 #import <Minkasu2FA/Minkasu2FAHeader.h>
 ```
 
-- Next, go to your project's build settings, and type "bridging" to filter options. Look for an option named Objective-C Bridging Header and set its value to path of your file. 
+- Next, go to your project's build settings, and type "bridging" to filter options. Look for an option named Objective-C Bridging Header and set its value to path of your file.
 
 ## Initializing the SDK for WKWebView Based integration
 
 - Import ```import Minkasu2FA``` in the ViewController that holds the WKWebView.
 - Initialize the WKWebView object.
-- Add following code to your ViewController to inialize Minkasu2FA SDK with the WKWebView object. The following code must be executed before making a payment to enable Minkasu 2FA.
+- Add the following code to customize the look and feel of Minkasu2FA SDK as part of Minkasu2FAConfig initialization.
+
+```Swift
+//Use this to set custom color theme
+let mkColorTheme = Minkasu2FACustomTheme()
+mkColorTheme.navigationBarColor = UIColor.blue
+mkColorTheme.navigationBarTextColor = UIColor.white
+mkColorTheme.buttonBackgroundColor = UIColor.blue
+mkColorTheme.buttonTextColor = UIColor.white
+```
+- Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the WKWebView object and merchant's ViewController. The following code must be executed before making a payment to enable Minkasu 2FA.
 
 ```Swift
 func initMinkasu2FA(){
@@ -64,15 +74,15 @@ func initMinkasu2FA(){
     customer.firstName = "TestFirstName"
     customer.lastName = "TestLastName"
     customer.email = "test@xyz.com"
-    customer.phone = "+919876543210"
+    customer.phone = "+919876543210"    // Format: +91XXXXXXXXXX (no spaces)
 
     let address = Minkasu2FAAddress()
     address.line1 = "123 Test Way"
     address.line2 = "Test Apartments"
     address.city = "Mumbai"
-    address.state = "Maharashtra"
+    address.state = "Maharashtra"       // Unabbreviated e.g. Maharashtra (not MH)
     address.country = "India"
-    address.zipCode = "400068"
+    address.zipCode = "400068"          // Format: XXXXXX (no spaces)
     customer.address = address
 
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
@@ -98,7 +108,8 @@ func initMinkasu2FA(){
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-    Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+    //Initializing Minkasu2FA SDK with WKWebView object and the ViewController containing the WKWebView
+    Minkasu2FA.initWith(wkWebView, andConfiguration: config, in: self);
 }
 ```
 

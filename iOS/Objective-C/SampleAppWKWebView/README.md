@@ -42,7 +42,18 @@ Add NSFaceIDUsageDescription to Info.plist
 
 - Import ```<Minkasu2FA/Minkasu2FAHeader.h>``` in the ViewController that holds the WKWebView.
 - Initialize the WKWebView object.
-- Add following code to your ViewController to inialize Minkasu2FA SDK with the WKWebView object. The following code must be executed before making a payment to enable Minkasu 2FA.
+- Add the following code to customize the look and feel of Minkasu2FA SDK as part of Minkasu2FAConfig initialization.
+
+```Objective-C
+//Use this to set custom color theme
+Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
+mkcolorTheme.navigationBarColor = UIColor.blueColor;
+mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
+mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
+mkcolorTheme.buttonTextColor = UIColor.whiteColor;
+```
+
+- Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the WKWebView object and merchant's ViewController. The following code must be executed before making a payment to enable Minkasu 2FA.
 
 ```Objective-C
 - (void) initMinkasu2FA{
@@ -51,15 +62,15 @@ Add NSFaceIDUsageDescription to Info.plist
     customer.firstName = @"TestFirstName";
     customer.lastName = @"TestLastName";
     customer.email = @"test@xyz.com";
-    customer.phone = @"+919876543210";
+    customer.phone = @"+919876543210";  // Format: +91XXXXXXXXXX (no spaces)
 
     Minkasu2FAAddress *address = [Minkasu2FAAddress new];
     address.line1 = @"123 Test Way";
     address.line2 = @"Test Apartments";
     address.city = @"Mumbai";
-    address.state = @"Maharashtra";
+    address.state = @"Maharashtra";     // Unabbreviated e.g. Maharashtra (not MH)
     address.country= @"India";
-    address.zipCode = @"400068";
+    address.zipCode = @"400068";        // Format: XXXXXX (no spaces)
     customer.address = address;
 
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
@@ -86,8 +97,8 @@ Add NSFaceIDUsageDescription to Info.plist
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
-    //Initializing Minkasu2FA SDK with WKWebView object
-    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    //Initializing Minkasu2FA SDK with WKWebView object and the ViewController containing the WKWebView
+    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config inViewController:self];
 }
 ```
 

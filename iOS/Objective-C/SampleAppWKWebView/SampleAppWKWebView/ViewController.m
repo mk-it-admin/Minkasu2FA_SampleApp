@@ -27,10 +27,10 @@
     _wkWebView.UIDelegate = self;
 
     [self.view addSubview:_wkWebView];
-    
+
     [self.btnNetBanking.layer setCornerRadius:6.0];
     [self.btnCreditDebit.layer setCornerRadius:6.0];
-    
+
     merchantCustomerId = @"M_C001";
 }
 
@@ -59,15 +59,15 @@
     customer.firstName = @"TestFirtName";
     customer.lastName = @"TestLastName";
     customer.email = @"test@minkasupay.com";
-    customer.phone = @"+919876543210";
+    customer.phone = @"+919876543210";          // Format: +91XXXXXXXXXX (no spaces)
 
     Minkasu2FAAddress *address = [Minkasu2FAAddress new];
-    address.line1 = @"123 Test way";
+    address.line1 = @"123 Test Way";
     address.line2 = @"Test Apartments";
     address.city = @"Mumbai";
-    address.state = @"Maharashtra";
+    address.state = @"Maharashtra";             // Unabbreviated e.g. Maharashtra (not MH)
     address.country= @"India";
-    address.zipCode = @"400068";
+    address.zipCode = @"400068";                // Format: XXXXXX (no spaces)
     customer.address = address;
 
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
@@ -94,8 +94,8 @@
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
-    //Initializing Minkasu2FA SDK with WKWebView object
-    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    //Initializing Minkasu2FA SDK with WKWebView object and the ViewController containing the WKWebView
+    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config inViewController:self];
 }
 //****END Minkasu2FA Code***************
 
@@ -126,7 +126,7 @@
             mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
             mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
             mkcolorTheme.buttonTextColor = UIColor.whiteColor;
-            
+
             UIAlertAction *action = nil;
             if(operation.intValue == MINKASU2FA_CHANGE_PAYPIN) {
                 action = [UIAlertAction
@@ -158,19 +158,19 @@
             }
             [menuOptionsActionSheet addAction:action];
         }
-        
+
         [menuOptionsActionSheet addAction:[UIAlertAction
                                            actionWithTitle:@"Cancel"
                                            style:UIAlertActionStyleCancel
                                            handler:^(UIAlertAction * action) {
                                                [self dismissViewControllerAnimated:YES completion:nil];
                                            }]];
-        
+
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             [menuOptionsActionSheet popoverPresentationController].barButtonItem = self.btnItemMenuOption;
         }
-        
+
         [self presentViewController:menuOptionsActionSheet animated:YES completion:nil];
     }
 }
