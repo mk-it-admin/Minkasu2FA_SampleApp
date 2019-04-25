@@ -97,8 +97,8 @@ mkcolorTheme.buttonTextColor = UIColor.whiteColor;
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
-    //Initializing Minkasu2FA SDK with UIWebView object and the ViewController
-    [Minkasu2FA initWithUIWebView:_wkWebView andConfiguration:config inViewController:self];
+    //Initializing Minkasu2FA SDK with WKWebView object and the ViewController containing the WKWebView
+    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config inViewController:self];
 }
 ```
 

@@ -47,7 +47,7 @@ class ViewController: UIViewController, WKUIDelegate {
         customer.phone = "+919876543210"    // Format: +91XXXXXXXXXX (no spaces)
 
         let address = Minkasu2FAAddress()
-        address.line1 = "123 Test way"
+        address.line1 = "123 Test Way"
         address.line2 = "Test Apartments"
         address.city = "Mumbai"
         address.state = "Maharashtra"       // Unabbreviated e.g. Maharashtra (not MH)
@@ -78,7 +78,7 @@ class ViewController: UIViewController, WKUIDelegate {
         //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-        Minkasu2FA.initWith(wkWebView, andConfiguration: config, inViewController: self);
+        Minkasu2FA.initWith(wkWebView, andConfiguration: config, in: self);
     }
 
     @IBAction func clickNetBanking(_ sender: Any) {
@@ -89,7 +89,7 @@ class ViewController: UIViewController, WKUIDelegate {
 
     @IBAction func clickCreditDebit(_ sender: Any) {
         initMinkasu2FA()
-        let url = URL(string: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm")
+        let url = URL(string: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?minkasu2FA=true")
         wkWebView.load(URLRequest(url: url!))
     }
 

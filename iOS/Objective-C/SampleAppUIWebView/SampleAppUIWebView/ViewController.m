@@ -40,7 +40,7 @@
     customer.phone = @"+919876543210";          // Format: +91XXXXXXXXXX (no spaces)
 
     Minkasu2FAAddress *address = [Minkasu2FAAddress new];
-    address.line1 = @"123 Test way";
+    address.line1 = @"123 Test Way";
     address.line2 = @"Test Apartments";
     address.city = @"Mumbai";
     address.state = @"Maharashtra";             // Unabbreviated e.g. Maharashtra (not MH)
@@ -73,7 +73,7 @@
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
     //Initializing Minkasu2FA SDK with UIWebView object and the ViewController
-    [Minkasu2FA initWithWKWebView:_uiWebView andConfiguration:config inViewController:self];
+    [Minkasu2FA initWithUIWebView:_uiWebView andConfiguration:config inViewController:self];
 
 }
 //****END Minkasu2FA Code***************

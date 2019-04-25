@@ -44,7 +44,7 @@ class ViewController: UIViewController,UIWebViewDelegate {
         customer.phone = "+919876543210"        // Format: +91XXXXXXXXXX (no spaces)
 
         let address = Minkasu2FAAddress()
-        address.line1 = "123 Test way"
+        address.line1 = "123 Test Way"
         address.line2 = "Test Apartments"
         address.city = "Mumbai"
         address.state = "Maharashtra"           // Unabbreviated e.g. Maharashtra (not MH)
@@ -75,7 +75,8 @@ class ViewController: UIViewController,UIWebViewDelegate {
         //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-        Minkasu2FA.initWith(uiWebView, andConfiguration: config, inViewController: self);
+        //Initializing Minkasu2FA SDK with UIWebView object and the ViewController containing the UIWebView
+        Minkasu2FA.initWith(uiWebView, andConfiguration: config, in: self);
     }
 
     @IBAction func clickNetBanking(_ sender: Any) {
