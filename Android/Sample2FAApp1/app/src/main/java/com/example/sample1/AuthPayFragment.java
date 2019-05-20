@@ -166,7 +166,7 @@ public class AuthPayFragment extends Fragment {
             customer.setPhone("+919876543210");     // Format: +91XXXXXXXXXX (no spaces)
 
             Address address = new Address();
-            address.setAddressLine1("123 Test way");
+            address.setAddressLine1("123 Test Way");
             address.setAddressLine2("Test Soc");
             address.setCity("Mumbai");
             address.setState("Maharastra");         // Unabbreviated e.g. Maharashtra (not MH)
