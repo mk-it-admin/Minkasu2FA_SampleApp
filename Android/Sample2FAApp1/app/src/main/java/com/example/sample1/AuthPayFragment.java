@@ -163,15 +163,15 @@ public class AuthPayFragment extends Fragment {
             customer.setFirstName("TestCustomer");
             customer.setLastName("TestLastName");
             customer.setEmail("test@minkasupay.com");
-            customer.setPhone("+919876543210");
+            customer.setPhone("+919876543210");     // Format: +91XXXXXXXXXX (no spaces)
 
             Address address = new Address();
-            address.setAddressLine1("123 Test way");
+            address.setAddressLine1("123 Test Way");
             address.setAddressLine2("Test Soc");
             address.setCity("Mumbai");
-            address.setState("Maharastra");
+            address.setState("Maharastra");         // Unabbreviated e.g. Maharashtra (not MH)
             address.setCountry("India");
-            address.setZipCode("400068");
+            address.setZipCode("400068");           // Format: XXXXXX (no spaces)
             customer.setAddress(address);
 
             //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
