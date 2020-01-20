@@ -61,6 +61,15 @@ mkcolorTheme.navigationBarColor = UIColor.blueColor;
 mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
 mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
 mkcolorTheme.buttonTextColor = UIColor.whiteColor;
+
+// use this to set a separate color theme for Dark mode
+mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
+mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
+
+// Make it true if merchant support dark mode
+mkcolorTheme.supportDarkMode = true;
 ```
 - Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the UIWebView object and merchant's ViewController. The following code must be executed before making a payment to enable Minkasu 2FA.
 
@@ -101,6 +110,16 @@ mkcolorTheme.buttonTextColor = UIColor.whiteColor;
     mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
     mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
     mkcolorTheme.buttonTextColor = UIColor.whiteColor;
+    
+    // use this to set a separate color theme for Dark mode
+    mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+    mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
+    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+    mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
+    
+    // Make it true if merchant support dark mode
+    mkcolorTheme.supportDarkMode = true;
+    
     config.customTheme = mkcolorTheme;
 
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
@@ -159,6 +178,15 @@ mkcolorTheme.navigationBarColor = UIColor.blueColor;
 mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
 mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
 mkcolorTheme.buttonTextColor = UIColor.whiteColor;
+
+// use this to set a separate color theme for Dark mode
+mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
+mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
+
+// Make it true if merchant support dark mode
+mkcolorTheme.supportDarkMode = true;
 
 [Minkasu2FA performMinkasu2FAOperation:<Minkasu2faOperationType> merchantCustomerId:<merchant_customer_id> customTheme:mkcolorTheme];
 ```

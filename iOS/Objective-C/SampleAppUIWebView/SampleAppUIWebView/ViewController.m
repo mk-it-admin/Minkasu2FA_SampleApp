@@ -67,6 +67,16 @@
     mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
     mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
     mkcolorTheme.buttonTextColor = UIColor.whiteColor;
+    
+    // use this to set a separate color theme for Dark mode
+    mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+    mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
+    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+    mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
+    
+    // Make it true if merchant support dark mode
+    mkcolorTheme.supportDarkMode = true;
+    
     config.customTheme = mkcolorTheme;
 
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
@@ -108,7 +118,16 @@
             mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
             mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
             mkcolorTheme.buttonTextColor = UIColor.whiteColor;
-
+            
+            // use this to set a separate color theme for Dark mode
+            mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+            mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
+            mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+            mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
+            
+            // Make it true if merchant support dark mode
+            mkcolorTheme.supportDarkMode = true;
+            
             UIAlertAction *action = nil;
             if(operation.intValue == MINKASU2FA_CHANGE_PAYPIN) {
                 action = [UIAlertAction
