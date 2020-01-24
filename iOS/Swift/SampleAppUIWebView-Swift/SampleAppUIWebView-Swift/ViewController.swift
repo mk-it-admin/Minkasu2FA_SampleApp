@@ -72,9 +72,9 @@ class ViewController: UIViewController,UIWebViewDelegate {
         mkColorTheme.buttonTextColor = UIColor.white
         
         // use this to set a separate color theme for Dark mode
-        mkcolorTheme.darkModeNavigationBarColor = UIColor.magenta
+        mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
         mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-        mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magenta
+        mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
         mkcolorTheme.darkModeButtonTextColor = UIColor.white
         
         // Make it true if merchant support dark mode
@@ -116,9 +116,9 @@ class ViewController: UIViewController,UIWebViewDelegate {
                 mkColorTheme.buttonTextColor = UIColor.white
                 
                 // use this to set a separate color theme for Dark mode
-                mkcolorTheme.darkModeNavigationBarColor = UIColor.magenta
+                mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
                 mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-                mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magenta
+                mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
                 mkcolorTheme.darkModeButtonTextColor = UIColor.white
                 
                 // Make it true if merchant support dark mode

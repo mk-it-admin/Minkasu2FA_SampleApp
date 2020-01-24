@@ -69,9 +69,9 @@
     mkcolorTheme.buttonTextColor = UIColor.whiteColor;
     
     // use this to set a separate color theme for Dark mode
-    mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+    mkcolorTheme.darkModeNavigationBarColor = UIColor.purpleColor;
     mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
-    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purpleColor;
     mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     
     // Make it true if merchant support dark mode
@@ -120,9 +120,9 @@
             mkcolorTheme.buttonTextColor = UIColor.whiteColor;
             
             // use this to set a separate color theme for Dark mode
-            mkcolorTheme.darkModeNavigationBarColor = UIColor.magentaColor;
+            mkcolorTheme.darkModeNavigationBarColor = UIColor.purpleColor;
             mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
-            mkcolorTheme.darkModeButtonBackgroundColor = UIColor.magentaColor;
+            mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purpleColor;
             mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
             
             // Make it true if merchant support dark mode
