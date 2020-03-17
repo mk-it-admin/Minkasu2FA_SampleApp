@@ -73,6 +73,16 @@ class ViewController: UIViewController, WKUIDelegate {
         mkColorTheme.navigationBarTextColor = UIColor.white
         mkColorTheme.buttonBackgroundColor = UIColor.blue
         mkColorTheme.buttonTextColor = UIColor.white
+        
+        //Set supportDarkMode to true if the Merchant App supports Dark Mode
+        mkcolorTheme.supportDarkMode = true
+        
+        //Use this to set a separate color theme for Dark mode
+        mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
+        mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
+        mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
+        mkcolorTheme.darkModeButtonTextColor = UIColor.white
+        
         config.customTheme = mkColorTheme
 
         //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
@@ -104,6 +114,15 @@ class ViewController: UIViewController, WKUIDelegate {
                 mkColorTheme.navigationBarTextColor = UIColor.white
                 mkColorTheme.buttonBackgroundColor = UIColor.blue
                 mkColorTheme.buttonTextColor = UIColor.white
+                
+                //Set supportDarkMode to true if the Merchant App supports Dark Mode
+                mkcolorTheme.supportDarkMode = true
+                
+                //Use this to set a separate color theme for Dark mode
+                mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
+                mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
+                mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
+                mkcolorTheme.darkModeButtonTextColor = UIColor.white
 
                 var action : UIAlertAction!
                 if (operation == Int(Minkasu2FAOperationType.MINKASU2FA_CHANGE_PAYPIN.rawValue)){
