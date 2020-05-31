@@ -1,5 +1,5 @@
 target 'SampleAppUIWebView' do
 
-  pod 'Minkasu2FA', '1.4.3'
+  pod 'Minkasu2FA', '2.0.0'
 
 end
