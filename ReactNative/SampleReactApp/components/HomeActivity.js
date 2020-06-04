@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, View, Button, StyleSheet, Platform } from 'react-native';
 import { Minkasu2FAUIConstants, Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
 
-const MERCHANT_CUSTOMER_ID = "WebViewCustomerID";
+const MERCHANT_CUSTOMER_ID = "<merchant_customer_id>";
 
 export default class Home extends Component {
 
@@ -10,7 +10,7 @@ export default class Home extends Component {
     };
 
     state = {
-        supportedMinkasu2FAOperationTypes: {}
+        availableMinkasu2FAOperationTypes: {}
     };
 
     async performMinkasu2FAOperation(opType) {
@@ -20,7 +20,7 @@ export default class Home extends Component {
             } else {
                 await Minkasu2FAWebViewModule.performMinkasu2FAOperation(MERCHANT_CUSTOMER_ID, opType);
             }
-            this.setState({ supportedMinkasu2FAOperationTypes: {} });
+            this.setState({ availableMinkasu2FAOperationTypes: {} });
         }
         catch (e) {
             console.log(e.getMessage());
@@ -30,7 +30,7 @@ export default class Home extends Component {
     showMinkasuMenu() {
         Minkasu2FAWebViewModule.getMinkasu2FAOperationTypes()
             .then((data) => {
-                this.setState({ supportedMinkasu2FAOperationTypes: data });
+                this.setState({ availableMinkasu2FAOperationTypes: data });
             })
             .catch((err) => {
                 console.log(err.getMessage());
@@ -79,25 +79,25 @@ export default class Home extends Component {
 
     createMinkasuConfigObj = () => {
         let customerInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_FIRST_NAME]: "TestCustomer",
+            [Minkasu2FAUIConstants.CUSTOMER_FIRST_NAME]: "TestFirstName",
             [Minkasu2FAUIConstants.CUSTOMER_LAST_NAME]: "TestLastName",
-            [Minkasu2FAUIConstants.CUSTOMER_EMAIL]: "test@minkasupay.com",
+            [Minkasu2FAUIConstants.CUSTOMER_EMAIL]: "test@xyz.com",
             [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "+919876543210" // Format: +91XXXXXXXXXX (no spaces)
         };
         let addressInfo = {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_1]: "123 Test Way",
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_2]: "Test Soc",
+            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_2]: "Test Apartments",
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_CITY]: "Mumbai",
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_STATE]: "Maharastra",// Unabbreviated e.g. Maharashtra (not MH)
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_COUNTRY]: "India",
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_ZIP_CODE]: "400068"// Format: XXXXXX (no spaces)
         };
         let orderInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "Ord01_" + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase()
+            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify
         };
         let configObj = {
-            [Minkasu2FAUIConstants.MERCHANT_ID]: "13579",
-            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "789385aed6e4e3ff3e097f57dc58b4d8",
+            [Minkasu2FAUIConstants.MERCHANT_ID]: "<merchant_id>",
+            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "<merchant_token>",
             //merchant_customer_id is a unique id associated with the currently logged in user.
             [Minkasu2FAUIConstants.CUSTOMER_ID]: MERCHANT_CUSTOMER_ID,
             [Minkasu2FAUIConstants.CUSTOMER_INFO]: customerInfo,
@@ -134,7 +134,7 @@ export default class Home extends Component {
                             onPress={() => { this.showMinkasuMenu() }} />
                     </View>
                     <View style={{ height: 2, backgroundColor: '#000', marginTop: 10 }} />
-                    {this.renderOperationTypes(this.state.supportedMinkasu2FAOperationTypes)}
+                    {this.renderOperationTypes(this.state.availableMinkasu2FAOperationTypes)}
                 </SafeAreaView>
             </>);
     }

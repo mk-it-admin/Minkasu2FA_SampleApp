@@ -42,7 +42,7 @@ Since the library is built based on react-native >0.60, autolinking will take ca
 
 **iOS**
 
-If using CocoaPods, in the ios/ directory run:
+In the ios/ directory run:
 ```
 $ pod install
 ```
