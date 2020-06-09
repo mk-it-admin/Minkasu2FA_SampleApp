@@ -13,6 +13,7 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
     }
 
     webview = null;
+    isCardEnabled = false;
 
     componentDidMount() {
         try {
@@ -20,6 +21,7 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
             let isConfigObj = false;
             if (route && route.params) {
                 let configObj = route.params.configObj;
+                this.isCardEnabled = route.params.isCardEnabled;
                 if (configObj && this.webview) {
                     isConfigObj = true;
                     this.webview.initMinkasu2FA(configObj);
@@ -35,7 +37,12 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
     }
 
     setSourceUrl = () => {
-        const url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" };
+        let url;
+        if (this.isCardEnabled) {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?minkasu2FA=true" };
+        } else {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" }
+        }
         this.setState({ sourceUrl: url });
     }
 
@@ -58,7 +65,7 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
             Alert.alert("Error", errorMessage);
         this.setSourceUrl();
     };
-    
+
     render() {
         return (
             <>

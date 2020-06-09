@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, View, Button, StyleSheet, Platform } from 'react-native';
+import { SafeAreaView, View, Text, Button, Switch, StyleSheet, Platform } from 'react-native';
 import { Minkasu2FAUIConstants, Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
 
 const MERCHANT_CUSTOMER_ID = "<merchant_customer_id>";
@@ -10,7 +10,8 @@ export default class Home extends Component {
     };
 
     state = {
-        availableMinkasu2FAOperationTypes: {}
+        availableMinkasu2FAOperationTypes: {},
+        isCardEnabled: false
     };
 
     async performMinkasu2FAOperation(opType) {
@@ -111,18 +112,32 @@ export default class Home extends Component {
         return configObj;
     }
 
+    toggleCardSwitch = (newValue) => {
+        this.setState({ isCardEnabled: newValue });
+    };
+
     payByAttribute = () => {
-        this.props.navigation.navigate('Minkasu2FAAttributeFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_ATTRIBUTE });
+        this.props.navigation.navigate('Minkasu2FAAttributeFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_ATTRIBUTE, isCardEnabled: this.state.isCardEnabled });
     };
 
     payByMethod = () => {
-        this.props.navigation.navigate('Minkasu2FAMethodFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_METHOD });
+        this.props.navigation.navigate('Minkasu2FAMethodFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_METHOD, isCardEnabled: this.state.isCardEnabled });
     };
 
     render() {
         return (
             <>
                 <SafeAreaView style={styles.container}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 10 }}>
+                        <Text style={{ fontSize: 16 }}> Use Card For Payment: </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#81b0ff" }}
+                            thumbColor={this.state.isCardEnabled ? "#f5dd4b" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={this.toggleCardSwitch}
+                            value={this.state.isCardEnabled}
+                        />
+                    </View>
                     <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
                         <Button title="Pay By Attribute" style={{ padding: 10 }}
                             onPress={this.payByAttribute} />
