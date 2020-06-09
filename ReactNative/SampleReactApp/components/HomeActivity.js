@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { SafeAreaView, View, Button, StyleSheet, Platform } from 'react-native';
+import { SafeAreaView, View, Text, Button, StyleSheet, Platform } from 'react-native';
 import { Minkasu2FAUIConstants, Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
-
+import { Picker, PickerIOS } from '@react-native-community/picker';
 const MERCHANT_CUSTOMER_ID = "<merchant_customer_id>";
-
+const NET_BANKING_TYPE = 1;
+const CARD_TYPE = 2;
 export default class Home extends Component {
 
     static navigationOptions = {
     };
 
     state = {
-        availableMinkasu2FAOperationTypes: {}
+        availableMinkasu2FAOperationTypes: {},
+        paymentType: NET_BANKING_TYPE
     };
 
     async performMinkasu2FAOperation(opType) {
@@ -112,17 +114,46 @@ export default class Home extends Component {
     }
 
     payByAttribute = () => {
-        this.props.navigation.navigate('Minkasu2FAAttributeFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_ATTRIBUTE });
+        this.props.navigation.navigate('Minkasu2FAAttributeFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_ATTRIBUTE, isCardEnabled: this.state.paymentType == CARD_TYPE });
     };
 
     payByMethod = () => {
-        this.props.navigation.navigate('Minkasu2FAMethodFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_METHOD });
+        this.props.navigation.navigate('Minkasu2FAMethodFlow', { configObj: this.createMinkasuConfigObj(), initType: Minkasu2FAUIConstants.INIT_BY_METHOD, isCardEnabled: this.state.paymentType == CARD_TYPE });
     };
 
     render() {
+        let pickerView;
+        if (Platform.OS === 'ios') {
+            pickerView = <View style={{ flexDirection: "column", justifyContent: "space-between"}}>
+            <Text style={{ fontSize: 16, textAlignVertical: "center" }}> Select Payment Type: </Text>
+            <PickerIOS
+                selectedValue={this.state.paymentType}
+                onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ paymentType: itemValue })
+                }>
+                <PickerIOS.Item label="Net Banking" value={NET_BANKING_TYPE} />
+                <PickerIOS.Item label="Debit/Credit Card" value={CARD_TYPE} />
+            </PickerIOS>
+            </View>
+        } else {
+            pickerView = <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 10 }}>
+            <Text style={{ fontSize: 16, textAlignVertical: "center" }}> Select Payment Type: </Text>
+            <Picker
+                selectedValue={this.state.paymentType}
+                style={{ height: 50, width: 150 }}
+                mode="dropdown"
+                onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ paymentType: itemValue })
+                }>
+                <Picker.Item label="Net Banking" value={NET_BANKING_TYPE} />
+                <Picker.Item label="Debit/Credit Card" value={CARD_TYPE} />
+            </Picker>
+            </View>
+        }
         return (
             <>
                 <SafeAreaView style={styles.container}>
+                    {pickerView}
                     <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
                         <Button title="Pay By Attribute" style={{ padding: 10 }}
                             onPress={this.payByAttribute} />
