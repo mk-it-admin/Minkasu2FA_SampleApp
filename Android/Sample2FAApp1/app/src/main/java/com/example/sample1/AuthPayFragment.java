@@ -47,7 +47,6 @@ public class AuthPayFragment extends Fragment {
     private WebView mWebView;
     private EditText mCustomerPhone;
     private LinearLayout llActions;
-    private String customerPhone = "+919876543210";
 
     public void loadUrl(String url) {
         String host = "https://sandbox.minkasupay.com";      // Sandbox Mode
@@ -114,14 +113,14 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
-                        String bankCustomerPhone = customerPhone;
+                        String bankCustomerPhone = <customer_phone>;
                         String encodedPhone = null;
                         try {
                             encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
                         } catch (UnsupportedEncodingException io) {
                             System.out.println(io.getMessage());
                         }
-                        loadUrl("/demo/Bank_Internet_Banking_login.htm?&bankPhone=" + encodedPhone);
+                        loadUrl("/demo/Bank_Internet_Banking_login.htm?bankPhone=" + encodedPhone);
 
                     } else {
                         Toast.makeText(getActivity(), "Device is Rooted"
@@ -140,7 +139,7 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
-                        String bankCustomerPhone = customerPhone;
+                        String bankCustomerPhone = <customer_phone>;
                         String encodedPhone = null;
                         try {
                             encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
@@ -181,7 +180,7 @@ public class AuthPayFragment extends Fragment {
             customer.setFirstName("TestCustomer");
             customer.setLastName("TestLastName");
             customer.setEmail("test@minkasupay.com");
-            customer.setPhone(customerPhone);     // Format: +91XXXXXXXXXX (no spaces)
+            customer.setPhone(<customer_phone>);     // Format: +91XXXXXXXXXX (no spaces)
 
             Address address = new Address();
             address.setAddressLine1("123 Test Way");
@@ -200,7 +199,7 @@ public class AuthPayFragment extends Fragment {
             config.setSDKMode(Config.SANDBOX_MODE);
 
             OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setOrderId("Ord01_"+Math.random());
+            orderInfo.setOrderId(<order_id>);
             config.setOrderInfo(orderInfo);
 
             //Initialize Minkasu 2FA SDK with the Config object and the Webview.
