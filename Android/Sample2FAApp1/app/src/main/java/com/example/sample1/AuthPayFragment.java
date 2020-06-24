@@ -27,6 +27,8 @@ import com.minkasu.android.twofa.model.Address;
 import com.minkasu.android.twofa.model.CustomerInfo;
 import com.minkasu.android.twofa.model.OrderInfo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class AuthPayFragment extends Fragment {
     private WebView mWebView;
     private EditText mCustomerPhone;
     private LinearLayout llActions;
+    private String customerPhone = "+919876543210";
 
     public void loadUrl(String url) {
         String host = "https://sandbox.minkasupay.com";      // Sandbox Mode
@@ -111,12 +114,20 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
+                        String bankCustomerPhone = customerPhone;
+                        String encodedPhone = null;
+                        try {
+                            encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
+                        } catch (UnsupportedEncodingException io) {
+                            System.out.println(io.getMessage());
+                        }
+                        loadUrl("/demo/Bank_Internet_Banking_login.htm?&bankPhone=" + encodedPhone);
 
                     } else {
                         Toast.makeText(getActivity(), "Device is Rooted"
                                 , Toast.LENGTH_LONG).show();
+                        loadUrl("/demo/Bank_Internet_Banking_login.htm");
                     }
-                    loadUrl("/demo/Bank_Internet_Banking_login.htm");
 
                 }
             });
@@ -129,7 +140,14 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
-                        loadUrl("/demo/Welcome_to_Net.html?minkasu2FA=true");
+                        String bankCustomerPhone = customerPhone;
+                        String encodedPhone = null;
+                        try {
+                            encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
+                        } catch (UnsupportedEncodingException io) {
+                            System.out.println(io.getMessage());
+                        }
+                        loadUrl("/demo/Welcome_to_Net.html?bankPhone=" + encodedPhone);
                     }else{
                         Toast.makeText(getActivity(), "Device is Rooted"
                                 , Toast.LENGTH_LONG).show();
@@ -163,7 +181,7 @@ public class AuthPayFragment extends Fragment {
             customer.setFirstName("TestCustomer");
             customer.setLastName("TestLastName");
             customer.setEmail("test@minkasupay.com");
-            customer.setPhone("+919876543210");     // Format: +91XXXXXXXXXX (no spaces)
+            customer.setPhone(customerPhone);     // Format: +91XXXXXXXXXX (no spaces)
 
             Address address = new Address();
             address.setAddressLine1("123 Test Way");
