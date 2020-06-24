@@ -33,10 +33,17 @@ export default class Minkasu2FAAttributeFlowComponent extends Component {
 
     setSourceUrl = () => {
         let url;
+        let bankPhoneNumber = "";
+        if (this.configObj != null) {
+            bankPhoneNumber = this.configObj[Minkasu2FAUIConstants.CUSTOMER_INFO][Minkasu2FAUIConstants.CUSTOMER_PHONE];
+            if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
+                bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
+            }
+        }
         if (this.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%2B919876543210" };
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
         } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%2B919876543210" }
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
         }
         this.setState({ sourceUrl: url });
     }
