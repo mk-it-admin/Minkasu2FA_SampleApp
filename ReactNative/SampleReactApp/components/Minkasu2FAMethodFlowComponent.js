@@ -39,9 +39,9 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
     setSourceUrl = () => {
         let url;
         if (this.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?minkasu2FA=true" };
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%2B919876543210" };
         } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" }
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%2B919876543210" }
         }
         this.setState({ sourceUrl: url });
     }

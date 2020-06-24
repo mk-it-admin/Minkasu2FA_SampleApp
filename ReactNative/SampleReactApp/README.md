@@ -254,17 +254,30 @@ class Minkasu2FAAttributeFlowComponent extends Component {
 
     configObj = null;
     webview = null;
+    isCardEnabled = false;
 
     constructor(props) {
         super(props);
         const { route } = this.props;
         if (route && route.params) {
             this.configObj = route.params.configObj;
+            this.isCardEnabled = route.params.isCardEnabled;
+        }
+    }
+
+    componentDidMount() {
+        if (this.configObj == null) {
+            this.setSourceUrl();
         }
     }
 
     setSourceUrl = () => {
-        const url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" };
+        let url;
+        if (this.isCardEnabled) {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%2B919876543210" };
+        } else {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%2B919876543210" }
+        }
         this.setState({ sourceUrl: url });
     }
 
@@ -322,6 +335,7 @@ class Minkasu2FAMethodFlowComponent extends Component {
     }
 
     webview = null;
+    isCardEnabled = false;
 
     componentDidMount() {
         try {
@@ -329,6 +343,7 @@ class Minkasu2FAMethodFlowComponent extends Component {
             let isConfigObj = false;
             if (route && route.params) {
                 let configObj = route.params.configObj;
+                this.isCardEnabled = route.params.isCardEnabled;
                 if (configObj && this.webview) {
                     isConfigObj = true;
                     this.webview.initMinkasu2FA(configObj);
@@ -344,7 +359,12 @@ class Minkasu2FAMethodFlowComponent extends Component {
     }
 
     setSourceUrl = () => {
-        const url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" };
+        let url;
+        if (this.isCardEnabled) {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%2B919876543210" };
+        } else {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%2B919876543210" }
+        }
         this.setState({ sourceUrl: url });
     }
 
@@ -385,7 +405,9 @@ class Minkasu2FAMethodFlowComponent extends Component {
 }
 ```
 
-Note: In both options, load the source url in the `onMinkasu2FAInit` method.
+Note: 
+- In both options, load the source url in the `onMinkasu2FAInit` method. 
+- To check with different phone number, change the value of `CUSTOMER_PHONE` key in the config object and also change the `bankPhone` query param value of the source url in both flow.
 
 #### Minkasu2FA Operations
 
