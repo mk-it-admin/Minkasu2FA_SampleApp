@@ -167,17 +167,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SampleAppWKWebView-Swift/Pods-SampleAppWKWebView-Swift-frameworks.sh",
-				"${PODS_ROOT}/Minkasu2FA/Minkasu2FA.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SampleAppWKWebView-Swift/Pods-SampleAppWKWebView-Swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Minkasu2FA.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SampleAppWKWebView-Swift/Pods-SampleAppWKWebView-Swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SampleAppWKWebView-Swift/Pods-SampleAppWKWebView-Swift-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SampleAppWKWebView-Swift/Pods-SampleAppWKWebView-Swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5BEB4BD1D271B7F6E457D24 /* [CP] Check Pods Manifest.lock */ = {

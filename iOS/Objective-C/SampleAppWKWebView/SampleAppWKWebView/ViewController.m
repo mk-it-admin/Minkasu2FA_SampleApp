@@ -15,6 +15,7 @@
 
 @implementation ViewController{
     NSString *merchantCustomerId;
+    Minkasu2FAConfig *config;
 }
 
 - (void)viewDidLoad {
@@ -59,7 +60,7 @@
     customer.firstName = @"TestFirtName";
     customer.lastName = @"TestLastName";
     customer.email = @"test@minkasupay.com";
-    customer.phone = @"+919876543210";          // Format: +91XXXXXXXXXX (no spaces)
+    customer.phone = <customer_phone>;          // Format: +91XXXXXXXXXX (no spaces)
 
     Minkasu2FAAddress *address = [Minkasu2FAAddress new];
     address.line1 = @"123 Test Way";
@@ -72,7 +73,7 @@
 
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
-    Minkasu2FAConfig *config = [Minkasu2FAConfig new];
+    config = [Minkasu2FAConfig new];
     config.merchantId = <merchant_id>;
     config.merchantToken = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
@@ -113,7 +114,10 @@
 - (IBAction)clickNetBanking:(id)sender {
     //Initializing Minkasu2FA SDK before initating Payment
     [self initMinkasu2FA];
-    NSURL *nsurl=[NSURL URLWithString:@"https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm"];
+    
+    NSString *encodedCustomerPhone = [config.customerInfo.phone stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
+    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%@", encodedCustomerPhone];
+    NSURL *nsurl=[NSURL URLWithString:paymentURL];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
 }
@@ -121,7 +125,10 @@
 - (IBAction)clickCreditDebit:(id)sender {
     //Initializing Minkasu2FA SDK before initating Payment
     [self initMinkasu2FA];
-    NSURL *nsurl=[NSURL URLWithString:@"https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?minkasu2FA=true"];
+    
+    NSString *encodedCustomerPhone = [config.customerInfo.phone stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
+    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%@", encodedCustomerPhone];
+    NSURL *nsurl=[NSURL URLWithString:paymentURL];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
 }
