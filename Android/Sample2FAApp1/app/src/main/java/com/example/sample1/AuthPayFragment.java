@@ -47,6 +47,7 @@ public class AuthPayFragment extends Fragment {
     private WebView mWebView;
     private EditText mCustomerPhone;
     private LinearLayout llActions;
+    private Config config;
 
     public void loadUrl(String url) {
         String host = "https://sandbox.minkasupay.com";      // Sandbox Mode
@@ -93,8 +94,6 @@ public class AuthPayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View inflatedView = inflater.inflate(R.layout.fragment_auth_pay, container, false);
-
-
         mWebView = (WebView) inflatedView.findViewById(R.id.webview);
         mNetPayButton = (Button) inflatedView.findViewById(R.id.pay_net_button);
         mCreditPayButton = (Button) inflatedView.findViewById(R.id.pay_credit_button);
@@ -113,7 +112,7 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
-                        String bankCustomerPhone = <customer_phone>;
+                        String bankCustomerPhone = config.getCustomerInfo().getPhone();
                         String encodedPhone = null;
                         try {
                             encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
@@ -139,7 +138,7 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
-                        String bankCustomerPhone = <customer_phone>;
+                        String bankCustomerPhone = config.getCustomerInfo().getPhone();
                         String encodedPhone = null;
                         try {
                             encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
@@ -193,7 +192,7 @@ public class AuthPayFragment extends Fragment {
 
             //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
             //merchant_customer_id is a unique id associated with the currently logged in user.
-            Config config = Config.getInstance(<merchant_id>,<merchant_access_token>,MainActivity.MERCHANT_CUSTOMER_ID,customer);
+            config = Config.getInstance(<merchant_id>,<merchant_access_token>,MainActivity.MERCHANT_CUSTOMER_ID,customer);
 
             //set up SDK mode ie. by default its always production if we dont set it
             config.setSDKMode(Config.SANDBOX_MODE);
