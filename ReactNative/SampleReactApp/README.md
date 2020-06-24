@@ -192,13 +192,13 @@ class MyComponent extends Component {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_ZIP_CODE]: "400068" // Format: XXXXXX (no spaces)
         };
         let orderInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: <order_id> // The order id is used to later identify the transaction
+            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify the transaction
         };
         let configObj = {
-            [Minkasu2FAUIConstants.MERCHANT_ID]: <merchant_id>,
-            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: <merchant_token>,
+            [Minkasu2FAUIConstants.MERCHANT_ID]: "<merchant_id>",
+            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "<merchant_token>",
             //merchant_customer_id is a unique id associated with the currently logged in user.
-            [Minkasu2FAUIConstants.CUSTOMER_ID]: <merchant_customer_id>, 
+            [Minkasu2FAUIConstants.CUSTOMER_ID]: "<merchant_customer_id>", 
             [Minkasu2FAUIConstants.CUSTOMER_INFO]: customerInfo,
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_INFO]: addressInfo,
             [Minkasu2FAUIConstants.CUSTOMER_ORDER_INFO]: orderInfo,
@@ -465,9 +465,9 @@ class MyComponent extends Component {
     async performMinkasu2FAOperation(opType) {  
         try {
             if (Platform.OS == 'ios') {
-                await Minkasu2FAWebViewModule.performMinkasu2FAOperation(<merchant_customer_id>, opType, this.getiOSThemeObj());
+                await Minkasu2FAWebViewModule.performMinkasu2FAOperation("<merchant_customer_id>", opType, this.getiOSThemeObj());
             } else {
-                await Minkasu2FAWebViewModule.performMinkasu2FAOperation(<merchant_customer_id>, opType);
+                await Minkasu2FAWebViewModule.performMinkasu2FAOperation("<merchant_customer_id>", opType);
             }
         }
         catch (e) {
