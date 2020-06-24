@@ -181,7 +181,7 @@ class MyComponent extends Component {
             [Minkasu2FAUIConstants.CUSTOMER_FIRST_NAME]: "TestFirstName",
             [Minkasu2FAUIConstants.CUSTOMER_LAST_NAME]: "TestLastName",
             [Minkasu2FAUIConstants.CUSTOMER_EMAIL]: "test@xyz.com",
-            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "+919876543210" // Format: +91XXXXXXXXXX (no spaces)
+            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "<mobile_no>" // Format: +91XXXXXXXXXX (no spaces)
         };
         let addressInfo = {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_1]: "123 Test Way",
@@ -192,13 +192,13 @@ class MyComponent extends Component {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_ZIP_CODE]: "400068" // Format: XXXXXX (no spaces)
         };
         let orderInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: <order_id> // The order id is used to later identify the transaction
+            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify the transaction
         };
         let configObj = {
-            [Minkasu2FAUIConstants.MERCHANT_ID]: <merchant_id>,
-            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: <merchant_token>,
+            [Minkasu2FAUIConstants.MERCHANT_ID]: "<merchant_id>",
+            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "<merchant_token>",
             //merchant_customer_id is a unique id associated with the currently logged in user.
-            [Minkasu2FAUIConstants.CUSTOMER_ID]: <merchant_customer_id>, 
+            [Minkasu2FAUIConstants.CUSTOMER_ID]: "<merchant_customer_id>", 
             [Minkasu2FAUIConstants.CUSTOMER_INFO]: customerInfo,
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_INFO]: addressInfo,
             [Minkasu2FAUIConstants.CUSTOMER_ORDER_INFO]: orderInfo,
@@ -254,17 +254,37 @@ class Minkasu2FAAttributeFlowComponent extends Component {
 
     configObj = null;
     webview = null;
+    isCardEnabled = false;
 
     constructor(props) {
         super(props);
         const { route } = this.props;
         if (route && route.params) {
             this.configObj = route.params.configObj;
+            this.isCardEnabled = route.params.isCardEnabled;
+        }
+    }
+
+    componentDidMount() {
+        if (this.configObj == null) {
+            this.setSourceUrl();
         }
     }
 
     setSourceUrl = () => {
-        const url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" };
+        let url;
+        let bankPhoneNumber = "";
+        if (this.configObj != null) {
+            bankPhoneNumber = this.configObj[Minkasu2FAUIConstants.CUSTOMER_INFO][Minkasu2FAUIConstants.CUSTOMER_PHONE];
+            if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
+                bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
+            }
+        }
+        if (this.isCardEnabled) {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
+        } else {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
+        }
         this.setState({ sourceUrl: url });
     }
 
@@ -321,20 +341,21 @@ class Minkasu2FAMethodFlowComponent extends Component {
         sourceUrl: undefined
     }
 
+    configObj = null;
     webview = null;
+    isCardEnabled = false;
 
     componentDidMount() {
         try {
             const { route } = this.props;
-            let isConfigObj = false;
             if (route && route.params) {
-                let configObj = route.params.configObj;
-                if (configObj && this.webview) {
-                    isConfigObj = true;
-                    this.webview.initMinkasu2FA(configObj);
+                this.configObj = route.params.configObj;
+                this.isCardEnabled = route.params.isCardEnabled;
+                if (this.configObj != null && this.webview) {
+                    this.webview.initMinkasu2FA(this.configObj);
                 }
             }
-            if (!isConfigObj) {
+            if (this.configObj != null) {
                 this.setSourceUrl();
             }
         }
@@ -344,7 +365,19 @@ class Minkasu2FAMethodFlowComponent extends Component {
     }
 
     setSourceUrl = () => {
-        const url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm" };
+        let url;
+        let bankPhoneNumber = "";
+        if (this.configObj != null) {
+            bankPhoneNumber = this.configObj[Minkasu2FAUIConstants.CUSTOMER_INFO][Minkasu2FAUIConstants.CUSTOMER_PHONE];
+            if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
+                bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
+            }
+        }
+        if (this.isCardEnabled) {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
+        } else {
+            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
+        }
         this.setState({ sourceUrl: url });
     }
 
@@ -385,7 +418,7 @@ class Minkasu2FAMethodFlowComponent extends Component {
 }
 ```
 
-Note: In both options, load the source url in the `onMinkasu2FAInit` method.
+Note: In both options, load the source url in the `onMinkasu2FAInit` method. 
 
 #### Minkasu2FA Operations
 
@@ -432,9 +465,9 @@ class MyComponent extends Component {
     async performMinkasu2FAOperation(opType) {  
         try {
             if (Platform.OS == 'ios') {
-                await Minkasu2FAWebViewModule.performMinkasu2FAOperation(<merchant_customer_id>, opType, this.getiOSThemeObj());
+                await Minkasu2FAWebViewModule.performMinkasu2FAOperation("<merchant_customer_id>", opType, this.getiOSThemeObj());
             } else {
-                await Minkasu2FAWebViewModule.performMinkasu2FAOperation(<merchant_customer_id>, opType);
+                await Minkasu2FAWebViewModule.performMinkasu2FAOperation("<merchant_customer_id>", opType);
             }
         }
         catch (e) {

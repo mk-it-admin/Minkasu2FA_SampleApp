@@ -84,7 +84,7 @@ export default class Home extends Component {
             [Minkasu2FAUIConstants.CUSTOMER_FIRST_NAME]: "TestFirstName",
             [Minkasu2FAUIConstants.CUSTOMER_LAST_NAME]: "TestLastName",
             [Minkasu2FAUIConstants.CUSTOMER_EMAIL]: "test@xyz.com",
-            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "+919876543210" // Format: +91XXXXXXXXXX (no spaces)
+            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "<mobile_no>" // Format: +91XXXXXXXXXX (no spaces)
         };
         let addressInfo = {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_1]: "123 Test Way",
