@@ -17,6 +17,7 @@ class ViewController: UIViewController,UIWebViewDelegate {
 
     var uiWebView : UIWebView!
     var merchantCustomerId : String!
+    var config : Minkasu2FAConfig!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,7 @@ class ViewController: UIViewController,UIWebViewDelegate {
         customer.firstName = "TestFirstName"
         customer.lastName = "TestLastName"
         customer.email = "test@minkasupay.com"
-        customer.phone = "+919876543210"        // Format: +91XXXXXXXXXX (no spaces)
+        customer.phone = <customer_phone>        // Format: +91XXXXXXXXXX (no spaces)
 
         let address = Minkasu2FAAddress()
         address.line1 = "123 Test Way"
@@ -54,7 +55,7 @@ class ViewController: UIViewController,UIWebViewDelegate {
 
         //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
         //merchant_customer_id is a unique id associated with the currently logged in user.
-        let config = Minkasu2FAConfig()
+        config = Minkasu2FAConfig()
         config.merchantId = <merchant_id>
         config.merchantToken = <merchant_access_token>
         config.merchantCustomerId = <merchant_customer_id>
@@ -72,13 +73,13 @@ class ViewController: UIViewController,UIWebViewDelegate {
         mkColorTheme.buttonTextColor = UIColor.white
         
         //Set supportDarkMode to true if the Merchant App supports Dark Mode
-        mkcolorTheme.supportDarkMode = true
+        mkColorTheme.supportDarkMode = true
         
         //Use this to set a separate color theme for Dark mode
-        mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
-        mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-        mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
-        mkcolorTheme.darkModeButtonTextColor = UIColor.white
+        mkColorTheme.darkModeNavigationBarColor = UIColor.purple
+        mkColorTheme.darkModeNavigationBarTextColor = UIColor.white
+        mkColorTheme.darkModeButtonBackgroundColor = UIColor.purple
+        mkColorTheme.darkModeButtonTextColor = UIColor.white
         
         config.customTheme = mkColorTheme
 
@@ -91,13 +92,19 @@ class ViewController: UIViewController,UIWebViewDelegate {
 
     @IBAction func clickNetBanking(_ sender: Any) {
         initMinkasu2FA()
-        let url = URL(string: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm")
+        
+        let encodedCustomerPhone = config.customerInfo.phone.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
+        let paymentURL = "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone="+encodedCustomerPhone!
+        let url = URL(string: paymentURL)
         uiWebView.loadRequest(URLRequest(url: url!))
     }
 
     @IBAction func clickCreditDebit(_ sender: Any) {
         initMinkasu2FA()
-        let url = URL(string: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?minkasu2FA=true")
+        
+        let encodedCustomerPhone = config.customerInfo.phone.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
+        let paymentURL = "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone="+encodedCustomerPhone!
+        let url = URL(string: paymentURL)
         uiWebView.loadRequest(URLRequest(url: url!))
     }
 
@@ -116,13 +123,13 @@ class ViewController: UIViewController,UIWebViewDelegate {
                 mkColorTheme.buttonTextColor = UIColor.white
                 
                 //Set supportDarkMode to true if the Merchant App supports Dark Mode
-                mkcolorTheme.supportDarkMode = true
+                mkColorTheme.supportDarkMode = true
                 
                 //Use this to set a separate color theme for Dark mode
-                mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
-                mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-                mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
-                mkcolorTheme.darkModeButtonTextColor = UIColor.white
+                mkColorTheme.darkModeNavigationBarColor = UIColor.purple
+                mkColorTheme.darkModeNavigationBarTextColor = UIColor.white
+                mkColorTheme.darkModeButtonBackgroundColor = UIColor.purple
+                mkColorTheme.darkModeButtonTextColor = UIColor.white
 
                 var action : UIAlertAction!
                 if (operation == Int(Minkasu2FAOperationType.MINKASU2FA_CHANGE_PAYPIN.rawValue)){
