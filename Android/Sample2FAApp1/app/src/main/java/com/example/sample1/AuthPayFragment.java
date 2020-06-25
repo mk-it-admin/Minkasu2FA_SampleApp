@@ -27,6 +27,8 @@ import com.minkasu.android.twofa.model.Address;
 import com.minkasu.android.twofa.model.CustomerInfo;
 import com.minkasu.android.twofa.model.OrderInfo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class AuthPayFragment extends Fragment {
     private WebView mWebView;
     private EditText mCustomerPhone;
     private LinearLayout llActions;
+    private Config config;
 
     public void loadUrl(String url) {
         String host = "https://sandbox.minkasupay.com";      // Sandbox Mode
@@ -91,8 +94,6 @@ public class AuthPayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View inflatedView = inflater.inflate(R.layout.fragment_auth_pay, container, false);
-
-
         mWebView = (WebView) inflatedView.findViewById(R.id.webview);
         mNetPayButton = (Button) inflatedView.findViewById(R.id.pay_net_button);
         mCreditPayButton = (Button) inflatedView.findViewById(R.id.pay_credit_button);
@@ -111,12 +112,20 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
+                        String bankCustomerPhone = config.getCustomerInfo().getPhone();
+                        String encodedPhone = null;
+                        try {
+                            encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
+                        } catch (UnsupportedEncodingException io) {
+                            System.out.println(io.getMessage());
+                        }
+                        loadUrl("/demo/Bank_Internet_Banking_login.htm?bankPhone=" + encodedPhone);
 
                     } else {
                         Toast.makeText(getActivity(), "Device is Rooted"
                                 , Toast.LENGTH_LONG).show();
+                        loadUrl("/demo/Bank_Internet_Banking_login.htm");
                     }
-                    loadUrl("/demo/Bank_Internet_Banking_login.htm");
 
                 }
             });
@@ -129,7 +138,14 @@ public class AuthPayFragment extends Fragment {
                 public void onClick(View v) {
                     if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
-                        loadUrl("/demo/Welcome_to_Net.html?minkasu2FA=true");
+                        String bankCustomerPhone = config.getCustomerInfo().getPhone();
+                        String encodedPhone = null;
+                        try {
+                            encodedPhone = URLEncoder.encode(bankCustomerPhone, "utf-8");
+                        } catch (UnsupportedEncodingException io) {
+                            System.out.println(io.getMessage());
+                        }
+                        loadUrl("/demo/Welcome_to_Net.html?bankPhone=" + encodedPhone);
                     }else{
                         Toast.makeText(getActivity(), "Device is Rooted"
                                 , Toast.LENGTH_LONG).show();
@@ -163,7 +179,7 @@ public class AuthPayFragment extends Fragment {
             customer.setFirstName("TestCustomer");
             customer.setLastName("TestLastName");
             customer.setEmail("test@minkasupay.com");
-            customer.setPhone("+919876543210");     // Format: +91XXXXXXXXXX (no spaces)
+            customer.setPhone(<customer_phone>);     // Format: +91XXXXXXXXXX (no spaces)
 
             Address address = new Address();
             address.setAddressLine1("123 Test Way");
@@ -176,13 +192,13 @@ public class AuthPayFragment extends Fragment {
 
             //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
             //merchant_customer_id is a unique id associated with the currently logged in user.
-            Config config = Config.getInstance(<merchant_id>,<merchant_access_token>,MainActivity.MERCHANT_CUSTOMER_ID,customer);
+            config = Config.getInstance(<merchant_id>,<merchant_access_token>,MainActivity.MERCHANT_CUSTOMER_ID,customer);
 
             //set up SDK mode ie. by default its always production if we dont set it
             config.setSDKMode(Config.SANDBOX_MODE);
 
             OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setOrderId("Ord01_"+Math.random());
+            orderInfo.setOrderId(<order_id>);
             config.setOrderInfo(orderInfo);
 
             //Initialize Minkasu 2FA SDK with the Config object and the Webview.
