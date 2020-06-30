@@ -1,6 +1,6 @@
 {
   "name": "SampleReactApp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -17,7 +17,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
-    "react-native-minkasu2fa-webview": "^1.0.0",
+    "react-native-minkasu2fa-webview": "^1.0.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^1.0.2",
     "react-native-screens": "^2.8.0",
