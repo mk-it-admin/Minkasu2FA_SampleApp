@@ -39,5 +39,5 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.minkasu.android.twofa:minkasu-2fa:2.0.1'
+    implementation 'com.minkasu.android.twofa:minkasu-2fa:2.0.2'
 }
