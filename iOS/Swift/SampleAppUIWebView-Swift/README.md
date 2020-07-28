@@ -1,3 +1,8 @@
+# DEPRECATED
+
+UIWebView Support removed in Minkasu2FA iOS SDK v2.1.0
+
+
 # Minkasu2FA iOS SDK
 
 ## Setup
@@ -122,16 +127,16 @@ func initMinkasu2FA(){
     mkColorTheme.navigationBarTextColor = UIColor.white
     mkColorTheme.buttonBackgroundColor = UIColor.blue
     mkColorTheme.buttonTextColor = UIColor.white
-    
+
     //Set supportDarkMode to true if the Merchant App supports Dark Mode
     mkcolorTheme.supportDarkMode = true
-    
+
     //Use this to set a separate color theme for Dark mode
     mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
     mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
     mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
     mkcolorTheme.darkModeButtonTextColor = UIColor.white
-    
+
     config.customTheme = mkColorTheme;
 
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
