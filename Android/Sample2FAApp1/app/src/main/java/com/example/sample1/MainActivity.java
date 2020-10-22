@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         hideItems();
+        navigationView.setCheckedItem(R.id.nav_auth_pay);
+        navigationView.getMenu().performIdentifierAction(R.id.nav_auth_pay,0);
     }
 
     @Override
@@ -88,11 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         Fragment fragment;
         String fragmentTag;
-        if (id == R.id.nav_reset) {
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            popAllFragmentsInStack();
-        } else if (id == R.id.nav_auth_pay) {
+        if (id == R.id.nav_auth_pay) {
             fragment = getAuthPayFragment();
             fragmentTag = "PayFragment";
 

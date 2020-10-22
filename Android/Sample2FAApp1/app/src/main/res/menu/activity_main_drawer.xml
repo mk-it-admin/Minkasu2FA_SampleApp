@@ -3,22 +3,18 @@
     <item android:title="Pay">
     <menu>
         <item
-            android:id="@+id/nav_reset"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Reset" />
-        <item
             android:id="@+id/nav_auth_pay"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Auth Pay"
             />
         <item
             android:id="@+id/nav_change_pin"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_manage"
             android:title="Change Pin"
             />
         <item
             android:id="@+id/nav_enabledisablefinger"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_manage"
             android:title="Enable/Disable Fingerprint Verification"
             />
     </menu>
