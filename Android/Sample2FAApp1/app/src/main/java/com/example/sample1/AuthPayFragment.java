@@ -1,15 +1,9 @@
 package com.example.sample1;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -21,6 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.minkasu.android.twofa.sdk.Minkasu2faSDK;
 import com.minkasu.android.twofa.model.Config;
 import com.minkasu.android.twofa.model.Address;
@@ -29,8 +26,6 @@ import com.minkasu.android.twofa.model.OrderInfo;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -38,8 +33,6 @@ import java.util.List;
  * Activities that contain this fragment must implement the
  * {@link AuthPayFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AuthPayFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class AuthPayFragment extends Fragment {
     private Button mNetPayButton;
@@ -49,7 +42,7 @@ public class AuthPayFragment extends Fragment {
     private LinearLayout llActions;
     private Config config;
 
-    public void loadUrl(String url) {
+    private void loadUrl(String url) {
         String host = "https://sandbox.minkasupay.com";      // Sandbox Mode
         // String host = "https://transactions.minkasupay.com"; // Production Mode
 
@@ -65,28 +58,9 @@ public class AuthPayFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AuthPayFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AuthPayFragment newInstance(String param1, String param2) {
-        AuthPayFragment fragment = new AuthPayFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-         setHasOptionsMenu(true);
     }
 
     @Override
@@ -94,11 +68,11 @@ public class AuthPayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View inflatedView = inflater.inflate(R.layout.fragment_auth_pay, container, false);
-        mWebView = (WebView) inflatedView.findViewById(R.id.webview);
-        mNetPayButton = (Button) inflatedView.findViewById(R.id.pay_net_button);
-        mCreditPayButton = (Button) inflatedView.findViewById(R.id.pay_credit_button);
-        mCustomerPhone = (EditText) inflatedView.findViewById(R.id.customer_phone);
-        llActions = (LinearLayout) inflatedView.findViewById(R.id.llActions);
+        mWebView = inflatedView.findViewById(R.id.webView);
+        mNetPayButton = inflatedView.findViewById(R.id.pay_net_button);
+        mCreditPayButton = inflatedView.findViewById(R.id.pay_credit_button);
+        mCustomerPhone = inflatedView.findViewById(R.id.customer_phone);
+        llActions = inflatedView.findViewById(R.id.llActions);
         mWebView.setWebViewClient(new WebViewClient());        // to handle clicks within WebView
         mWebView.setWebChromeClient(new WebChromeClient());    // to show javascript alerts
         WebSettings webSettings = mWebView.getSettings();
@@ -110,7 +84,7 @@ public class AuthPayFragment extends Fragment {
             mNetPayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
+                    if ( Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
                         String bankCustomerPhone = config.getCustomerInfo().getPhone();
                         String encodedPhone = null;
@@ -136,7 +110,7 @@ public class AuthPayFragment extends Fragment {
             mCreditPayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
+                    if ( Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
                         String bankCustomerPhone = config.getCustomerInfo().getPhone();
                         String encodedPhone = null;
@@ -158,12 +132,6 @@ public class AuthPayFragment extends Fragment {
 
         mCustomerPhone.setVisibility(View.GONE);
         return inflatedView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_menu, menu);
     }
 
     /**
@@ -205,36 +173,19 @@ public class AuthPayFragment extends Fragment {
             Minkasu2faSDK.init(getActivity(),config,mWebView);
         }
         catch(Exception e){
-            e.toString();
+            Log.i("Exception",e.toString());
 
         }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle item selection
-        switch (item.getItemId()) {
-            case 0:
-                // do s.th.
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-    }
-
-    @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
     }
 
     /**
