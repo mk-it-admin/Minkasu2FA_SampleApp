@@ -84,7 +84,7 @@ public class AuthPayFragment extends Fragment {
             mNetPayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
+                    if ( Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
                         String bankCustomerPhone = config.getCustomerInfo().getPhone();
                         String encodedPhone = null;
@@ -110,7 +110,7 @@ public class AuthPayFragment extends Fragment {
             mCreditPayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!Minkasu2faSDK.isRooted() && Minkasu2faSDK.isSupportedPlatform()) {
+                    if ( Minkasu2faSDK.isSupportedPlatform()) {
                         initMinkasu2FASDK();
                         String bankCustomerPhone = config.getCustomerInfo().getPhone();
                         String encodedPhone = null;
