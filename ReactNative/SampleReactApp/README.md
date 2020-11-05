@@ -12,13 +12,13 @@ This document walks you through the steps to integrate Minkasu 2FA Mobile SDK wi
 The minimum requirement for the library is
 
 - React (16.13.1)
-- React Native (0.62.2)
-- React Native Webview (9.4.0)
+- React Native (0.63.3)
+- React Native Webview (10.10.0)
  
 ### Supported Platforms
 
 - [x] iOS (10.0 and higher)
-- [x] Android (API Level 17 and higher)
+- [x] Android (API Level 21 and higher)
 
 ### Setup
 
