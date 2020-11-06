@@ -142,8 +142,8 @@ func initMinkasu2FA(){
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
-    //Initializing Minkasu2FA SDK with UIWebView object and the ViewController containing the UIWebView
-    Minkasu2FA.initWith(uiWebView, andConfiguration: config, in: self);
+    //Initializing Minkasu2FA SDK with UIWebView object
+    Minkasu2FA.initWith(uiWebView, andConfiguration: config)
 }
 ```
 
