@@ -128,7 +128,7 @@ func initMinkasu2FA(){
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
     //Initializing Minkasu2FA SDK with WKWebView object and the ViewController containing the WKWebView
-    Minkasu2FA.initWith(wkWebView, andConfiguration: config, in: self);
+    Minkasu2FA.initWith(wkWebView, andConfiguration: config)
 }
 ```
 
