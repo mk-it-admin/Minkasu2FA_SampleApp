@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, View, Text, Button, StyleSheet, Platform } from 'react-native';
 import { Minkasu2FAUIConstants, Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
 import { Picker, PickerIOS } from '@react-native-community/picker';
-const MERCHANT_CUSTOMER_ID = "Suresh_01";
+const MERCHANT_CUSTOMER_ID = "<merchant_customer_id>";
 const NET_BANKING_TYPE = 1;
 const CARD_TYPE = 2;
 export default class Home extends Component {
@@ -84,7 +84,7 @@ export default class Home extends Component {
             [Minkasu2FAUIConstants.CUSTOMER_FIRST_NAME]: "TestFirstName",
             [Minkasu2FAUIConstants.CUSTOMER_LAST_NAME]: "TestLastName",
             [Minkasu2FAUIConstants.CUSTOMER_EMAIL]: "test@xyz.com",
-            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "+919876543210" // Format: +91XXXXXXXXXX (no spaces)
+            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "<mobile_no>" // Format: +91XXXXXXXXXX (no spaces)
         };
         let addressInfo = {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_1]: "123 Test Way",
@@ -95,11 +95,11 @@ export default class Home extends Component {
             [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_ZIP_CODE]: "400068"// Format: XXXXXX (no spaces)
         };
         let orderInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "Ord01_" + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase() // The order id is used to later identify
+            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify
         };
         let configObj = {
-            [Minkasu2FAUIConstants.MERCHANT_ID]: "13579",
-            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "789385aed6e4e3ff3e097f57dc58b4d8",
+            [Minkasu2FAUIConstants.MERCHANT_ID]: "<merchant_id>",
+            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "<merchant_token>",
             //merchant_customer_id is a unique id associated with the currently logged in user.
             [Minkasu2FAUIConstants.CUSTOMER_ID]: MERCHANT_CUSTOMER_ID,
             [Minkasu2FAUIConstants.CUSTOMER_INFO]: customerInfo,
