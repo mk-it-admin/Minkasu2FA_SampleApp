@@ -37,5 +37,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.minkasu.android.twofa:minkasu-2fa:2.1.0'
+    implementation 'com.minkasu.android.twofa:minkasu-2fa:2.1.1'
 }
