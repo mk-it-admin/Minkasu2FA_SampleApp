@@ -13,7 +13,7 @@ The minimum requirement for the library is
 
 - React (16.13.1)
 - React Native (0.63.3)
-- React Native Webview (10.10.0)
+- React Native Webview (11.6.2)
  
 ### Supported Platforms
 
@@ -60,9 +60,7 @@ Add the following lines to your project `build.gradle` file at the path **androi
 allprojects {
     repositories {
       ...
-      maven {
-          url 'https://dl.bintray.com/mk-it-admin/minkasu-2fa'
-      }
+      mavenCentral()
       ...
    }
 }
