@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView, View, Text, Button, StyleSheet, Platform } from 'react-native';
-import { Minkasu2FAUIConstants, Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
+import { Minkasu2FAUIConstants, Minkasu2FAWebViewModule, Minkasu2FAModuleConstants } from 'react-native-minkasu2fa-webview';
 import { Picker, PickerIOS } from '@react-native-community/picker';
 const MERCHANT_CUSTOMER_ID = "<merchant_customer_id>";
 const NET_BANKING_TYPE = 1;
@@ -55,22 +55,22 @@ export default class Home extends Component {
 
     renderOperationTypes = (opTypes) => {
         let changePinBtn;
-        if (opTypes[Minkasu2FAWebViewModule.CHANGE_PIN]) {
-            changePinBtn = <Button title={opTypes[Minkasu2FAWebViewModule.CHANGE_PIN]} style={{ padding: 10 }}
+        if (opTypes[Minkasu2FAModuleConstants.CHANGE_PIN]) {
+            changePinBtn = <Button title={opTypes[Minkasu2FAModuleConstants.CHANGE_PIN]} style={{ padding: 10 }}
                 onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAWebViewModule.CHANGE_PIN])
+                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.CHANGE_PIN])
                 }} />
         }
         let enableDisableBiometricBtn;
-        if (opTypes[Minkasu2FAWebViewModule.ENABLE_BIOMETRIC]) {
-            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAWebViewModule.ENABLE_BIOMETRIC]} style={{ padding: 10 }}
+        if (opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRIC]) {
+            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRIC]} style={{ padding: 10 }}
                 onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAWebViewModule.ENABLE_BIOMETRIC]);
+                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRIC]);
                 }} />
-        } else if (opTypes[Minkasu2FAWebViewModule.DISABLE_BIOMETRIC]) {
-            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAWebViewModule.DISABLE_BIOMETRIC]} style={{ padding: 10 }}
+        } else if (opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRIC]) {
+            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRIC]} style={{ padding: 10 }}
                 onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAWebViewModule.DISABLE_BIOMETRIC]);
+                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRIC]);
                 }} />
         }
         return <View style={{ flexDirection: "row", marginTop: 10, justifyContent: 'space-between' }}>
@@ -124,30 +124,30 @@ export default class Home extends Component {
     render() {
         let pickerView;
         if (Platform.OS === 'ios') {
-            pickerView = <View style={{ flexDirection: "column", justifyContent: "space-between"}}>
-            <Text style={{ fontSize: 16, textAlignVertical: "center" }}> Select Payment Type: </Text>
-            <PickerIOS
-                selectedValue={this.state.paymentType}
-                onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ paymentType: itemValue })
-                }>
-                <PickerIOS.Item label="Net Banking" value={NET_BANKING_TYPE} />
-                <PickerIOS.Item label="Debit/Credit Card" value={CARD_TYPE} />
-            </PickerIOS>
+            pickerView = <View style={{ flexDirection: "column", justifyContent: "space-between" }}>
+                <Text style={{ fontSize: 16, textAlignVertical: "center" }}> Select Payment Type: </Text>
+                <PickerIOS
+                    selectedValue={this.state.paymentType}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ paymentType: itemValue })
+                    }>
+                    <PickerIOS.Item label="Net Banking" value={NET_BANKING_TYPE} />
+                    <PickerIOS.Item label="Debit/Credit Card" value={CARD_TYPE} />
+                </PickerIOS>
             </View>
         } else {
             pickerView = <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 10 }}>
-            <Text style={{ fontSize: 16, textAlignVertical: "center" }}> Select Payment Type: </Text>
-            <Picker
-                selectedValue={this.state.paymentType}
-                style={{ height: 50, width: 150 }}
-                mode="dropdown"
-                onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ paymentType: itemValue })
-                }>
-                <Picker.Item label="Net Banking" value={NET_BANKING_TYPE} />
-                <Picker.Item label="Debit/Credit Card" value={CARD_TYPE} />
-            </Picker>
+                <Text style={{ fontSize: 16, textAlignVertical: "center" }}> Select Payment Type: </Text>
+                <Picker
+                    selectedValue={this.state.paymentType}
+                    style={{ height: 50, width: 150 }}
+                    mode="dropdown"
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ paymentType: itemValue })
+                    }>
+                    <Picker.Item label="Net Banking" value={NET_BANKING_TYPE} />
+                    <Picker.Item label="Debit/Credit Card" value={CARD_TYPE} />
+                </Picker>
             </View>
         }
         return (
