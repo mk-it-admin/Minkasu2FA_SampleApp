@@ -5,17 +5,22 @@
         <item
             android:id="@+id/nav_auth_pay"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Auth Pay"
+            android:title="Payment Checkout"
             />
         <item
             android:id="@+id/nav_change_pin"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_slideshow"
             android:title="Change Pin"
             />
         <item
-            android:id="@+id/nav_enabledisablefinger"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Enable/Disable Fingerprint Verification"
+            android:id="@+id/nav_enablebiometrics"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Enable Biometrics"
+            />
+        <item
+            android:id="@+id/nav_disablebiometrics"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Disable Biometrics"
             />
     </menu>
     </item>
