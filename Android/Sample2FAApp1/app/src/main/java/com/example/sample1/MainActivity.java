@@ -2,7 +2,6 @@ package com.example.sample1;
 
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,20 +27,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         hideItems();
-        navigationView.setCheckedItem(R.id.nav_auth_pay);
-        navigationView.getMenu().performIdentifierAction(R.id.nav_auth_pay,0);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.performIdentifierAction(R.id.nav_auth_pay, 0);
     }
 
     @Override
@@ -65,21 +64,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Menu nav_Menu = navigationView.getMenu();
 
         //Gets the list of Operations that is available according to the state of Minkasu 2FA SDK.
-        List<Minkasu2faOperationType> operationTypes =  Minkasu2faSDK.getMinkasu2faOperationTypes(getApplicationContext());
+        List<Minkasu2faOperationType> operationTypes =  Minkasu2faSDK.getAvailableMinkasu2faOperations(getApplicationContext());
 
         nav_Menu.findItem(R.id.nav_change_pin).setVisible(false);
-        nav_Menu.findItem(R.id.nav_enabledisablefinger).setVisible(false);
+        nav_Menu.findItem(R.id.nav_enablebiometrics).setVisible(false);
+        nav_Menu.findItem(R.id.nav_disablebiometrics).setVisible(false);
+
 
         for (int i = 0; i < operationTypes.size(); i++) {
+            MenuItem item = null;
             if (operationTypes.get(i) == Minkasu2faOperationType.CHANGE_PAYPIN) {
-                nav_Menu.findItem(R.id.nav_change_pin).setVisible(true);
-            } else if (operationTypes.get(i) == Minkasu2faOperationType.DISABLE_FINGERPRINT) {
-                MenuItem item = nav_Menu.findItem(R.id.nav_enabledisablefinger).setVisible(true);
-                item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.DISABLE_FINGERPRINT));
-            } else if (operationTypes.get(i) == Minkasu2faOperationType.ENABLE_FINGERPRINT) {
-                MenuItem item = nav_Menu.findItem(R.id.nav_enabledisablefinger).setVisible(true);
-                item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.ENABLE_FINGERPRINT));
+                item = nav_Menu.findItem(R.id.nav_change_pin).setVisible(true);
+                //set custom title string for menu item
+                item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.CHANGE_PAYPIN));
+            } else if (operationTypes.get(i) == Minkasu2faOperationType.ENABLE_BIOMETRICS) {
+                item = nav_Menu.findItem(R.id.nav_enablebiometrics).setVisible(true);
+                //set custom title string for menu item
+                item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.ENABLE_BIOMETRICS));
+            }else if (operationTypes.get(i) == Minkasu2faOperationType.DISABLE_BIOMETRICS) {
+                item = nav_Menu.findItem(R.id.nav_disablebiometrics).setVisible(true);
+                //set custom title string for menu item
+                item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.DISABLE_BIOMETRICS));
             }
+
         }
 
     }
@@ -94,20 +101,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = getAuthPayFragment();
             fragmentTag = "PayFragment";
 
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             popAllFragmentsInStack();
             fragmentManager.beginTransaction().replace(R.id.content_main, fragment,fragmentTag).commit();
-        } else if (id == R.id.nav_change_pin) {
-            performMKSDKAction(Minkasu2faOperationType.CHANGE_PAYPIN);
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        }else if (id == R.id.nav_change_pin) {
+            performMinkasu2faOperation(Minkasu2faOperationType.CHANGE_PAYPIN);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             popAllFragmentsInStack();
-        } else if (id == R.id.nav_enabledisablefinger) {
-            performMKSDKAction(Minkasu2faOperationType.ENABLE_FINGERPRINT);
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        }else if (id == R.id.nav_enablebiometrics) {
+            performMinkasu2faOperation(Minkasu2faOperationType.ENABLE_BIOMETRICS);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            popAllFragmentsInStack();
+        }else if (id == R.id.nav_disablebiometrics) {
+            performMinkasu2faOperation(Minkasu2faOperationType.DISABLE_BIOMETRICS);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             popAllFragmentsInStack();
         }
@@ -133,10 +145,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return fragment;
     }
 
-    private void performMKSDKAction (Minkasu2faOperationType operationType){
+    public void performMinkasu2faOperation (Minkasu2faOperationType operationType){
+        Minkasu2faSDK minkasu2faSDKInstance = null;
         try {
             //Creating Minkasu 2FA SDK object to perform the selected menu action.
-            Minkasu2faSDK minkasu2faSDKInstance = Minkasu2faSDK.create(MainActivity.this, operationType,MERCHANT_CUSTOMER_ID);
+            minkasu2faSDKInstance = Minkasu2faSDK.create(MainActivity.this, operationType,MERCHANT_CUSTOMER_ID);
             minkasu2faSDKInstance.start();
         }
         catch(Exception e){
