@@ -30,7 +30,7 @@ export default class Home extends Component {
     }
 
     showMinkasuMenu() {
-        Minkasu2FAWebViewModule.getMinkasu2FAOperationTypes()
+        Minkasu2FAWebViewModule.getAvailableMinkasu2faOperations()
             .then((data) => {
                 this.setState({ availableMinkasu2FAOperationTypes: data });
             })
@@ -62,15 +62,15 @@ export default class Home extends Component {
                 }} />
         }
         let enableDisableBiometricBtn;
-        if (opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRIC]) {
-            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRIC]} style={{ padding: 10 }}
+        if (opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRICS]) {
+            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRICS]} style={{ padding: 10 }}
                 onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRIC]);
+                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.ENABLE_BIOMETRICS]);
                 }} />
-        } else if (opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRIC]) {
-            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRIC]} style={{ padding: 10 }}
+        } else if (opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRICS]) {
+            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRICS]} style={{ padding: 10 }}
                 onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRIC]);
+                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAModuleConstants.DISABLE_BIOMETRICS]);
                 }} />
         }
         return <View style={{ flexDirection: "row", marginTop: 10, justifyContent: 'space-between' }}>
