@@ -13,7 +13,7 @@ The minimum requirement for the library is
 
 - React (16.13.1)
 - React Native (0.63.3)
-- React Native Webview (11.6.2)
+- React Native Webview (11.6.5)
  
 ### Supported Platforms
 
@@ -420,6 +420,16 @@ Note: In both options, load the source url in the `onMinkasu2FAInit` method.
 
 #### Minkasu2FA Operations
 
+**List of Minkasu2FA Operations**
+
+The Minkasu2FA SDK operations type constants:
+
+```
+Minkasu2FAModuleConstants.CHANGE_PIN   
+Minkasu2FAModuleConstants.ENABLE_BIOMETRICS      
+Minkasu2FAModuleConstants.DISABLE_BIOMETRICS
+```
+
 **Retrieving Minkasu2FA Operations**
 
 To retrieve the list of operations, use the following code to get the current list of operations available depending on the state of the Minkasu2FA SDK
@@ -435,7 +445,7 @@ class MyComponent extends Component {
     };
     
     getAvailableMinkasu2FAOperationTypes() {
-        Minkasu2FAWebViewModule.getMinkasu2FAOperationTypes()
+        Minkasu2FAWebViewModule.getAvailableMinkasu2faOperations()
             .then((data) => {
                 this.setState({ availableMinkasu2FAOperationTypes: data });
             })

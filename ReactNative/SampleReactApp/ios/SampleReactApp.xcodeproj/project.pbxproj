@@ -385,7 +385,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SampleReactApp/Pods-SampleReactApp-frameworks.sh",
-				"${PODS_ROOT}/Minkasu2FA/Minkasu2FA.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Minkasu2FA/Minkasu2FA.framework/Minkasu2FA",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -499,7 +499,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SampleReactApp-SampleReactAppTests/Pods-SampleReactApp-SampleReactAppTests-frameworks.sh",
-				"${PODS_ROOT}/Minkasu2FA/Minkasu2FA.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Minkasu2FA/Minkasu2FA.framework/Minkasu2FA",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
