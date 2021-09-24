@@ -78,7 +78,7 @@ PODS:
     - glog
   - glog (0.3.5)
   - libevent (2.1.12)
-  - Minkasu2FA (2.3.1)
+  - Minkasu2FA (2.3.2)
   - OpenSSL-Universal (1.1.180)
   - RCTRequired (0.63.3)
   - RCTTypeSafety (0.63.3):
@@ -246,8 +246,8 @@ PODS:
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
   - React-jsinspector (0.63.3)
-  - react-native-minkasu2fa-webview (1.2.0):
-    - Minkasu2FA (= 2.3.1)
+  - react-native-minkasu2fa-webview (1.2.1):
+    - Minkasu2FA (= 2.3.2)
     - React
     - react-native-webview
   - react-native-safe-area-context (3.2.0):
@@ -487,7 +487,7 @@ SPEC CHECKSUMS:
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  Minkasu2FA: 10d86b65a8364965122c16eb6e0841d65dec1025
+  Minkasu2FA: a4dc4d479201126f752c741cf5ca36f76940bbe4
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   RCTRequired: 48884c74035a0b5b76dbb7a998bd93bcfc5f2047
   RCTTypeSafety: edf4b618033c2f1c5b7bc3d90d8e085ed95ba2ab
@@ -499,7 +499,7 @@ SPEC CHECKSUMS:
   React-jsi: df07aa95b39c5be3e41199921509bfa929ed2b9d
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
-  react-native-minkasu2fa-webview: c669b7e33a58663aa3437633cba2018a88a30395
+  react-native-minkasu2fa-webview: 6dc13d94bb7274b73d6b54b139c5bf51ca10f03f
   react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
   react-native-webview: 9fef5edbbf9d03694c5fb513cc2e6d96694430af
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
@@ -522,4 +522,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e68c79544b8c3f066649f98077ff45626f62e14d
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2

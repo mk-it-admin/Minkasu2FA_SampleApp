@@ -26,7 +26,7 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
                     this.webview.initMinkasu2FA(this.configObj);
                 }
             }
-            if (this.configObj != null) {
+            if (this.configObj == null) {
                 this.setSourceUrl();
             }
         }
