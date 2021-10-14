@@ -11,3 +11,5 @@
 
 -keep class minkasu2fa.** { *; }
 -keep class com.minkasu.android.twofa.** { *; }
+
+-keep class com.facebook.react.turbomodule.** { *; } 
