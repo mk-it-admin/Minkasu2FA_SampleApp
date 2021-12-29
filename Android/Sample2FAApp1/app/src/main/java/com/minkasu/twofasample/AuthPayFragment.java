@@ -1,4 +1,4 @@
-package com.example.sample1;
+package com.minkasu.twofasample;
 
 import android.content.Context;
 import android.os.Bundle;

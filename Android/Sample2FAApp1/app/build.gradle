@@ -4,11 +4,11 @@ android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "com.example.sample1"
+        applicationId "com.minkasu.twofasample"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
     }
@@ -34,5 +34,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.minkasu:minkasu-2fa:2.2.3'
+    implementation 'com.minkasu:minkasu-2fa:2.2.4'
 }
