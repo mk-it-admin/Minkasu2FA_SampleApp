@@ -1,4 +1,4 @@
-package com.example.sample1;
+package com.minkasu.twofasample;
 
 import android.os.Bundle;
 import android.util.Log;
