@@ -273,7 +273,7 @@ PODS:
   - React-jsinspector (0.66.0)
   - React-logger (0.66.0):
     - glog
-  - react-native-minkasu2fa-webview (1.2.2):
+  - react-native-minkasu2fa-webview (1.2.3):
     - Minkasu2FA (= 2.3.2)
     - React
     - react-native-webview
@@ -550,7 +550,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
+  DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 6816ca39e1cc8beffd2a96783f518296789d1c48
   FBReactNativeSpec: 3b1e86618e902743fde35b40cf9ebd100fd655b7
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
@@ -563,7 +563,7 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: d8d346844eca5d9120c17d441a2f38596e8ed2b9
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 5337263514dd6f09803962437687240c5dc39aa4
+  glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   Minkasu2FA: a4dc4d479201126f752c741cf5ca36f76940bbe4
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
@@ -579,7 +579,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 6a05173dc0142abc582bd4edd2d23146b8cc218a
   React-jsinspector: be95ad424ba9f7b817aff22732eb9b1b810a000a
   React-logger: 9a9cd87d4ea681ae929b32ef580638ff1b50fb24
-  react-native-minkasu2fa-webview: c3c1f0ba5de6abd7bdb505556b6efafe13d21f84
+  react-native-minkasu2fa-webview: 84593fde7a32c02feb5426da7d3f04575512c1ac
   react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
   react-native-webview: a785c756d3968f09653b1c081e6f1cb9149a94ac
   React-perflogger: 1f554c2b684e2f484f9edcdfdaeedab039fbaca8
@@ -604,4 +604,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ed5ab94cd51b0d87b252d9e12f7259c004a72149
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2
