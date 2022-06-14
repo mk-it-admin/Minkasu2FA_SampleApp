@@ -1,6 +1,5 @@
 package com.minkasu.twofasample;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.minkasu.android.twofa.sdk.Minkasu2faSDK;
@@ -31,8 +29,6 @@ import java.net.URLEncoder;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AuthPayFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  */
 public class AuthPayFragment extends Fragment {
     private Button mNetPayButton;
@@ -64,8 +60,7 @@ public class AuthPayFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View inflatedView = inflater.inflate(R.layout.fragment_auth_pay, container, false);
         mWebView = inflatedView.findViewById(R.id.webView);
@@ -100,7 +95,6 @@ public class AuthPayFragment extends Fragment {
                                 , Toast.LENGTH_LONG).show();
                         loadUrl("/demo/Bank_Internet_Banking_login.htm");
                     }
-
                 }
             });
         }
@@ -125,11 +119,9 @@ public class AuthPayFragment extends Fragment {
                                 , Toast.LENGTH_LONG).show();
                         loadUrl("/demo/Welcome_to_Net.html");
                     }
-
                 }
             });
         }
-
         mCustomerPhone.setVisibility(View.GONE);
         return inflatedView;
     }
@@ -176,40 +168,5 @@ public class AuthPayFragment extends Fragment {
             Log.i("Exception",e.toString());
 
         }
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 }
