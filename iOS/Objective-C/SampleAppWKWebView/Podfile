@@ -1,5 +1,5 @@
 target 'SampleAppWKWebView' do
 
-  pod 'Minkasu2FA', '2.3.3'
+  pod 'Minkasu2FA', '2.3.4'
 
 end
