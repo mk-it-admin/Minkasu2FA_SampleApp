@@ -68,10 +68,10 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
 - (void) initMinkasu2FA{
     //initialize Minkasu2FA Customer object
     Minkasu2FACustomerInfo *customer = [Minkasu2FACustomerInfo new];
-    customer.firstName = @"TestFirstName";
-    customer.lastName = @"TestLastName";
-    customer.email = @"test@xyz.com";
-    customer.phone = @"+919876543210";  // Format: +91XXXXXXXXXX (no spaces)
+    customer.firstName = @"TestFirstName"; // Mandatory Field
+    customer.lastName = @"TestLastName"; // Mandatory Field
+    customer.email = @"test@xyz.com"; // Mandatory Field
+    customer.phone = @"+919876543210";  // Format: +91XXXXXXXXXX (no spaces). Mandatory Field
 
     Minkasu2FAAddress *address = [Minkasu2FAAddress new];
     address.line1 = @"123 Test Way";
@@ -85,15 +85,15 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     Minkasu2FAConfig *config = [Minkasu2FAConfig new];
-    config.merchantId = <merchant_id>;
-    config.merchantToken = <merchant_access_token>;
-    config.merchantCustomerId =<merchant_customer_id>;
+    config.merchantId = <merchant_id>; // Mandatory Field
+    config.merchantToken = <merchant_access_token>; // Mandatory Field
+    config.merchantCustomerId =<merchant_customer_id>; // Mandatory Field
     //add customer to the Config object
     config.customerInfo = customer;
 
     Minkasu2FAOrderInfo *orderInfo = [Minkasu2FAOrderInfo new];
     orderInfo.orderId = <order_id>;
-    config.orderInfo = orderInfo;
+    config.orderInfo = orderInfo; // Mandatory Field
 
     //Use this to set custom color theme
     Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
@@ -117,7 +117,11 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
     //Initializing Minkasu2FA SDK with WKWebView object
-    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    @try {
+        [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    } @catch (NSException *exception) {
+        // catch the exception for missing mandatory fields.
+    }
 }
 ```
 

@@ -80,10 +80,10 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.white
 func initMinkasu2FA(){
     //Initialize Customer object
     let customer = Minkasu2FACustomerInfo()
-    customer.firstName = "TestFirstName"
-    customer.lastName = "TestLastName"
-    customer.email = "test@xyz.com"
-    customer.phone = "+919876543210"    // Format: +91XXXXXXXXXX (no spaces)
+    customer.firstName = "TestFirstName" // Mandatory Field
+    customer.lastName = "TestLastName" // Mandatory Field
+    customer.email = "test@xyz.com" // Mandatory Field
+    customer.phone = "+919876543210"    // Format: +91XXXXXXXXXX (no spaces). Mandatory Field
 
     let address = Minkasu2FAAddress()
     address.line1 = "123 Test Way"
@@ -97,15 +97,15 @@ func initMinkasu2FA(){
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     let config = Minkasu2FAConfig()
-    config.merchantId = <merchant_id>
-    config.merchantToken = <merchant_access_token>
-    config.merchantCustomerId = <merchant_customer_id>
+    config.merchantId = <merchant_id> // Mandatory Field
+    config.merchantToken = <merchant_access_token> // Mandatory Field
+    config.merchantCustomerId = <merchant_customer_id> // Mandatory Field
     //add customer to the Config object
     config.customerInfo = customer
 
     let orderInfo = Minkasu2FAOrderInfo()
     orderInfo.orderId = <order_id>
-    config.orderInfo = orderInfo
+    config.orderInfo = orderInfo // Mandatory Field
 
     let mkColorTheme = Minkasu2FACustomTheme()
     mkColorTheme.navigationBarColor = UIColor.blue
@@ -128,7 +128,11 @@ func initMinkasu2FA(){
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
     //Initializing Minkasu2FA SDK with WKWebView object
-    Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+    do{
+        Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+    } catch {
+        // catch the exception for missing mandatory fields.
+    }
 }
 ```
 
