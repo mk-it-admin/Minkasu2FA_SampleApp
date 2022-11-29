@@ -16,11 +16,16 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.minkasu.android.twofa.model.PartnerInfo;
+import com.minkasu.android.twofa.sdk.Minkasu2faCallback;
+import com.minkasu.android.twofa.sdk.Minkasu2faCallbackInfo;
 import com.minkasu.android.twofa.sdk.Minkasu2faSDK;
 import com.minkasu.android.twofa.model.Config;
 import com.minkasu.android.twofa.model.Address;
 import com.minkasu.android.twofa.model.CustomerInfo;
 import com.minkasu.android.twofa.model.OrderInfo;
+
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -150,19 +155,66 @@ public class AuthPayFragment extends Fragment {
             address.setZipCode("400068");           // Format: XXXXXX (no spaces)
             customer.setAddress(address);
 
-            //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
+
+            //Create the PartnerInfo object with partner_merchant_id, partner_merchant_name and partner_transaction_id.
+            PartnerInfo partnerInfo = new PartnerInfo(<partner_merchant_id>,<partner_merchant_name>, <partner_transaction_id>);
+
+            //Create the Config object with partner_id, partner_access_token, merchant_customer_id, partnerInfo object and customer object.
             //merchant_customer_id is a unique id associated with the currently logged in user.
-            config = Config.getInstance(<merchant_id>,<merchant_access_token>,MainActivity.MERCHANT_CUSTOMER_ID,customer);
+            config = Config.getInstance(<partner_id>,<partner_access_token>,MainActivity.MERCHANT_CUSTOMER_ID,partnerInfo,customer);
+
 
             //set up SDK mode ie. by default its always production if we dont set it
             config.setSDKMode(Config.SANDBOX_MODE);
 
+            //Create the OrderInfo object with order_id as a compulsory parameter.
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setOrderId(<order_id>);
+
+            //Optionally specify merchant’s billing category to identify the type of transaction for billing purposes.
+            orderInfo.setBillingCategory(<billing_category>); // Billing category eg. FLIGHTS, BUS, TRAINS
+
+            //Optionally specify any custom order data to be attributed to the transaction here.
+            JSONObject orderDetails = new JSONObject();
+            //Any number for key value pairs
+            orderDetails.put(<key>,<value>);
+            orderDetails.put(<key>,<value>);
+            orderDetails.put(<key>,<value>);
+            orderInfo.setCustomData(orderDetails.toString());
             config.setOrderInfo(orderInfo);
 
             //Initialize Minkasu 2FA SDK with the Config object and the Webview.
-            Minkasu2faSDK.init(getActivity(),config,mWebView);
+            //Minkasu2faSDK.init(getActivity(),config,mWebView);
+            Minkasu2faSDK.init(requireActivity(), config, mWebView, new Minkasu2faCallback() {
+                @Override
+                public void handleInfo(Minkasu2faCallbackInfo callbackInfo) {
+                    int infoType = callbackInfo.getInfoType();
+                    Log.e("Minkasu Callback Type", String.valueOf(infoType));
+                    JSONObject payload = callbackInfo.getData();
+                    if (infoType == Minkasu2faCallbackInfo.INFO_TYPE_RESULT) {
+                        /*
+                        {
+                          "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                          "status": "<SUCCESS|FAILED|TIMEOUT|CANCELLED|DISABLED>", // Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.MK2FA_SUCCESS
+                          "source": "<SDK|SERVER|BANK>", // Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.SOURCE_SDK
+                          "code": <result/error code>, // 0 => Status SUCCESS, Non-zero values => Other status . Available constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.<SCREEN_CLOSE_5500>
+                          "message": "<result/error message>"
+                        }
+                       */
+                        Log.e("Minkasu Result", payload != null ? payload.toString() : "no result");
+                    } else if (infoType == Minkasu2faCallbackInfo.INFO_TYPE_EVENT) {
+                        /*
+                        {
+                          "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                          "screen": "<FTU_SETUP_CODE_SCREEN|FTU_AUTH_SCREEN|REPEAT_AUTH_SCREEN>",// Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.FTU_SETUP_CODE_SCREEN
+                          "event": "<ENTRY>"// Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.ENTRY_EVENT
+                        }
+                       */
+                        Log.e("Minkasu Event", payload != null ? payload.toString() : "no event");
+                    }
+                }
+            });
+
         }
         catch(Exception e){
             Log.i("Exception",e.toString());
