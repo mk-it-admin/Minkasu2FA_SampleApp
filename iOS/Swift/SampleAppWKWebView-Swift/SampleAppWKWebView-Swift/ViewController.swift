@@ -59,14 +59,22 @@ class ViewController: UIViewController, WKUIDelegate {
         //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
         //merchant_customer_id is a unique id associated with the currently logged in user.
         config = Minkasu2FAConfig()
-        config.merchantId = <merchant_id>
-        config.merchantToken = <merchant_access_token>
+        config._id = <merchant_id>
+        config.token = <merchant_access_token>
         config.merchantCustomerId = <merchant_customer_id>
         //add customer to the Config object
         config.customerInfo = customer
 
         let orderInfo = Minkasu2FAOrderInfo()
         orderInfo.orderId = <order_id>
+        orderInfo.billingCategory = <billing_category> // e.g. “FLIGHTS”
+        let orderDetails = <order details dictionary>
+        let encoder = JSONEncoder()
+        if let jsonData = try? encoder.encode(orderDetails) {
+            if let orderDetailsJsonString = String(data: jsonData, encoding: .utf8) {
+                orderInfo.orderDetails = orderDetailsJsonString
+            }
+        }
         config.orderInfo = orderInfo
 
         let mkColorTheme = Minkasu2FACustomTheme()
@@ -90,7 +98,11 @@ class ViewController: UIViewController, WKUIDelegate {
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
         //Initializing Minkasu2FA SDK with WKWebView object
-        Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+        do {
+            try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
     }
 
     @IBAction func clickNetBanking(_ sender: Any) {
