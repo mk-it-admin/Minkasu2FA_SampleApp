@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <Minkasu2FA/Minkasu2FAHeader.h>
 
-@interface ViewController ()
+@interface ViewController ()<Minkasu2FACallbackDelegate> //conforming Minkasu2FA Callback delegate
 
 @end
 
@@ -74,6 +74,7 @@
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     config = [Minkasu2FAConfig new];
+    config.delegate = self;                     // setting Minkasu2FACallbackDelegate in config.
     config._id = <merchant_id>;
     config.token = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
@@ -211,6 +212,17 @@
         }
 
         [self presentViewController:menuOptionsActionSheet animated:YES completion:nil];
+    }
+}
+
+#pragma mark - Minkasu2FA Callback Delegate
+
+- (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo{
+    
+    if (minkasu2FACallbackInfo.infoType == 1) { // INFO_TYPE_RESULT
+        // Refer readme file for minkasu2FACallbackInfo details.
+    } else if (minkasu2FACallbackInfo.infoType == 2) { // INFO_TYPE_EVENT
+        // Refer readme file for minkasu2FACallbackInfo details.
     }
 }
 

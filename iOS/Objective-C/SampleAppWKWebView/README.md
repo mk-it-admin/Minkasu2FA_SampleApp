@@ -85,6 +85,7 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     Minkasu2FAConfig *config = [Minkasu2FAConfig new];
+    config.delegate = self;            // Minkasu2FACallbackDelegate
     config._id = <merchant_id>;
     config.token = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
@@ -137,6 +138,59 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
 - Make sure that your merchant_access_token and merchant_id are correct.
 - merchant_customer_id is a unique id associated with the currently logged in user
 - Initialize the SDK by calling ```[self initMinkasu2FA];``` before the Payment is initiated.
+
+## Implementing Minkasu2FA Callback Delegate
+
+1.Conforming to Minkasu2FACallbackDelegate Protocol on your ViewController class which initialize Minkasu2FA iOS SDK. ```<Minkasu2FACallbackDelegate>```
+2.Setting the delegate in Minkasu2FA config. ``` config.delegate = self;```
+3.Implementing Minkasu2FACallback delegate method.
+
+```Objective-C
+- (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo{
+    
+    if (minkasu2FACallbackInfo.infoType == 1) { // INFO_TYPE_RESULT
+        // Refer data format in table below
+    } else if (minkasu2FACallbackInfo.infoType == 2) { // INFO_TYPE_EVENT
+        // Refer data format in table below
+    }
+}
+```
+Class Minkasu2faCallbackInfo
+
+| Parameter  | Type | Description |
+| ------------- | ------------- | ------------- |
+| infoType  | int  | INFO_TYPE_RESULT (1) or INFO_TYPE_EVENT (2) |
+| data  | NSDictionary  | If infoType is RESULT, the following JSON is returned:
+{
+  "reference_id": <minkasu_transaction_ref>, 
+  "status"      : <SUCCESS|
+                           FAILED|
+                           TIMEOUT|
+                           CANCELLED|
+                           DISABLED>",
+  "source"      : <SDK|
+                           SERVER|
+                           BANK>", 
+  "code"        : <result/error_code>, 
+                           0      – Success
+                           5001 - Phone number mismatch
+                           5500 - Screen close
+                           5501 - Forgot PayPIN;
+                           6508 - PayPIN attempts exceed
+                           6514 - Setup code timeout
+                           6515 - OTP attempts exceeded
+                           6518 - Insufficient balance
+  "message"     : <result/error_message> // See above messages
+}
+If infoType is EVENT, the following JSON will be returned:
+{
+  "reference_id": <minkasu_transaction_ref>,
+  "screen"      : <FTU_SETUP_CODE_SCREEN|
+                           FTU_AUTH_SCREEN|
+                           REPEAT_AUTH_SCREEN>,
+  "event"       : <ENTRY>
+}
+|
 
 ## Retrieving Operations
 
