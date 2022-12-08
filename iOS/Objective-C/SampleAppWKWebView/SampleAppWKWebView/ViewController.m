@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <Minkasu2FA/Minkasu2FAHeader.h>
 
-@interface ViewController ()<Minkasu2FACallbackDelegate> //conforming Minkasu2FA Callback delegate
+@interface ViewController ()<Minkasu2FACallbackDelegate>
 
 @end
 
@@ -74,7 +74,7 @@
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     config = [Minkasu2FAConfig new];
-    config.delegate = self;                     // setting Minkasu2FACallbackDelegate in config.
+    config.delegate = self;
     config._id = <merchant_id>;
     config.token = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
@@ -83,8 +83,10 @@
 
     Minkasu2FAOrderInfo *orderInfo = [Minkasu2FAOrderInfo new];
     orderInfo.orderId = <order_id>;
+    
+    // Optionally specify billing category and order details
     orderInfo.billingCategory = <billing_category>; // e.g. “FLIGHTS”
-    NSDictionary *orderDetails=[[NSDictionary alloc] init]; // e.g. Order Details Dictionary
+    NSDictionary *orderDetails=[[NSDictionary alloc] init]; // e.g. <custom_key : custom_value>
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderDetails
                                                        options:NSJSONWritingPrettyPrinted
@@ -120,6 +122,7 @@
         //Minkasu init success
     } else {
         //Minkasu init failed - handle error
+        NSLog(@"Minkasu init failed with error domain: %@ and description: %@",error.domain,error.localizedDescription);
     }
 }
 //****END Minkasu2FA Code***************
@@ -215,7 +218,7 @@
     }
 }
 
-#pragma mark - Minkasu2FA Callback Delegate
+#pragma mark - Minkasu2FACallback Delegate
 
 - (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo{
     

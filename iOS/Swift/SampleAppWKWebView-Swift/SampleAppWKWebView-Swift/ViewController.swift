@@ -68,8 +68,10 @@ class ViewController: UIViewController, WKUIDelegate,Minkasu2FACallbackDelegate 
 
         let orderInfo = Minkasu2FAOrderInfo()
         orderInfo.orderId = <order_id>
+        
+        // Optionally specify billing category and order details
         orderInfo.billingCategory = <billing_category> // e.g. “FLIGHTS”
-        let orderDetails = <order details dictionary>
+        let orderDetails = <(String)custom_key : (Any)custom_value>
         let encoder = JSONEncoder()
         if let jsonData = try? encoder.encode(orderDetails) {
             if let orderDetailsJsonString = String(data: jsonData, encoding: .utf8) {
@@ -102,7 +104,7 @@ class ViewController: UIViewController, WKUIDelegate,Minkasu2FACallbackDelegate 
         do {
             try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
         } catch let error as NSError {
-            print("Error: \(error.domain)")
+            print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
         }
     }
 
