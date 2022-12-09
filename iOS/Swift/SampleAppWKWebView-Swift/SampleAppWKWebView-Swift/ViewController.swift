@@ -104,6 +104,7 @@ class ViewController: UIViewController, WKUIDelegate,Minkasu2FACallbackDelegate 
         do {
             try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
         } catch let error as NSError {
+            //Minkasu init failed - handle error
             print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
         }
     }
