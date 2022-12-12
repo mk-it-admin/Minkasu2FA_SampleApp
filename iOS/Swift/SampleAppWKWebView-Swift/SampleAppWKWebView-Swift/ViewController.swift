@@ -71,7 +71,7 @@ class ViewController: UIViewController, WKUIDelegate,Minkasu2FACallbackDelegate 
         
         // Optionally specify billing category and order details
         orderInfo.billingCategory = <billing_category> // e.g. “FLIGHTS”
-        let orderDetails = <(String)custom_key : (Any)custom_value>
+        let orderDetails = [String : Any]; // e.g. <["custom_key_1": "custom_value_1", "custom_key_2": "custom_value_2", "custom_key_3": "custom_value_3"]>
         let encoder = JSONEncoder()
         if let jsonData = try? encoder.encode(orderDetails) {
             if let orderDetailsJsonString = String(data: jsonData, encoding: .utf8) {

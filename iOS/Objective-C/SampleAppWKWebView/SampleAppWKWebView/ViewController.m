@@ -220,7 +220,7 @@
 
 #pragma mark - Minkasu2FACallback Delegate
 
-- (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo{
+- (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo {
     
     if (minkasu2FACallbackInfo.infoType == 1) { // INFO_TYPE_RESULT
         // Refer readme file for minkasu2FACallbackInfo details.
