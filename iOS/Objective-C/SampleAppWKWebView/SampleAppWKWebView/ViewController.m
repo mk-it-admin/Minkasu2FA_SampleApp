@@ -86,7 +86,7 @@
     
     // Optionally specify billing category and order details
     orderInfo.billingCategory = <billing_category>; // e.g. “FLIGHTS”
-    NSDictionary *orderDetails=[[NSDictionary alloc] init]; // e.g. <custom_key : custom_value>
+    NSDictionary *orderDetails=[[NSDictionary alloc] init]; // e.g. @[<custom_key_1>: <custom_value_1>, <custom_key_2>: <custom_value_2>, <custom_key_3>: <custom_value_3>]
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderDetails
                                                        options:NSJSONWritingPrettyPrinted
