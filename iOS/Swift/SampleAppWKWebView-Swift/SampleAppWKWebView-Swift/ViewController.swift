@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import Minkasu2FA
 
-class ViewController: UIViewController, WKUIDelegate {
+class ViewController: UIViewController, WKUIDelegate,Minkasu2FACallbackDelegate {
 
     @IBOutlet weak var btnNetBanking: UIButton!
     @IBOutlet weak var btnCreditDebit: UIButton!
@@ -59,14 +59,25 @@ class ViewController: UIViewController, WKUIDelegate {
         //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
         //merchant_customer_id is a unique id associated with the currently logged in user.
         config = Minkasu2FAConfig()
-        config.merchantId = <merchant_id>
-        config.merchantToken = <merchant_access_token>
+        config.delegate = self
+        config._id = <merchant_id>
+        config.token = <merchant_access_token>
         config.merchantCustomerId = <merchant_customer_id>
         //add customer to the Config object
         config.customerInfo = customer
 
         let orderInfo = Minkasu2FAOrderInfo()
         orderInfo.orderId = <order_id>
+        
+        // Optionally specify billing category and order details
+        orderInfo.billingCategory = <billing_category> // e.g. “FLIGHTS”
+        let orderDetails = [String : Any]; // e.g. [<custom_key_1> : <custom_value_1>, <custom_key_2> : <custom_value_2>, <custom_key_3> : <custom_value_3>]
+        let encoder = JSONEncoder()
+        if let jsonData = try? encoder.encode(orderDetails) {
+            if let orderDetailsJsonString = String(data: jsonData, encoding: .utf8) {
+                orderInfo.orderDetails = orderDetailsJsonString
+            }
+        }
         config.orderInfo = orderInfo
 
         let mkColorTheme = Minkasu2FACustomTheme()
@@ -90,7 +101,12 @@ class ViewController: UIViewController, WKUIDelegate {
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
         //Initializing Minkasu2FA SDK with WKWebView object
-        Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+        do {
+            try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+        } catch let error as NSError {
+            //Minkasu init failed - handle error
+            print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
+        }
     }
 
     @IBAction func clickNetBanking(_ sender: Any) {
@@ -167,6 +183,14 @@ class ViewController: UIViewController, WKUIDelegate {
             }
 
             self.present(menuOptionsActionSheet, animated: true, completion: nil)
+        }
+    }
+    
+    func minkasu2FACallback(_ minkasu2FACallbackInfo: Minkasu2FACallbackInfo) {
+        if minkasu2FACallbackInfo.infoType == 1{  // INFO_TYPE_RESULT
+            // Refer readme file for minkasu2FACallbackInfo details.
+        } else if minkasu2FACallbackInfo.infoType == 2{  // INFO_TYPE_EVENT
+            // Refer readme file for minkasu2FACallbackInfo details.
         }
     }
 }

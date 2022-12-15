@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <Minkasu2FA/Minkasu2FAHeader.h>
 
-@interface ViewController ()
+@interface ViewController ()<Minkasu2FACallbackDelegate>
 
 @end
 
@@ -74,14 +74,24 @@
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     config = [Minkasu2FAConfig new];
-    config.merchantId = <merchant_id>;
-    config.merchantToken = <merchant_access_token>;
+    config.delegate = self;
+    config._id = <merchant_id>;
+    config.token = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
     //add customer to the Config object
     config.customerInfo = customer;
 
     Minkasu2FAOrderInfo *orderInfo = [Minkasu2FAOrderInfo new];
     orderInfo.orderId = <order_id>;
+    
+    // Optionally specify billing category and order details
+    orderInfo.billingCategory = <billing_category>; // e.g. “FLIGHTS”
+    NSDictionary *orderDetails=[[NSDictionary alloc] init]; // e.g. @{<custom_key_1> : <custom_value_1>, <custom_key_2> : <custom_value_2>, <custom_key_3> : <custom_value_3>}
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderDetails
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    orderInfo.orderDetails = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     config.orderInfo = orderInfo;
 
     //Use this to set custom color theme
@@ -105,8 +115,15 @@
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
+    NSError *error = nil;
     //Initializing Minkasu2FA SDK with WKWebView object
-    [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config];
+    BOOL result = [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config error:&error];
+    if (result) {
+        //Minkasu init success
+    } else {
+        //Minkasu init failed - handle error
+        NSLog(@"Minkasu init failed with error domain: %@ and description: %@",error.domain,error.localizedDescription);
+    }
 }
 //****END Minkasu2FA Code***************
 
@@ -198,6 +215,17 @@
         }
 
         [self presentViewController:menuOptionsActionSheet animated:YES completion:nil];
+    }
+}
+
+#pragma mark - Minkasu2FACallback Delegate
+
+- (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo {
+    
+    if (minkasu2FACallbackInfo.infoType == 1) { // INFO_TYPE_RESULT
+        // Refer readme file for minkasu2FACallbackInfo details.
+    } else if (minkasu2FACallbackInfo.infoType == 2) { // INFO_TYPE_EVENT
+        // Refer readme file for minkasu2FACallbackInfo details.
     }
 }
 

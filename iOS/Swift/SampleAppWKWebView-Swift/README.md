@@ -21,6 +21,13 @@
 4. Run ```pod install``` in Terminal.
 5. Close the Xcode project window if open, and open the Project Workspace.
 
+#### Using SPM (Swift Package Manager)
+
+Add dependency to Package.swift into dependencies section
+```Swift
+.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "3.0.0")),
+```
+
 #### Manual way
 
 Please ask Minkasu for Minkasu2FA SDK
@@ -97,14 +104,25 @@ func initMinkasu2FA(){
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     let config = Minkasu2FAConfig()
-    config.merchantId = <merchant_id>
-    config.merchantToken = <merchant_access_token>
+    config.delegate = self
+    config._id = <merchant_id>
+    config.token = <merchant_access_token>
     config.merchantCustomerId = <merchant_customer_id>
     //add customer to the Config object
     config.customerInfo = customer
 
     let orderInfo = Minkasu2FAOrderInfo()
     orderInfo.orderId = <order_id>
+    
+    // Optionally specify billing category and order details
+    orderInfo.billingCategory = <billing_category> // e.g. “FLIGHTS”
+    let orderDetails = [String : Any]; // e.g. [<custom_key_1> : <custom_value_1>, <custom_key_2> : <custom_value_2>, <custom_key_3> : <custom_value_3>]
+    let encoder = JSONEncoder()
+    if let jsonData = try? encoder.encode(orderDetails) {
+        if let orderDetailsJsonString = String(data: jsonData, encoding: .utf8) {
+            orderInfo.orderDetails = orderDetailsJsonString
+        }
+    }
     config.orderInfo = orderInfo
 
     let mkColorTheme = Minkasu2FACustomTheme()
@@ -128,13 +146,41 @@ func initMinkasu2FA(){
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
     //Initializing Minkasu2FA SDK with WKWebView object
-    Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+    do {
+        try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+    } catch let error as NSError {
+        //Minkasu init failed - handle error
+        print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
+    }
 }
 ```
 
 - Make sure that your merchant_access_token and merchant_id are correct.
 - merchant_customer_id is a unique id associated with the currently logged in user
 - Initialize the SDK by calling ```initMinkasu2FA()``` before the Payment is initiated.
+
+## Implementing Minkasu2FACallback Delegate
+
+1.&emsp;Conforming to Minkasu2FACallbackDelegate Protocol ```Minkasu2FACallbackDelegate```  on your ViewController class which initialize Minkasu2FA iOS SDK.<br>
+2.&emsp;Setting the delegate in Minkasu2FA config. ``` config.delegate = self``` <br>
+3.&emsp;Implementing Minkasu2FACallback delegate method.<br>
+
+```Swift
+func minkasu2FACallback(_ minkasu2FACallbackInfo: Minkasu2FACallbackInfo) {
+    if minkasu2FACallbackInfo.infoType == 1{  // INFO_TYPE_RESULT
+        // Refer data format in table below.
+    } else if minkasu2FACallbackInfo.infoType == 2{  // INFO_TYPE_EVENT
+        // Refer data format in table below.
+    }
+}
+```
+Class Minkasu2faCallbackInfo
+
+| <br>Parameter    |    <br>Type     |    <br>Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| infoType         | int             | INFO_TYPE_RESULT(1) or INFO_TYPE_EVENT(2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| data             | NSDictionary    | If infoType is RESULT, the following Dictionary will be returned:<br>{<br>  &emsp;&emsp;"reference_id"&emsp;:(NSString *) <minkasu_transaction_ref>, <br>  &emsp;&emsp;"status”&emsp;&emsp;&emsp;&emsp;:(NSString *) [  SUCCESS<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| FAILED<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| TIMEOUT<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| CANCELLED<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| DISABLED ],<br>  &emsp;&emsp;"auth_type"&emsp;&emsp;  :(NSString *) [  PayPin<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| Fingerprint<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| Face ], <br>  &emsp;&emsp;"source"&emsp;&emsp;&emsp;&emsp;:(NSString *) [ SDK<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| SERVER<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| BANK ], <br>  &emsp;&emsp;"code"&emsp;&emsp;&emsp;&emsp;&emsp;:(NSInteger) <result/error_code>,<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;0 – Success<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;5001 - Phone number mismatch<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;5500 - Screen   close<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;5501 - Forgot PayPIN<br>                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6508 - PayPIN   attempts exceed<br>                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6514 - Setup   code timeout<br>                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6515 - OTP   attempts exceeded<br>                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6518 - Insufficient   balance     <br>  &emsp;&emsp;"message"&emsp;&emsp;&emsp;:(NSString *) <result/error_message> // See above messages<br>}<br>   <br>If infoType is EVENT, the following Dictionary will be returned:<br>{<br>&emsp;&emsp;"reference_id"&emsp;:(NSString *) <minkasu_transaction_ref>, <br>&emsp;&emsp;"screen"&emsp;&emsp;&emsp;&emsp;:(NSString *) [ FTU_SETUP_CODE_SCREEN<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| FTU_AUTH_SCREEN<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| REPEAT_AUTH_SCREEN ],<br>  &emsp;&emsp;"event"&emsp;&emsp;&emsp;&emsp;:(NSString *) ENTRY <br>} |
+
 
 ## Retrieving Operations
 
