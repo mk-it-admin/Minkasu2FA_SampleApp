@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+
+    <!--START Minkasu2FA  -->
+    <color name="mkActionBarColor">#3F51B5</color>
+    <color name="mkActionBarTextColor">#ffffff</color>
+    <color name="mkButtonBackground">#3F51B5</color>
+    <color name="mkButtonTextColor">#ffffff</color>
+    <!--END Minkasu2FA  -->
+</resources>
