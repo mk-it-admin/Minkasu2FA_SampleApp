@@ -13,11 +13,6 @@ import org.json.JSONObject;
 
 public class Utils {
 
-    public static void initMinkasu2FA(Activity activity, Config config, WebView webview){
-        //Initialize Minkasu 2FA SDK with the Config object and the Webview
-        Minkasu2faSDK.init(activity,config,webview);
-    }
-
     public static void initMinkasu2FAWithCallback(Activity activity, Config config, WebView webview){
         //Initialize Minkasu 2FA SDK with the Config object and the Webview and Minkasu2faCallback
         Minkasu2faSDK.init(activity, config,webview, new Minkasu2faCallback() {
