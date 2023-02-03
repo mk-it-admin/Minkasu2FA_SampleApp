@@ -182,7 +182,7 @@ To retrieve the list of operations, execute the following code to get the curren
 NSMutableArray *minkasu2FAOperations = [Minkasu2FA getAvailableMinkasu2FAOperations];
 ```
 
-## Implementing Operations
+## OPTIONAL - Implementing Operations
 
 Implement the following code to execute an operation.
 
