@@ -65,8 +65,8 @@ class ViewController: UIViewController, WKUIDelegate {
         //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
         //merchant_customer_id is a unique id associated with the currently logged in user.
         config = Minkasu2FAConfig()
-        config._id = <merchant_id>
-        config.token = <merchant_access_token>
+        config._id = <partner_id>
+        config.token = <partner_access_token>
         config.partnerInfo = partnerInfo
         config.merchantCustomerId = <merchant_customer_id>
         //add customer to the Config object
