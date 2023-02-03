@@ -1,0 +1,5 @@
+target 'SampleAppWKWebView' do
+
+  pod 'Minkasu2FA', '~>3.0.0'
+
+end
