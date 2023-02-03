@@ -85,7 +85,6 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     Minkasu2FAConfig *config = [Minkasu2FAConfig new];
-    config.delegate = self;
     config._id = <merchant_id>;
     config.token = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
@@ -141,7 +140,7 @@ mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
 - merchant_customer_id is a unique id associated with the currently logged in user
 - Initialize the SDK by calling ```[self initMinkasu2FA];``` before the Payment is initiated.
 
-## Implementing Minkasu2FACallback Delegate Method
+## OPTIONAL - Implementing Minkasu2FACallback Delegate Method
 
 1.&emsp;Conforming to Minkasu2FACallbackDelegate Protocol ```<Minkasu2FACallbackDelegate>``` on your ViewController class which initializes Minkasu2FA iOS SDK.<br>
 2.&emsp;Setting the delegate in Minkasu2FAConfig. ``` config.delegate = self;```<br>
@@ -165,7 +164,7 @@ Class Minkasu2faCallbackInfo
 | data             | NSDictionary    | If infoType is RESULT, the following Dictionary will be returned:<br>{<br>  &emsp;&emsp;"reference_id"&emsp;:(NSString *) <minkasu_transaction_ref>, <br>  &emsp;&emsp;"status”&emsp;&emsp;&emsp;&emsp;:(NSString *) [  SUCCESS<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| FAILED<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| TIMEOUT<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| CANCELLED<br>                                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| DISABLED ],<br>  &emsp;&emsp;"auth_type"&emsp;&emsp;  :(NSString *) [  PayPin<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| Fingerprint<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| Face ], <br>  &emsp;&emsp;"source"&emsp;&emsp;&emsp;&emsp;:(NSString *) [ SDK<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| SERVER<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| BANK ], <br>  &emsp;&emsp;"code"&emsp;&emsp;&emsp;&emsp;&emsp;:(NSInteger) <result/error_code>,<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;0 – Success<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;5001 - Phone number mismatch<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;5500 - Screen   close<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;5501 - Forgot PayPIN<br>                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6508 - PayPIN   attempts exceed<br>                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6514 - Setup   code timeout<br>                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6515 - OTP   attempts exceeded<br>                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;6518 - Insufficient   balance     <br>  &emsp;&emsp;"message"&emsp;&emsp;&emsp;:(NSString *) <result/error_message> // See above messages<br>}<br>   <br>If infoType is EVENT, the following Dictionary will be returned:<br>{<br>&emsp;&emsp;"reference_id"&emsp;:(NSString *) <minkasu_transaction_ref>, <br>&emsp;&emsp;"screen"&emsp;&emsp;&emsp;&emsp;:(NSString *) [ FTU_SETUP_CODE_SCREEN<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| FTU_AUTH_SCREEN<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\| REPEAT_AUTH_SCREEN ],<br>  &emsp;&emsp;"event"&emsp;&emsp;&emsp;&emsp;:(NSString *) ENTRY <br>} |
 
 
-## Retrieving Operations
+## OPTIONAL - Retrieving Operations
 
 Following is the list of Minkasu 2FA Operations available.
 
