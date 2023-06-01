@@ -3,7 +3,7 @@
 ## Setup
 
 - The minimum requirements for the SDK are:
-    - iOS 10.0 and higher
+    - iOS 13.0 and higher
     - Internet connection
 - The following architectures are supported in the SDK:
     - armv7 and arm64 for devices
