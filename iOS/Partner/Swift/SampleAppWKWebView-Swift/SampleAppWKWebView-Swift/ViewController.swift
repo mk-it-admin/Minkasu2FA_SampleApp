@@ -107,11 +107,13 @@ class ViewController: UIViewController, WKUIDelegate {
         config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
         //Initializing Minkasu2FA SDK with WKWebView object
-        do {
-            try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
-        } catch let error as NSError {
-            //Minkasu init failed - handle error
-            print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
+        if #available(iOS 13, *) {
+            do {
+                try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+            } catch let error as NSError {
+                //Minkasu init failed - handle error
+                print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
+            }
         }
     }
 
