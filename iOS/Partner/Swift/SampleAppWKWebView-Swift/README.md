@@ -3,7 +3,7 @@
 ## Setup
 
 - The minimum requirements for the SDK are:
-    - iOS 10.0 and higher
+    - iOS 13.0 and higher
     - Internet connection
 - The following architectures are supported in the SDK:
     - armv7 and arm64 for devices
@@ -25,7 +25,7 @@
 
 Add dependency to Package.swift into dependencies section
 ```Swift
-.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "3.0.0")),
+.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "3.1.0")),
 ```
 
 #### Manual way
@@ -152,11 +152,13 @@ func initMinkasu2FA(){
     config.sdkMode = Minkasu2FASDKMode.MINKASU2FA_SANDBOX_MODE
 
     //Initializing Minkasu2FA SDK with WKWebView object
-    do {
-        try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
-    } catch let error as NSError {
-        //Minkasu init failed - handle error
-        print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
+    if #available(iOS 13, *) {
+        do {
+            try Minkasu2FA.initWith(wkWebView, andConfiguration: config)
+        } catch let error as NSError {
+            //Minkasu init failed - handle error
+            print("Minkasu init failed error with domain: \(error.domain) and description \(error.localizedDescription)")
+        }
     }
 }
 ```

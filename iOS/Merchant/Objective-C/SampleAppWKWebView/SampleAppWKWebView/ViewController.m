@@ -114,14 +114,16 @@
     //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
     config.sdkMode = MINKASU2FA_SANDBOX_MODE;
 
-    NSError *error = nil;
     //Initializing Minkasu2FA SDK with WKWebView object
-    BOOL result = [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config error:&error];
-    if (result) {
-        //Minkasu init success
-    } else {
-        //Minkasu init failed - handle error
-        NSLog(@"Minkasu init failed with error domain: %@ and description: %@",error.domain,error.localizedDescription);
+    if (@available(iOS 13, *)){
+        NSError *error = nil;
+        BOOL result = [Minkasu2FA initWithWKWebView:_wkWebView andConfiguration:config error:&error];
+        if (result) {
+            //Minkasu init success
+        } else {
+            //Minkasu init failed - handle error
+            NSLog(@"Minkasu init failed with error domain: %@ and description: %@",error.domain,error.localizedDescription);
+        }
     }
 }
 //****END Minkasu2FA Code***************
