@@ -237,5 +237,5 @@ Class Minkasu2faCallbackInfo
 ## Revision History
 | **Version**     | **Date**            | **Summary of Change**                                                           | **Prepared By**                            | **Approved By**                       |
 |:-----------:    |-----------------    |-----------------------------------------------------------------------------    |----------------------------------------    |-----------------------------------    |
-|  <br>3.1.0      |  <br>5 Jun 2023     | <br>• The minimum requirement for the SDK changed to<br>iOS 13.0 and higher.     | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
-|  <br>3.0.0      | <br>15 Feb 2023     | <br>• Initial release.                                                           | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
+|  <br>3.1.0      |  <br>4 Jun 2023     | <br>• The minimum requirement for the SDK changed to<br>iOS 13.0 and higher.     | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
+|  <br>3.0.0      | <br>3 Feb 2023     | <br>• Initial release.                                                           | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
