@@ -1,6 +1,9 @@
 package com.minkasu.twofasample;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +17,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.minkasu.android.twofa.model.Address;
+import com.minkasu.android.twofa.model.Config;
+import com.minkasu.android.twofa.model.CustomerInfo;
+import com.minkasu.android.twofa.model.OrderInfo;
 import com.minkasu.android.twofa.sdk.Minkasu2faCallback;
 import com.minkasu.android.twofa.sdk.Minkasu2faCallbackInfo;
 import com.minkasu.android.twofa.sdk.Minkasu2faSDK;
-import com.minkasu.android.twofa.model.Config;
-import com.minkasu.android.twofa.model.Address;
-import com.minkasu.android.twofa.model.CustomerInfo;
-import com.minkasu.android.twofa.model.OrderInfo;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -41,7 +46,26 @@ public class AuthPayFragment extends Fragment {
     private EditText mCustomerPhone;
     private LinearLayout llActions;
     private Config config;
+    private LinearLayout progressLay;
+    private boolean redirectUrlLoading = false;
+    private static final int PROGRESS_SHOW = 10231;
+    private static final int PROGRESS_DISMISS = 10232;
 
+    private final Handler progressHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == PROGRESS_DISMISS) {
+                //Log.e("Progress Indicator", "Progress Indicator Dismiss");
+                if (progressLay.getVisibility() == View.VISIBLE) {
+                    progressLay.setVisibility(View.GONE);
+                }
+            } else if (msg.what == PROGRESS_SHOW) {
+                //Log.e("Progress Indicator", "Progress Indicator Show");
+                progressLay.setVisibility(View.VISIBLE);
+            }
+            return false;
+        }
+    });
     private void loadUrl(String url) {
         String host = "https://sandbox.minkasupay.com";      // Sandbox Mode
         // String host = "https://transactions.minkasupay.com"; // Production Mode
@@ -72,11 +96,28 @@ public class AuthPayFragment extends Fragment {
         mCreditPayButton = inflatedView.findViewById(R.id.pay_credit_button);
         mCustomerPhone = inflatedView.findViewById(R.id.customer_phone);
         llActions = inflatedView.findViewById(R.id.llActions);
+        progressLay = inflatedView.findViewById(R.id.progressLay);
         mWebView.setWebViewClient(new WebViewClient());        // to handle clicks within WebView
         mWebView.setWebChromeClient(new WebChromeClient());    // to show javascript alerts
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if(redirectUrlLoading){
+                    //Log.e("Progress Indicator", "Progress Indicator Hide Inside webviewclient");
+                    redirectUrlLoading = false;
+                    progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS,1000);
+                }
+            }
+        });
         //Loading Bank Login URL manually for testing purposes. Payment Gateway loads URL on the webview in live.
         //Net Banking Flow
         if (mNetPayButton != null) {
@@ -178,7 +219,70 @@ public class AuthPayFragment extends Fragment {
             config.setOrderInfo(orderInfo);
 
             //Initialize Minkasu 2FA SDK with the Config object and the Webview
-            Minkasu2faSDK.init(requireActivity(),config,mWebView);
+            //Minkasu2faSDK.init(requireActivity(), config, mWebView);
+
+
+            //Initialize Minkasu 2FA SDK with the Config object, Webview and callback
+            Minkasu2faSDK.init(requireActivity(),config,mWebView, new Minkasu2faCallback() {
+                @Override
+                public void handleInfo(Minkasu2faCallbackInfo callbackInfo) {
+                    try {
+                        int infoType = callbackInfo.getInfoType();
+                        JSONObject payload = callbackInfo.getData();
+                        Log.e("Minkasu Callback Type", String.valueOf(infoType));
+                        if (infoType == Minkasu2faCallbackInfo.INFO_TYPE_RESULT) {
+
+                        /*{
+                          "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                          "status": "<SUCCESS|FAILED|TIMEOUT|CANCELLED|DISABLED>", // Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.MK2FA_SUCCESS
+                          "source": "<SDK|SERVER|BANK>", // Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.SOURCE_SDK
+                          "code": <result/error code>, // 0 => Status SUCCESS, Non-zero values => Other status . Available constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.<SCREEN_CLOSE_5500>
+                          "message": "<result/error message>"
+                        }*/
+
+                            Log.e("Minkasu Result", payload != null ? payload.toString() : "no result");
+                        } else if (infoType == Minkasu2faCallbackInfo.INFO_TYPE_EVENT) {
+
+                        /*{
+                          "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                          "screen": "<FTU_SETUP_CODE_SCREEN|FTU_AUTH_SCREEN|REPEAT_AUTH_SCREEN>",// Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.FTU_SETUP_CODE_SCREEN
+                          "event": "<ENTRY>"// Constants are defined in Minkasu2faCallbackInfo class for reference such as Minkasu2faCallbackInfo.ENTRY_EVENT
+                        }*/
+
+
+
+                            Log.e("Minkasu Event", payload != null ? payload.toString() : "no event");
+                        } else if (infoType == Minkasu2faCallbackInfo.INFO_TYPE_PROGRESS) {
+
+                        /*{
+                          "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                          "visibility": "<true/false>",
+                          "start_timer": "<true/false>",
+                          "redirect_url_loading":"<true/false>"
+                        }*/
+
+                            if (payload.has("visibility")) {
+                                boolean visibility = payload.getBoolean("visibility");
+                                progressHandler.removeCallbacksAndMessages(null);
+                                redirectUrlLoading = false;
+                                if (visibility) {
+                                    progressHandler.sendEmptyMessage(PROGRESS_SHOW);
+                                    if (payload.optBoolean("start_timer")) {
+                                        progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS, 5000);
+                                    }
+                                    redirectUrlLoading = payload.optBoolean("redirect_url_loading");
+                                } else {
+                                    progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS, 1000);
+                                }
+                            }
+                            Log.e("Progress Indicator", payload != null ? payload.toString() : "no progress state");
+
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
         }
         catch(Exception e){
             Log.i("Exception",e.toString());
