@@ -207,7 +207,7 @@ Please make sure the merchant_customer_id is a unique id associated with the cur
     } else if (minkasu2FACallbackInfo.infoType == 2) { // INFO_TYPE_EVENT
         // Refer data format in table below
     } else if (minkasu2FACallbackInfo.infoType == 3) { // INFO_TYPE_PROGRESS
-     // Refer data format in table below
+        // Refer data format in table below
     } 
 }
 ```
