@@ -116,7 +116,8 @@ public class AuthPayFragment extends Fragment {
                 if(redirectUrlLoading){
                     //Log.e("Progress Indicator", "Progress Indicator Hide Inside webviewclient");
                     redirectUrlLoading = false;
-                    progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS,1000);
+                    progressHandler.sendEmptyMessage(PROGRESS_DISMISS);
+                    //progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS,1000); // Enable to check the progress bar implementation
                 }
             }
         });
@@ -276,7 +277,8 @@ public class AuthPayFragment extends Fragment {
                                     }
                                     redirectUrlLoading = payload.optBoolean("redirect_url_loading");
                                 } else {
-                                    progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS, 1000);
+                                    progressHandler.sendEmptyMessage(PROGRESS_DISMISS);
+                                    //progressHandler.sendEmptyMessageDelayed(PROGRESS_DISMISS,1000); // Enable to check the progress bar implementation
                                 }
                             }
                             Log.e("Progress Indicator", payload != null ? payload.toString() : "no progress state");
