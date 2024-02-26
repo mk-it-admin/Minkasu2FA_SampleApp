@@ -7,5 +7,6 @@
     <color name="mkActionBarTextColor">#ffffff</color>
     <color name="mkButtonBackground">#3F51B5</color>
     <color name="mkButtonTextColor">#ffffff</color>
+    <color name="mkProgressBarColor">#3F51B5</color>
     <!--END Minkasu2FA  -->
 </resources>
