@@ -74,6 +74,7 @@
     //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
     //merchant_customer_id is a unique id associated with the currently logged in user.
     config = [Minkasu2FAConfig new];
+    config.delegate = self;
     config._id = <merchant_id>;
     config.token = <merchant_access_token>;
     config.merchantCustomerId =<merchant_customer_id>;
@@ -219,4 +220,16 @@
     }
 }
 
+#pragma mark Minkasu2FACallback Delegate
+
+- (void)minkasu2FACallback:(Minkasu2FACallbackInfo *)minkasu2FACallbackInfo {
+    
+    if (minkasu2FACallbackInfo.infoType == 1) { // INFO_TYPE_RESULT
+        // Refer data format in table below
+    } else if (minkasu2FACallbackInfo.infoType == 2) { // INFO_TYPE_EVENT
+        // Refer data format in table below
+    } else if (minkasu2FACallbackInfo.infoType == 3) { // INFO_TYPE_PROGRESS
+        // Refer data format in table below
+    }
+}
 @end

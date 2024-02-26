@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@interface ViewController : UIViewController<WKUIDelegate, NSURLConnectionDataDelegate>
+@interface ViewController : UIViewController<WKUIDelegate, NSURLConnectionDataDelegate,Minkasu2FACallbackDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnNetBanking;
 @property (weak, nonatomic) IBOutlet UIButton *btnCreditDebit;
