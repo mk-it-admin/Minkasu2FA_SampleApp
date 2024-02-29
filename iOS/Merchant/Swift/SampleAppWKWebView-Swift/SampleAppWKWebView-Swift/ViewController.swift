@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import Minkasu2FA
 
-class ViewController: UIViewController, WKUIDelegate {
+class ViewController: UIViewController, WKUIDelegate , Minkasu2FACallbackDelegate {
 
     @IBOutlet weak var btnNetBanking: UIButton!
     @IBOutlet weak var btnCreditDebit: UIButton!
@@ -59,6 +59,7 @@ class ViewController: UIViewController, WKUIDelegate {
         //Create the Config object with merchant_id, merchant_access_token, merchant_customer_id and customer object.
         //merchant_customer_id is a unique id associated with the currently logged in user.
         config = Minkasu2FAConfig()
+        config.delegate = self
         config._id = <merchant_id>
         config.token = <merchant_access_token>
         config.merchantCustomerId = <merchant_customer_id>
@@ -184,6 +185,16 @@ class ViewController: UIViewController, WKUIDelegate {
             }
 
             self.present(menuOptionsActionSheet, animated: true, completion: nil)
+        }
+    }
+    
+    func minkasu2FACallback(_ minkasu2FACallbackInfo: Minkasu2FACallbackInfo) {
+        if minkasu2FACallbackInfo.infoType == 1{  // INFO_TYPE_RESULT
+            // Refer data format in table below.
+        } else if minkasu2FACallbackInfo.infoType == 2{  // INFO_TYPE_EVENT
+            // Refer data format in table below.
+        } else if minkasu2FACallbackInfo.infoType == 3{  // INFO_TYPE_PROGRESS
+            // Refer data format in table below.
         }
     }
 }
