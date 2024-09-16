@@ -98,8 +98,6 @@
     Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
     mkcolorTheme.navigationBarColor = UIColor.blueColor;
     mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
-    mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
-    mkcolorTheme.buttonTextColor = UIColor.whiteColor;
     
     //Set supportDarkMode to true if the Merchant App supports Dark Mode
     mkcolorTheme.supportDarkMode = true;
@@ -107,8 +105,6 @@
     //Use this to set a separate color theme for Dark mode
     mkcolorTheme.darkModeNavigationBarColor = UIColor.purpleColor;
     mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
-    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purpleColor;
-    mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     
     config.customTheme = mkcolorTheme;
 
@@ -160,8 +156,6 @@
             Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
             mkcolorTheme.navigationBarColor = UIColor.blueColor;
             mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
-            mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
-            mkcolorTheme.buttonTextColor = UIColor.whiteColor;
             
             //Set supportDarkMode to true if the Merchant App supports Dark Mode
             mkcolorTheme.supportDarkMode = true;
@@ -169,8 +163,6 @@
             //Use this to set a separate color theme for Dark mode
             mkcolorTheme.darkModeNavigationBarColor = UIColor.purpleColor;
             mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
-            mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purpleColor;
-            mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
 
             UIAlertAction *action = nil;
             if(operation.intValue == MINKASU2FA_CHANGE_PAYPIN) {

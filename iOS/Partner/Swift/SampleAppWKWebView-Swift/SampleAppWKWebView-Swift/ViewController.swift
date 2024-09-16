@@ -90,8 +90,6 @@ class ViewController: UIViewController, WKUIDelegate, Minkasu2FACallbackDelegate
         let mkColorTheme = Minkasu2FACustomTheme()
         mkColorTheme.navigationBarColor = UIColor.blue
         mkColorTheme.navigationBarTextColor = UIColor.white
-        mkColorTheme.buttonBackgroundColor = UIColor.blue
-        mkColorTheme.buttonTextColor = UIColor.white
         
         //Set supportDarkMode to true if the Merchant App supports Dark Mode
         mkColorTheme.supportDarkMode = true
@@ -99,8 +97,6 @@ class ViewController: UIViewController, WKUIDelegate, Minkasu2FACallbackDelegate
         //Use this to set a separate color theme for Dark mode
         mkColorTheme.darkModeNavigationBarColor = UIColor.purple
         mkColorTheme.darkModeNavigationBarTextColor = UIColor.white
-        mkColorTheme.darkModeButtonBackgroundColor = UIColor.purple
-        mkColorTheme.darkModeButtonTextColor = UIColor.white
         
         config.customTheme = mkColorTheme
 
@@ -144,8 +140,6 @@ class ViewController: UIViewController, WKUIDelegate, Minkasu2FACallbackDelegate
                 let mkColorTheme = Minkasu2FACustomTheme()
                 mkColorTheme.navigationBarColor = UIColor.blue
                 mkColorTheme.navigationBarTextColor = UIColor.white
-                mkColorTheme.buttonBackgroundColor = UIColor.blue
-                mkColorTheme.buttonTextColor = UIColor.white
                 
                 //Set supportDarkMode to true if the Merchant App supports Dark Mode
                 mkColorTheme.supportDarkMode = true
@@ -153,8 +147,6 @@ class ViewController: UIViewController, WKUIDelegate, Minkasu2FACallbackDelegate
                 //Use this to set a separate color theme for Dark mode
                 mkColorTheme.darkModeNavigationBarColor = UIColor.purple
                 mkColorTheme.darkModeNavigationBarTextColor = UIColor.white
-                mkColorTheme.darkModeButtonBackgroundColor = UIColor.purple
-                mkColorTheme.darkModeButtonTextColor = UIColor.white
 
                 var action : UIAlertAction!
                 if (operation == Int(Minkasu2FAOperationType.MINKASU2FA_CHANGE_PAYPIN.rawValue)){
