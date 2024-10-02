@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import <Minkasu2FA/Minkasu2FAHeader.h>
 
 @interface ViewController ()
 
@@ -131,7 +130,7 @@
     [self initMinkasu2FA];
     
     NSString *encodedCustomerPhone = [config.customerInfo.phone stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
-    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%@", encodedCustomerPhone];
+    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/nb_login.htm?bankPhone=%@", encodedCustomerPhone];
     NSURL *nsurl=[NSURL URLWithString:paymentURL];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
@@ -142,7 +141,7 @@
     [self initMinkasu2FA];
     
     NSString *encodedCustomerPhone = [config.customerInfo.phone stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
-    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%@", encodedCustomerPhone];
+    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/card.html?bankPhone=%@", encodedCustomerPhone];
     NSURL *nsurl=[NSURL URLWithString:paymentURL];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import <Minkasu2FA/Minkasu2FAHeader.h>
 
 @interface ViewController : UIViewController<WKUIDelegate, NSURLConnectionDataDelegate, Minkasu2FACallbackDelegate>
 
