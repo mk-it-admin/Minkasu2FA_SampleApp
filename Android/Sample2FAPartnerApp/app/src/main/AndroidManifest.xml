@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name="com.minkasu.android.twofa.sdk.MinkasuSDKActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|keyboardHidden|uiMode|layoutDirection|smallestScreenSize"
             android:theme="@style/Mk2FASDKtheme" />
     </application>
 
