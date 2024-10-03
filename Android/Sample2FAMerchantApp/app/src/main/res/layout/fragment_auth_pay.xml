@@ -41,7 +41,7 @@
         android:id="@+id/progressLay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/hint_color"
+        android:background="@color/mkBlack_50"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/sa_size_30"
             android:layout_marginBottom="@dimen/sa_size_30"
-            android:indeterminateTint="@color/mkProgressBarColor"
+            android:indeterminateTint="@color/mkProgress"
             android:indeterminateTintMode="src_in" />
 
         <androidx.appcompat.widget.AppCompatTextView
