@@ -25,7 +25,7 @@
 
 Add dependency to Package.swift into dependencies section
 ```Swift
-.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "3.1.0")),
+.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "4.0.0")),
 ```
 
 #### Manual way
@@ -69,8 +69,6 @@ Add NSFaceIDUsageDescription to Info.plist
 let mkColorTheme = Minkasu2FACustomTheme()
 mkColorTheme.navigationBarColor = UIColor.blue
 mkColorTheme.navigationBarTextColor = UIColor.white
-mkColorTheme.buttonBackgroundColor = UIColor.blue
-mkColorTheme.buttonTextColor = UIColor.white
 
 //Set supportDarkMode to true if the Merchant App supports Dark Mode
 mkcolorTheme.supportDarkMode = true
@@ -78,8 +76,6 @@ mkcolorTheme.supportDarkMode = true
 //Use this to set a separate color theme for Dark mode
 mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
 mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
-mkcolorTheme.darkModeButtonTextColor = UIColor.white
 ```
 - Add following code to your ViewController to initialize Minkasu2FA SDK. You can initialize Minkasu2FA SDK with the WKWebView object and merchant's ViewController. The following code must be executed before making a payment to enable Minkasu 2FA.
 
@@ -134,8 +130,6 @@ func initMinkasu2FA(){
     let mkColorTheme = Minkasu2FACustomTheme()
     mkColorTheme.navigationBarColor = UIColor.blue
     mkColorTheme.navigationBarTextColor = UIColor.white
-    mkColorTheme.buttonBackgroundColor = UIColor.blue
-    mkColorTheme.buttonTextColor = UIColor.white
 
     //Set supportDarkMode to true if the Merchant App supports Dark Mode
     mkcolorTheme.supportDarkMode = true
@@ -143,8 +137,6 @@ func initMinkasu2FA(){
     //Use this to set a separate color theme for Dark mode
     mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
     mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
-    mkcolorTheme.darkModeButtonTextColor = UIColor.white
     
     config.customTheme = mkColorTheme;
 
@@ -219,8 +211,6 @@ Implement the following code to execute an operation.
 let mkColorTheme = Minkasu2FACustomTheme();
 mkColorTheme.navigationBarColor = UIColor.blue
 mkColorTheme.navigationBarTextColor = UIColor.white
-mkColorTheme.buttonBackgroundColor = UIColor.blue
-mkColorTheme.buttonTextColor = UIColor.white
 
 //Set supportDarkMode to true if the Merchant App supports Dark Mode
 mkcolorTheme.supportDarkMode = true
@@ -228,8 +218,6 @@ mkcolorTheme.supportDarkMode = true
 //Use this to set a separate color theme for Dark mode
 mkcolorTheme.darkModeNavigationBarColor = UIColor.purple
 mkcolorTheme.darkModeNavigationBarTextColor = UIColor.white
-mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purple
-mkcolorTheme.darkModeButtonTextColor = UIColor.white
 
 Minkasu2FA.perform(Minkasu2FAOperationType.<OPERATION TYPE>, merchantCustomerId: <merchant_customer_id>, customTheme: mkColorTheme)
 ```
@@ -239,6 +227,7 @@ Please make sure the merchant_customer_id is a unique id associated with the cur
 ## Revision History
 | **Version**     | **Date**            | **Summary of Change**                                                                                                                                                                                                                                                                                                                               | **Prepared By**                            | **Approved By**                       |
 |:-----------:    |-----------------    |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    |----------------------------------------    |-----------------------------------    |
+|  <br>4.0.0      |  <br>02 Oct 2024    | <br>• Updated color theme to remove button color customization                               | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>3.2.1      |  <br>30 Apr 2024     | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>3.2.0      |  <br>26 Feb 2024     | <br>• Enhanced Minkasu2FACallbackInfo to support INFO_TYPE_PROGRESS to indicate whether Partner's iOS SDK should show/dismiss progress indicator before/after the Minkasu 2FA flow.                                                                                                                                                                                                                                                                         | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>3.1.0      |  <br>4 Jun 2023     | <br>• The minimum requirement for the SDK changed to<br>iOS 13.0 and higher.                                                                                                                                                                                                                                                                         | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |

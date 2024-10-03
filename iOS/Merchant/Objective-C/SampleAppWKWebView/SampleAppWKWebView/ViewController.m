@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import <Minkasu2FA/Minkasu2FAHeader.h>
 
 @interface ViewController ()
 
@@ -98,8 +97,6 @@
     Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
     mkcolorTheme.navigationBarColor = UIColor.blueColor;
     mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
-    mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
-    mkcolorTheme.buttonTextColor = UIColor.whiteColor;
     
     //Set supportDarkMode to true if the Merchant App supports Dark Mode
     mkcolorTheme.supportDarkMode = true;
@@ -107,8 +104,6 @@
     //Use this to set a separate color theme for Dark mode
     mkcolorTheme.darkModeNavigationBarColor = UIColor.purpleColor;
     mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
-    mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purpleColor;
-    mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
     
     config.customTheme = mkcolorTheme;
 
@@ -135,7 +130,7 @@
     [self initMinkasu2FA];
     
     NSString *encodedCustomerPhone = [config.customerInfo.phone stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
-    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=%@", encodedCustomerPhone];
+    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone=%@", encodedCustomerPhone];
     NSURL *nsurl=[NSURL URLWithString:paymentURL];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
@@ -146,7 +141,7 @@
     [self initMinkasu2FA];
     
     NSString *encodedCustomerPhone = [config.customerInfo.phone stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet];
-    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=%@", encodedCustomerPhone];
+    NSString *paymentURL = [NSString stringWithFormat:@"https://sandbox.minkasupay.com/demo/card.html?bankPhone=%@", encodedCustomerPhone];
     NSURL *nsurl=[NSURL URLWithString:paymentURL];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
@@ -160,8 +155,6 @@
             Minkasu2FACustomTheme *mkcolorTheme = [Minkasu2FACustomTheme new];
             mkcolorTheme.navigationBarColor = UIColor.blueColor;
             mkcolorTheme.navigationBarTextColor = UIColor.whiteColor;
-            mkcolorTheme.buttonBackgroundColor = UIColor.blueColor;
-            mkcolorTheme.buttonTextColor = UIColor.whiteColor;
             
             //Set supportDarkMode to true if the Merchant App supports Dark Mode
             mkcolorTheme.supportDarkMode = true;
@@ -169,8 +162,6 @@
             //Use this to set a separate color theme for Dark mode
             mkcolorTheme.darkModeNavigationBarColor = UIColor.purpleColor;
             mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
-            mkcolorTheme.darkModeButtonBackgroundColor = UIColor.purpleColor;
-            mkcolorTheme.darkModeButtonTextColor = UIColor.whiteColor;
 
             UIAlertAction *action = nil;
             if(operation.intValue == MINKASU2FA_CHANGE_PAYPIN) {
