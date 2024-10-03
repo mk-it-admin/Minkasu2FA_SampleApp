@@ -111,7 +111,7 @@ class ViewController: UIViewController, WKUIDelegate , Minkasu2FACallbackDelegat
         initMinkasu2FA()
         
         let encodedCustomerPhone = config.customerInfo.phone.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
-        let paymentURL = "https://sandbox.minkasupay.com/demo/nb_login.htm?bankPhone="+encodedCustomerPhone!
+        let paymentURL = "https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone="+encodedCustomerPhone!
         let url = URL(string: paymentURL)
         wkWebView.load(URLRequest(url: url!))
     }
