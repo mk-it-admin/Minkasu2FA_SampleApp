@@ -136,12 +136,12 @@ public class AuthPayFragment extends Fragment {
                         } catch (UnsupportedEncodingException io) {
                             System.out.println(io.getMessage());
                         }
-                        loadUrl("/demo/Bank_Internet_Banking_login.htm?bankPhone=" + encodedPhone);
+                        loadUrl("/demo/nb_login.html?bankPhone=" + encodedPhone);
 
                     } else {
                         Toast.makeText(getActivity(), "Device is Rooted"
                                 , Toast.LENGTH_LONG).show();
-                        loadUrl("/demo/Bank_Internet_Banking_login.htm");
+                        loadUrl("/demo/nb_login.html");
                     }
                 }
             });
@@ -161,11 +161,11 @@ public class AuthPayFragment extends Fragment {
                         } catch (UnsupportedEncodingException io) {
                             System.out.println(io.getMessage());
                         }
-                        loadUrl("/demo/Welcome_to_Net.html?bankPhone=" + encodedPhone);
+                        loadUrl("/demo/card.html?bankPhone=" + encodedPhone);
                     }else{
                         Toast.makeText(getActivity(), "Device is Rooted"
                                 , Toast.LENGTH_LONG).show();
-                        loadUrl("/demo/Welcome_to_Net.html");
+                        loadUrl("/demo/card.html");
                     }
                 }
             });
