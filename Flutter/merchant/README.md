@@ -27,32 +27,19 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 
 ### Getting Started
 
-1. **Installation**
-   Add the following to your project's `pubspec.yaml` file:
-
-   ```yaml
-   dependencies:
-     minkasu2fa_flutter_plugin: ^1.0.0
-   ```
-   Then run:
-   ```bash
-   flutter pub get
-   ```
-
-   Install iOS native dependencies:
-
-   ```bash
-   cd iOS/
-   pod install
-   ```
-
-2. **iOS Configurations**
+1. **iOS Configurations**
    Add support to use biometric authentication by adding the `Face ID Usage Description` in the `info.plist`
    ```swift
    <key>NSFaceIDUsageDescription</key>
    <string>Please allow AppName to use Face ID.</string>
    ```
-3. **Android Configurations**
+
+   Update the `Podfile` located at **ios/Podfile** to ensure the project supports iOS 13.0+. Add or modify the following line:
+   ```ruby
+   platform :ios, '13.0'
+   ```
+
+2. **Android Configurations**
     The `Minkasu2FA SDK` screens can be customized to fit your application’s look and feel. The following screen elements can be customized
 
    - Action Bar Title Color
@@ -65,6 +52,24 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
    <color name="mkActionBarColor">#3F51B5</color>
    <color name="mkActionBarTextColor">#ffffff</color>
    <!--END Minkasu2FA  -->
+   ```
+3. **Installation**
+   Add the following to your project's `pubspec.yaml` file:
+
+   ```yaml
+   dependencies:
+     minkasu2fa_flutter_plugin: ^1.0.0
+   ```
+   Then run:
+   ```bash
+   flutter pub get
+   ```
+   
+   Install iOS native dependencies:
+
+   ```bash
+   cd iOS/
+   pod install
    ```
 
 ### Minkasu2FA Models
