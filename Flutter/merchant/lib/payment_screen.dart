@@ -49,6 +49,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
 
+    /// Settings up WebView, Minkasu2FASDK and then loading the URL on the webview
     setUpWebView();
     setUpSDK();
     loadURL();
@@ -71,7 +72,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
       );
   }
 
+  /// This method will setup and initalize the Minkasu2FA SDK
   Future<void> setUpSDK() async {
+    /// Creating a Minkasu2FAAddress instance
+    ///
+    /// Not all the fields are required. Please take a look at `Minkasu2FAAddress` for more details
     const address = Minkasu2FAAddress(
       line1: "123 Test Way",
       line2: "Test Apartments",
@@ -81,6 +86,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
       zipCode: "400068",
     );
 
+    /// Creating a Minkasu2FACustomerInfo instance
+    ///
+    /// Not all the fields are required. Please take a look at `Minkasu2FACustomerInfo` for more details
     final customer = Minkasu2FACustomerInfo(
       firstName: "TestFirstName",
       lastName: "TestLastName",
@@ -89,6 +97,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
       address: address,
     );
 
+    /// Creating a Minkasu2FAOrderInfo instance
+    ///
+    /// Not all the fields are required. Please take a look at `Minkasu2FAOrderInfo` for more details
+    /// `orderDetails` is expecting a JSON String
     final order = Minkasu2FAOrderInfo(
       orderId: "<order_id>",
       // Optionally specify billing category and order details
@@ -100,6 +112,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
         },
       ),
     );
+
+    /// Creating a Minkasu2FACustomTheme instance
+    ///
+    /// Not all the fields are required. Please take a look at `Minkasu2FACustomTheme` for more details
+    /// This theme settings is for iOS only. For android please update the `colors.xml`
     const customTheme = Minkasu2FACustomTheme(
       navigationBarColor: Colors.blue,
       navigationBarTextColor: Colors.yellow,
@@ -110,6 +127,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
           true, // Set supportDarkMode to true if the Merchant App supports Dark Mode
     );
 
+    /// Creating a Minkasu2FAConfig instance
+    ///
+    /// Not all the fields are required. Please take a look at `Minkasu2FAConfig` for more details
     final config = Minkasu2FAConfig(
       id: "<merchant_id>",
       merchantCustomerId: "<merchant_customer_id>",
@@ -121,7 +141,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       customTheme: customTheme,
     );
 
-    //Initializing Minkasu2FA SDK with WebViewController object
+    //Initializing Minkasu2FA SDK with WebViewController object, the config object and the callback method
     await _minkasu2fa.initMinkasu2FASDK(
       _controller,
       config,
@@ -129,6 +149,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
+  /// This method will load an url on to the WebView
   Future<void> loadURL() async {
     _controller.loadRequest(
       Uri.parse(paymentURL()),
