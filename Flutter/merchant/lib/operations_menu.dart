@@ -18,8 +18,10 @@ class OperationsScreen extends StatefulWidget {
 }
 
 class _OperationsScreenState extends State<OperationsScreen> {
+  /// Initializing the Minkasu2FAFlutterPlugin instance
   final _minkasu2fa = Minkasu2faFlutterPlugin();
   final Color backgroundColor = const Color.fromRGBO(78, 164, 109, 1);
+
   List<Minkasu2FAOperationType> operations = [];
 
   void fetchOperations() async {
@@ -36,6 +38,10 @@ class _OperationsScreenState extends State<OperationsScreen> {
     final merchantCustomerId = widget.merchantCustomerId;
 
     /// Performing a Minkasu2FA Operation
+    ///
+    /// Please make sure the merchantCustomerId is a unique id associated with the
+    /// currently logged in user, and is the same id used in the payment flow.
+    /// The theme settings is for iOS only. Please update the `colors.xml` file for android theme settings
     await _minkasu2fa.performMinkasu2FAOperation(
       operation,
       merchantCustomerId,

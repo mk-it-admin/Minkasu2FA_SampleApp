@@ -26,9 +26,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final String customerPhoneNumber =
       "<customer_phone>"; // Format: +91XXXXXXXXXX (no spaces)
 
+  /// initializing the WebViewController instance
   final WebViewController _controller = WebViewController();
+
+  /// Initializing the Minkasu2FAFlutterPlugin instance
   final _minkasu2fa = Minkasu2faFlutterPlugin();
 
+  /// This method will be invoked by Minkasu2FAFlutterPlugin for every update
+  ///
+  /// This method will take a `Minkasu2FACallBackData` as an argument
   void callback(Minkasu2FACallBackData minkasuCallBackData) {
     if (minkasuCallBackData.infoType == 1) {
       // INFO_TYPE_RESULT
@@ -42,6 +48,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void initState() {
     super.initState();
+
     setUpWebView();
     setUpSDK();
     loadURL();
@@ -52,9 +59,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
+          onProgress: (int progress) {},
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
           onHttpError: (HttpResponseError error) {},
