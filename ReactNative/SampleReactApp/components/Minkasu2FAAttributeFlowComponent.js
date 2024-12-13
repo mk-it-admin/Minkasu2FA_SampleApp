@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { SafeAreaView, View, Alert, StyleSheet } from 'react-native';
-import Minkasu2FAWebView, { Minkasu2FAUIConstants } from 'react-native-minkasu2fa-webview';
+import WebView from 'react-native-webview';
+
+const Minkasu2FA = WebView.Minkasu2FA;
+let Minkasu2FAConstants = Minkasu2FA.Constants;
 
 export default class Minkasu2FAAttributeFlowComponent extends Component {
 
@@ -8,39 +11,43 @@ export default class Minkasu2FAAttributeFlowComponent extends Component {
         title: 'Minkasu 2FA Attribute Flow'
     }
 
-    state = {
-        sourceUrl: undefined
-    }
-
-    configObj = null;
-    webview = null;
-    isCardEnabled = false;
-
     constructor(props) {
         super(props);
-        const { route } = this.props;
-        if (route && route.params) {
-            this.configObj = route.params.configObj;
-            this.isCardEnabled = route.params.isCardEnabled;
+        this.webView = React.createRef();
+        this.state = {
+            sourceUrl: undefined,
+            configObj: null,
+            isCardEnabled: false
         }
     }
 
     componentDidMount() {
-        if (this.configObj == null) {
-            this.setSourceUrl();
+        try {
+            const { route } = this.props;
+            if (route && route.params) {
+                this.setState({ configObj: route.params.configObj, isCardEnabled: route.params.isCardEnabled }, () => {
+                    if (!this.state.configObj || this.state.configObj == null) {
+                        this.setSourceUrl();
+                    }
+                })
+            }
+            console.log('Component mounted');
+        }
+        catch (e) {
+            console.log(e.getMessage());
         }
     }
 
     setSourceUrl = () => {
         let url;
         let bankPhoneNumber = "";
-        if (this.configObj != null) {
-            bankPhoneNumber = this.configObj[Minkasu2FAUIConstants.CUSTOMER_INFO][Minkasu2FAUIConstants.CUSTOMER_PHONE];
+        if (this.state.configObj != null) {
+            bankPhoneNumber = this.state.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
             if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
                 bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
             }
         }
-        if (this.isCardEnabled) {
+        if (this.state.isCardEnabled) {
             url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
         } else {
             url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
@@ -51,14 +58,15 @@ export default class Minkasu2FAAttributeFlowComponent extends Component {
     onMinkasu2FAInit = (event) => {
         const data = event.nativeEvent;
         let errorMessage;
+        //console.log("Minkasu Initialization", data);
         if (data) {
-            const status = data[Minkasu2FAUIConstants.STATUS];
-            if (!status || (status && status == Minkasu2FAUIConstants.STATUS_FAILURE)) {
+            const status = data[Minkasu2FAConstants.STATUS];
+            if (!status || (status && status == Minkasu2FAConstants.STATUS_FAILURE)) {
                 errorMessage = "";
-                if (data[Minkasu2FAUIConstants.ERROR_CODE]) {
-                    errorMessage = data[Minkasu2FAUIConstants.ERROR_CODE] + " : ";
+                if (data[Minkasu2FAConstants.ERROR_CODE]) {
+                    errorMessage = data[Minkasu2FAConstants.ERROR_CODE] + " : ";
                 }
-                errorMessage += data[Minkasu2FAUIConstants.ERROR_MESSAGE];
+                errorMessage += data[Minkasu2FAConstants.ERROR_MESSAGE];
             }
         } else {
             errorMessage = "Minkasu 2FA is not initialized";
@@ -68,17 +76,64 @@ export default class Minkasu2FAAttributeFlowComponent extends Component {
         this.setSourceUrl();
     };
 
+    onMinkasu2FAResult = (event) => {
+        const data = event.nativeEvent;
+        //console.log("Minkasu Result", data);
+        let infoType = data[Minkasu2FAConstants.RESULT_INFO_TYPE];
+        let resultData = data[Minkasu2FAConstants.RESULT_DATA];
+        let result = resultData ? JSON.parse(resultData) : null;
+        if (infoType && result) {
+            if (infoType == Minkasu2FAConstants.INFO_TYPE_EVENT) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "screen": "<FTU_SETUP_CODE_SCREEN|FTU_AUTH_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
+                    "event": "<ENTRY>"
+                }
+                */
+                console.log("Minkasu Info Event", result);
+            } else if (infoType == Minkasu2FAConstants.INFO_TYPE_PROGRESS) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "visibility": "<true/false>",
+                    "start_timer": "<true/false>",
+                    "redirect_url_loading":"<true/false>"
+                }
+                */
+                console.log("Minkasu Info Progress", result);
+
+            } else if (infoType == Minkasu2FAConstants.INFO_TYPE_RESULT) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "status": "<SUCCESS|FAILED|TIMEOUT|CANCELLED|DISABLED>", 
+                    "source": "<SDK|SERVER|BANK>", 
+                    "code": <result/error code>, // 0 => Status SUCCESS, Non-zero values => Other status
+                    "message": "<result/error message>"
+                }
+                */
+                console.log("Minkasu Info Result", result);
+            }
+        }
+    }
+
     render() {
+        //console.log('Rendered');
         return (
             <>
                 <SafeAreaView style={styles.container}>
                     <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor: '#444' }}>
-                        <Minkasu2FAWebView
-                            ref={ref => (this.webview = ref)}
+                        <WebView
+                            ref={this.webView}
                             source={this.state.sourceUrl}
                             javaScriptEnabled={true}
-                            minkasu2FAConfig={this.configObj}
+                            minkasu2FAConfig={this.state.configObj}
+                            onLoadStart={(event) => {
+                                console.log("onLoadStart", event.nativeEvent);
+                            }}
                             onMinkasu2FAInit={this.onMinkasu2FAInit}
+                            onMinkasu2FAResult={this.onMinkasu2FAResult}
                         />
                     </View>
                 </SafeAreaView>
