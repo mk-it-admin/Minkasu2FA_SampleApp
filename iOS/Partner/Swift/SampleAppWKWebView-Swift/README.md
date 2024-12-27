@@ -25,7 +25,7 @@
 
 Add dependency to Package.swift into dependencies section
 ```Swift
-.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "4.0.0")),
+.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "4.1.0")),
 ```
 
 #### Manual way
@@ -227,6 +227,7 @@ Please make sure the merchant_customer_id is a unique id associated with the cur
 ## Revision History
 | **Version**     | **Date**            | **Summary of Change**                                                                                                                                                                                                                                                                                                                               | **Prepared By**                            | **Approved By**                       |
 |:-----------:    |-----------------    |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    |----------------------------------------    |-----------------------------------    |
+|  <br>4.1.0      |  <br>27 Dec 2024    | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>4.0.0      |  <br>02 Oct 2024    | <br>• Updated color theme to remove button color customization                               | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>3.2.1      |  <br>30 Apr 2024     | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>3.2.0      |  <br>26 Feb 2024     | <br>• Enhanced Minkasu2FACallbackInfo to support INFO_TYPE_PROGRESS to indicate whether Partner's iOS SDK should show/dismiss progress indicator before/after the Minkasu 2FA flow.                                                                                                                                                                                                                                                                         | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
