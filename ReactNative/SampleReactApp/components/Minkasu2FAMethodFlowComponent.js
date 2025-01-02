@@ -50,9 +50,9 @@ export default class Minkasu2FAMethodFlowComponent extends Component {
             }
         }
         if (this.state.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
+            url = { uri: "https://sandbox.minkasupay.com/demo/card.html?bankPhone=" + bankPhoneNumber };
         } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
+            url = { uri: "https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone=" + bankPhoneNumber }
         }
         this.setState({ sourceUrl: url });
     }

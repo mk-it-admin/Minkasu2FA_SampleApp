@@ -14,8 +14,7 @@ This document walks you through the steps to integrate Minkasu2FA Mobile SDK wit
 
 #### 1. Add react-native-webview to your dependencies
 
-The library [@mk-it-admin/react-native-webview](https://github.com/mk-it-admin/react-native-webview) is customized to support Minkasu2FA SDK by forking the [@react-native-webview/react-native-webview](https://github.com/react-native-webview/react-native-webview) library. Please ensure the previously installed `react-native-webview` is removed prior adding the forked library as dependency. 
-If installed, remove react-native-webview to your dependencies by running:
+The library [@mk-it-admin/react-native-webview](https://github.com/mk-it-admin/react-native-webview) is a customized fork of the [@react-native-webview/react-native-webview](https://github.com/react-native-webview/react-native-webview) library, tailored to support the Minkasu2FA SDK. Before adding this forked library as a dependency, ensure that any previously installed version of react-native-webview is removed. To remove react-native-webview from your dependencies, run the following command:
 ```
 $ npm uninstall --save react-native-webview
 ```
@@ -33,7 +32,7 @@ $ npm install --save mk-it-admin/react-native-webview.git#Minkasu2FAv2.0.0
 
 #### 3. Native Dependenices
 
-Since the library is built based on react-native >0.60, autolinking will take care of the link step, but don't forget to run `pod install`
+Since this library is built based on react-native >0.60, autolinking will take care of the link step, but don't forget to run `pod install`
 
 **iOS**
 
@@ -317,9 +316,9 @@ class Minkasu2FAAttributeFlowComponent extends Component {
             }
         }
         if (this.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
+            url = { uri: "https://sandbox.minkasupay.com/demo/card.html?bankPhone=" + bankPhoneNumber };
         } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
+            url = { uri: "https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone=" + bankPhoneNumber }
         }
         this.setState({ sourceUrl: url });
     }
@@ -456,9 +455,9 @@ class Minkasu2FAMethodFlowComponent extends Component {
             }
         }
         if (this.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
+            url = { uri: "https://sandbox.minkasupay.com/demo/card.html?bankPhone=" + bankPhoneNumber };
         } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
+            url = { uri: "https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone=" + bankPhoneNumber }
         }
         this.setState({ sourceUrl: url });
     }
