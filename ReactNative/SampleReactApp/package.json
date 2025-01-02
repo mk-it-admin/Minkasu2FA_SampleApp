@@ -20,7 +20,7 @@
     "react-native-reanimated": "^2.3.0-beta.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
-    "react-native-webview": "file:../../../../ReactNative/RNW/react-native-webview/react-native-webview-11.22.7.tgz"
+    "react-native-webview": "github:mk-it-admin/react-native-webview#mk2fa_v11227"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

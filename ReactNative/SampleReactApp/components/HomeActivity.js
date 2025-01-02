@@ -109,8 +109,8 @@ export default class Home extends Component {
         }; */
         let orderInfo = {
             [Minkasu2FAConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify
-            //[MK2FAConstants.CUSTOMER_BILLING_CATEGORY]: "FLIGHT",
-            //[MK2FAConstants.CUSTOMER_CUSTOM_DATA]: JSON.stringify(orderDetails),
+            //[Minkasu2FAConstants.CUSTOMER_BILLING_CATEGORY]: "FLIGHT",
+            //[Minkasu2FAConstants.CUSTOMER_CUSTOM_DATA]: JSON.stringify(orderDetails),
 
         };
         let configObj = {
