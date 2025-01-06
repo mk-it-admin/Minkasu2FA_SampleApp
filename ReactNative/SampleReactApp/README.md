@@ -11,8 +11,8 @@ This document walks you through the steps to integrate Minkasu 2FA Mobile SDK wi
 
 The minimum requirement for the library is
 
-- React (16.13.1)
-- React Native (0.63.3)
+- React (17.0.1)
+- React Native (0.64.1)
 - React Native Webview (11.6.5)
  
 ### Supported Platforms
@@ -445,7 +445,7 @@ class MyComponent extends Component {
     };
     
     getAvailableMinkasu2FAOperationTypes() {
-        Minkasu2FAWebViewModule.getAvailableMinkasu2faOperations()
+        Minkasu2FAWebViewModule.getAvailableMinkasu2FAOperations()
             .then((data) => {
                 this.setState({ availableMinkasu2FAOperationTypes: data });
             })
