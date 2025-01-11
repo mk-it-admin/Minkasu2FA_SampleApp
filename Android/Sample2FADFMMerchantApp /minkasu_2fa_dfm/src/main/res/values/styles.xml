@@ -1,0 +1,11 @@
+<resources>
+
+    <!--START Minkasu2FA
+    <style name="Minkasu2FACustomTheme" parent="Minkasu2FATheme"> -->
+    <style name="Minkasu2FACustomTheme" parent="AppTheme">
+        <item name="android:colorPrimary">@color/mkActionBarColor</item>
+        <item name="android:colorPrimaryDark">@color/mkActionBarColor</item>
+    </style>
+    <!--END Minkasu2FA  -->
+
+</resources>

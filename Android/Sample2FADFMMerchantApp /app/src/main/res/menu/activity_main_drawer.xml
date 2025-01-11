@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Pay">
+    <menu>
+        <item
+            android:id="@+id/nav_auth_pay"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Payment Checkout"
+            />
+        <item
+            android:id="@+id/nav_change_pin"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Change Pin"
+            />
+        <item
+            android:id="@+id/nav_enablebiometrics"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Enable Biometrics"
+            />
+        <item
+            android:id="@+id/nav_disablebiometrics"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Disable Biometrics"
+            />
+    </menu>
+    </item>
+</menu>
