@@ -20,10 +20,11 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 ### Requirements
 
 - Flutter SDK: `v3.24.0` and above
+- `webview_flutter`: `v4.0.0` and above
 
 ### Dependencies
 
-- `webview_flutter`: `v4.10.0`
+- `webview_flutter`
 
 ### Getting Started
 
@@ -64,13 +65,6 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
    ```bash
    flutter pub get
    ```
-   
-   Install iOS native dependencies:
-
-   ```bash
-   cd iOS/
-   pod install
-   ```
 
 ### Minkasu2FA Models
 
@@ -109,20 +103,15 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
    | darkModeNavigationBarColor | Color | :white_large_square: |
    | darkModeNavigationBarTextColor | Color | :white_large_square: |
    | supportDarkMode | bool | :white_large_square: |
-5. **Minkasu2FASDKMode**
-   | Values |
-   | ----------------|
-   | production |
-   | sandbox |
 
-6. **Minkasu2FAOperationType**
+5. **Minkasu2FAOperationType**
    | Operations |
    | ----------------|
    | changePayPin |
    | enableBiometry |
    | disableBiometry |
 
-7. **Minkasu2FAConfig**
+6. **Minkasu2FAConfig**
    | Properties | Type | Required |
    | ------------- |:-------------:| -----:|
    | id | String | :white_check_mark: |
@@ -130,7 +119,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
    | merchantCustomerId | String | :white_check_mark: |
    | customerInfo | Minkasu2FACustomerInfo | :white_check_mark: |
    | orderInfo | Minkasu2FAOrderInfo | :white_check_mark: |
-   | sdkMode | Minkasu2FASDKMode | :white_large_square: |
+   | sdkMode | Integer | :white_large_square: |
    | customTheme | Minkasu2FACustomTheme | :white_large_square: |
 
 ### Integration
@@ -140,12 +129,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 1. **Creating the Config Object**
 
    ```dart
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/enums/minkasu2fa_sdk_mode.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_address.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_config.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_custom_theme.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_customer_info.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_order_info.dart';
+   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models.dart';
 
    const address = Minkasu2FAAddress(
     line1: "123 Test Way",
@@ -192,8 +176,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
     customerInfo: customer,
     orderInfo: order,
     token: "<merchant_access_token>",
-    sdkMode: Minkasu2FASDKMode
-        .sandbox, //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
+    sdkMode: Minkasu2FAConfig.SANDBOX_MODE, //set sdkMode to SANDBOX_MODE if testing on sandbox
     customTheme: customTheme,
    );
    ```
@@ -204,7 +187,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
    import 'package:minkasu2fa_flutter_plugin/minkasu2fa_flutter_plugin.dart';
    import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_callback_data.dart';
 
-   void callback(Minkasu2FACallBackData minkasuCallBackData) {
+   void minkasu2FACallBack(Minkasu2FACallBackData minkasuCallBackData) {
        if (minkasuCallBackData.infoType == 1) {
          // INFO_TYPE_RESULT
        } else if (minkasuCallBackData.infoType == 2) {
@@ -216,11 +199,13 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 
    void initialiseSDK() async {
        final _minkasu2fa = Minkasu2faFlutterPlugin();
-       await _minkasu2fa.initMinkasu2FASDK(
-           _controller, // WebViewController instance
-           config,      // Minkasu2FAConfig instance
-           callback,    // Callback function to handle SDK events
-       );
+       try {
+          await _minkasu2fa.init(
+              _controller, // WebViewController instance
+              config,      // Minkasu2FAConfig instance
+              minkasu2FACallBack,    // Callback function to handle SDK events
+          );
+       } catch (_) {}
    }
 
    ```
@@ -229,8 +214,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 
    ```dart
    import 'package:minkasu2fa_flutter_plugin/minkasu2fa_flutter_plugin.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/enums/minkasu2fa_operation_type.dart';
-   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_custom_theme.dart';
+   import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models.dart';
 
    final _minkasu2fa = Minkasu2faFlutterPlugin();
 
