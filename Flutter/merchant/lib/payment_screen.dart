@@ -2,13 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:minkasu2fa_flutter_plugin/minkasu2fa_flutter_plugin.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/enums/minkasu2fa_sdk_mode.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_address.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_callback_data.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_config.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_custom_theme.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_customer_info.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_order_info.dart';
+import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -24,23 +18,23 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   final String customerPhoneNumber =
-      "<customer_phone>"; // Format: +91XXXXXXXXXX (no spaces)
+      <customer_phone_number>; // Format: +91XXXXXXXXXX (no spaces)
 
   /// initializing the WebViewController instance
   final WebViewController _controller = WebViewController();
 
   /// Initializing the Minkasu2FAFlutterPlugin instance
-  final _minkasu2fa = Minkasu2faFlutterPlugin();
+  final _minkasu2fa = Minkasu2FAFlutterPlugin();
 
   /// This method will be invoked by Minkasu2FAFlutterPlugin for every update
   ///
   /// This method will take a `Minkasu2FACallBackData` as an argument
-  void callback(Minkasu2FACallBackData minkasuCallBackData) {
-    if (minkasuCallBackData.infoType == 1) {
+  void minkasuCallback(Minkasu2FACallbackInfo minkasuCallbackInfo) {
+    if (minkasuCallbackInfo.infoType == 1) {
       // INFO_TYPE_RESULT
-    } else if (minkasuCallBackData.infoType == 2) {
+    } else if (minkasuCallbackInfo.infoType == 2) {
       // INFO_TYPE_EVENT
-    } else if (minkasuCallBackData.infoType == 3) {
+    } else if (minkasuCallbackInfo.infoType == 3) {
       // INFO_TYPE_PROGRESS
     }
   }
@@ -51,7 +45,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     /// Settings up WebView, Minkasu2FASDK and then loading the URL on the webview
     setUpWebView();
-    setUpSDK();
+    createConfig();
     loadURL();
   }
 
@@ -72,8 +66,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
       );
   }
 
-  /// This method will setup and initalize the Minkasu2FA SDK
-  Future<void> setUpSDK() async {
+  /// This method will create [Minkasu2FAConfig] and initalize the Minkasu2FA SDK
+  Future<void> createConfig() async {
     /// Creating a Minkasu2FAAddress instance
     ///
     /// Not all the fields are required. Please take a look at `Minkasu2FAAddress` for more details
@@ -102,7 +96,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     /// Not all the fields are required. Please take a look at `Minkasu2FAOrderInfo` for more details
     /// `orderDetails` is expecting a JSON String
     final order = Minkasu2FAOrderInfo(
-      orderId: "<order_id>",
+      orderId: <order_id>,
       // Optionally specify billing category and order details
       billingCategory: "<billing_category>", // e.g. “FLIGHTS”
       orderDetails: jsonEncode(
@@ -131,22 +125,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ///
     /// Not all the fields are required. Please take a look at `Minkasu2FAConfig` for more details
     final config = Minkasu2FAConfig(
-      id: "<merchant_id>",
-      merchantCustomerId: "<merchant_customer_id>",
+      id: <merchant_id>,
+      merchantCustomerId: <merchant_customer_id>,
       customerInfo: customer,
       orderInfo: order,
-      token: "<merchant_access_token>",
-      sdkMode: Minkasu2FASDKMode
-          .sandbox, //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
+      token: <merchant_access_token>,
+      sdkMode: Minkasu2FAConfig
+          .SANDBOX_MODE, //set sdkMode to MINKASU2FA_SANDBOX_MODE if testing on sandbox
       customTheme: customTheme,
     );
 
     //Initializing Minkasu2FA SDK with WebViewController object, the config object and the callback method
-    await _minkasu2fa.initMinkasu2FASDK(
-      _controller,
-      config,
-      callback,
-    );
+    try {
+      final result = await _minkasu2fa.init(
+        _controller,
+        config,
+        minkasuCallback,
+      );
+    } catch (_) {}
   }
 
   /// This method will load an url on to the WebView

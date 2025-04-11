@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minkasu2fa_flutter_plugin/minkasu2fa_flutter_plugin.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/enums/minkasu2fa_operation_type.dart';
-import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models/minkasu2fa_custom_theme.dart';
+import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models.dart';
 
 class OperationsScreen extends StatefulWidget {
   final String merchantCustomerId;
@@ -19,7 +18,7 @@ class OperationsScreen extends StatefulWidget {
 
 class _OperationsScreenState extends State<OperationsScreen> {
   /// Initializing the Minkasu2FAFlutterPlugin instance
-  final _minkasu2fa = Minkasu2faFlutterPlugin();
+  final _minkasu2fa = Minkasu2FAFlutterPlugin();
   final Color backgroundColor = const Color.fromRGBO(78, 164, 109, 1);
 
   List<Minkasu2FAOperationType> operations = [];
@@ -28,10 +27,12 @@ class _OperationsScreenState extends State<OperationsScreen> {
     /// Fetching available Minkasu2FA Operations
     ///
     /// Returns a list of Minkasu2FAOperationType
-    final ops = await _minkasu2fa.getAvailableMinkasu2FAOperations();
-    setState(() {
-      operations = ops;
-    });
+    try {
+      final ops = await _minkasu2fa.getAvailableMinkasu2FAOperations();
+      setState(() {
+        operations = ops;
+      });
+    } catch (_) {}
   }
 
   void performOperation(Minkasu2FAOperationType operation) async {
@@ -42,14 +43,20 @@ class _OperationsScreenState extends State<OperationsScreen> {
     /// Please make sure the merchantCustomerId is a unique id associated with the
     /// currently logged in user, and is the same id used in the payment flow.
     /// The theme settings is for iOS only. Please update the `colors.xml` file for android theme settings
-    await _minkasu2fa.performMinkasu2FAOperation(
-      operation,
-      merchantCustomerId,
-      const Minkasu2FACustomTheme(
-        navigationBarColor: Colors.red,
-        navigationBarTextColor: Colors.green,
-      ),
-    );
+    try {
+      final result = await _minkasu2fa.performMinkasu2FAOperation(
+        operation,
+        merchantCustomerId,
+        const Minkasu2FACustomTheme(
+          navigationBarColor: Colors.red,
+          navigationBarTextColor: Colors.green,
+          //Use this to set a separate color theme for Dark mode
+          darkModeNavigationBarColor: Colors.yellow,
+          darkModeNavigationBarTextColor: Colors.green,
+          supportDarkMode: true,
+        ),
+      );
+    } catch (_) {}
   }
 
   String getDisplayNameFor(Minkasu2FAOperationType operation) {
