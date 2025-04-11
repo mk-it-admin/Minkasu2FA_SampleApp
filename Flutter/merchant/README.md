@@ -107,7 +107,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 1.  **Minkasu2FAConfig**
 
 | Properties | Type | Required | Description |
-| ------------- |:-------------:| -----:| -------------:|
+| ------------- |:-------------:| -----:|:------------- |
 | id | String | :white_check_mark: | Merchant’s Id (Contact Minkasu, Inc.) |
 | token | String | :white_check_mark: | Merchant’s Access Token (Contact Minkasu, Inc.) |
 | merchantCustomerId | String | :white_check_mark: | Merchant’s Customer Id is a Unique Id assigned by the Merchant to every customer |
@@ -119,7 +119,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 2.  **Minkasu2FACustomerInfo**
 
 | Properties | Type | Required | Description |
-| ------------- |:-------------:| -----:| -------------:|
+| ------------- |:-------------:| -----:|:------------- |
 | firstName | String | :white_check_mark: | Customer’s First Name |
 | lastName | String | :white_check_mark: | Customer’s Last Name |
 | middleName | String | :white_large_square: | Customer’s Middle Name |
@@ -130,7 +130,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 3.  **Minkasu2FAAddress**
 
 | Properties | Type | Required | Description |
-| ------------- |:-------------:| -----:| -------------:|
+| ------------- |:-------------:| -----:|:------------- |
 | line1 | String | :white_large_square: | Address Line 1 |
 | line2 | String | :white_large_square: | Address Line 2 |
 | line3 | String | :white_large_square: | Address Line 3 |
@@ -144,7 +144,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 4.  **Minkasu2FAOrderInfo**
 
 | Properties | Type | Required | Description |
-| ------------- |:-------------:| -----:| -------------:|
+| ------------- |:-------------:| -----:|:------------- |
 | orderId | String | :white_check_mark: | Merchant’s Order Id (or other unique Id) to identify the transaction |
 | billingCategory | String | :white_large_square: | Merchant’s Billing Category to identify the type of transaction for billing purposes, if applicable |
 | orderDetails | String | :white_large_square: | Any custom order data to be attributed to the transaction |
@@ -154,7 +154,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 5.  **Minkasu2FACustomTheme**
 
 | Properties | Type | Required | Description |
-| ------------- |:-------------:| -----:| -------------:|
+| ------------- |:-------------:| -----:|:------------- |
 | navigationBarColor | Color | :white_check_mark: | Background colour of the navigation bar |
 | navigationBarTextColor | Color | :white_check_mark: | Text colour of the navigation bar text |
 | darkModeNavigationBarColor | Color | :white_large_square: | Background colour of the navigation bar in dark theme |
