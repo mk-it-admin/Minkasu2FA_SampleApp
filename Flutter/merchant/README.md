@@ -1,5 +1,6 @@
 
 
+
   
 # Minkasu2FA_Flutter_Plugin integration guide
 ---
@@ -47,12 +48,33 @@
  	```
 
 2.  **Android Configurations**
-
-	The `Minkasu2FA SDK` screens can be customized to fit your application’s look and feel. The following screen elements can be customized
+   
+	Using the plugin requires an activity declaration in your `AndroidManifest.xml`.
+	```xml
+	<activity
+		android:name="com.minkasu.android.twofa.sdk.MinkasuSDKActivity"
+		android:configChanges="keyboard|orientation|screenSize|screenLayout|
+		keyboardHidden|uiMode|layoutDirection|smallestScreenSize"
+		android:theme="@style/Mk2FASDKtheme">
+	</activity>
+ 	```
+ 	
+	The `Minkasu2FA SDK` screens can be customized to fit your application’s look and feel by specifying the Minkasu2FATheme as a parent 		style of your own theme.The following screen elements can be customized:
 
 	- Action Bar Title Color
 	- Action Bar Background Color
 
+   	Add the following lines to your `styles.xml` file at the path **android/app/src/main/res/values**: and **android/app/src/main/res/values-night** for light theme and dark theme respectively.
+
+    ```xml
+    <!--START Minkasu2FA -->
+	<style name="Mk2FASDKtheme" parent="Minkasu2FATheme">
+		<item name="colorPrimary">@color/mkActionBarColor</item>
+		<item name="colorPrimaryDark">@color/mkActionBarColor</item>
+	</style>
+	<!--END Minkasu2FA -->
+    ```
+    
 	Add the following lines to your `colors.xml` file at the path **android/app/src/main/res/values**:
 
 	```xml
@@ -70,8 +92,15 @@
 	<color  name="mkActionBarTextColor">#ffffff</color>
 	<!--END Minkasu2FA -->
 	```
+
+ 	If you are using ProGuard, add the following lines in its configuration.
+
+	```
+ 	-keep class minkasu2fa.** { *; }
+	-keep class com.minkasu.android.twofa.** { *; }
+ 	```
  
-3.  **iOS Configurations**
+4.  **iOS Configurations**
 
 	Add `NSFaceIDUsageDescription` to `Info.plist`
 
