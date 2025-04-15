@@ -248,7 +248,7 @@ void  initialiseSDK() async {
 }
 ```
 
-3.  **Retrieving and Performing `Minkasu2FA` Operations**
+3.  **[OPTIONAL] Retrieving and Performing `Minkasu2FA` Operations**
 
 ```dart
 import 'package:minkasu2fa_flutter_plugin/minkasu2fa_flutter_plugin.dart';
