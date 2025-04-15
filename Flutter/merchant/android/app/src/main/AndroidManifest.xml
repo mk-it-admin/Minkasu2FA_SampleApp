@@ -25,6 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.minkasu.android.twofa.sdk.MinkasuSDKActivity"
+            android:configChanges="keyboard|orientation|screenSize|screenLayout|
+            keyboardHidden|uiMode|layoutDirection|smallestScreenSize"
+            android:theme="@style/Mk2FASDKtheme">
+        </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
