@@ -2,19 +2,6 @@
 
   
 # Minkasu2FA_Flutter_Plugin integration guide
-
-  
-This document walks you through the steps to integrate `minkasu2fa_flutter_plugin` in to your flutter project.
-
-  
-
-||  Android | iOS |
-|-------------|---------|-------|
-| **Support** | SDK 21+ | 13.0+ |
-
-  
-  
-
 ---
 
 ## Contents
@@ -30,8 +17,9 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 ### Requirements
 
 - Flutter SDK: `v3.24.0` and above
--  `webview_flutter`: `v4.0.0` and above
-
+- `webview_flutter`: `v4.0.0` and above
+- Android: `SDK 21+`
+- iOS: `13.0+`
   
 
 ### Dependencies
@@ -41,26 +29,22 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 ### Getting Started
 
   
+1.  **Flutter Configurations**
 
-1.  **iOS Configurations**
+	Add the following to your project's `pubspec.yaml` file:
 
-	Add support to use biometric authentication by adding the `Face ID Usage Description` in the `info.plist`
-
-	```swift
-
-	<key>NSFaceIDUsageDescription</key>
-
-	<string>Please allow AppName to use Face ID.</string>
-
+	```yaml
+	dependencies:
+	   minkasu2fa_flutter_plugin: ^0.0.1
 	```
 
-	Update the `Podfile` located at **ios/Podfile** to ensure the project supports iOS 13.0+. Add or modify the following line:
+	Then run:
 
-	```ruby
-
-	platform :ios, '13.0'
-
-	```
+	```bash
+ 
+	flutter pub get
+ 
+ 	```
 
 2.  **Android Configurations**
 
@@ -86,21 +70,21 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 	<color  name="mkActionBarTextColor">#ffffff</color>
 	<!--END Minkasu2FA -->
 	```
+ 
+3.  **iOS Configurations**
 
-3.  **Flutter Configurations**
+	Add `NSFaceIDUsageDescription` to `Info.plist`
 
-	Add the following to your project's `pubspec.yaml` file:
-
-	```yaml
-	dependencies:
-	minkasu2fa_flutter_plugin: ^0.0.1
+	```swift
+	<key>NSFaceIDUsageDescription</key>
+	<string>Please allow AppName to use Face ID.</string>
 	```
 
-	Then run:
+	Update the `Podfile` located at **ios/Podfile** to ensure the project supports iOS 13.0+. Add or modify the following line:
 
-	```bash
-	flutter pub get
-    ```
+	```ruby
+	platform :ios, '13.0'
+	```
 
 ### Minkasu2FA Models
 
@@ -113,7 +97,7 @@ This document walks you through the steps to integrate `minkasu2fa_flutter_plugi
 | merchantCustomerId | String | :white_check_mark: | Merchant’s Customer Id is a Unique Id assigned by the Merchant to every customer |
 | customerInfo | Minkasu2FACustomerInfo | :white_check_mark: | Customer’s info |
 | orderInfo | Minkasu2FAOrderInfo | :white_check_mark: | Order info |
-| sdkMode | Minkasu2FASDKMode | :white_large_square: | Set PRODUCTION_MODE or SANDBOX_MODE. Default is PRODUCTION_MODE. |
+| sdkMode | Integer | :white_large_square: | Set PRODUCTION_MODE or SANDBOX_MODE. Default is PRODUCTION_MODE. |
 | customTheme | Minkasu2FACustomTheme | :white_large_square: | Custom theme applied to iOS. For android update the `colors.xml` file
 
 2.  **Minkasu2FACustomerInfo**
