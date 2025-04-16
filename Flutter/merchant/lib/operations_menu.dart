@@ -18,7 +18,7 @@ class OperationsScreen extends StatefulWidget {
 
 class _OperationsScreenState extends State<OperationsScreen> {
   /// Initializing the Minkasu2FAFlutterPlugin instance
-  final _minkasu2fa = Minkasu2FAFlutterPlugin();
+  final _minkasu2FA = Minkasu2FAFlutterPlugin();
   final Color backgroundColor = const Color.fromRGBO(78, 164, 109, 1);
 
   List<Minkasu2FAOperationType> operations = [];
@@ -28,7 +28,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     ///
     /// Returns a list of Minkasu2FAOperationType
     try {
-      final ops = await _minkasu2fa.getAvailableMinkasu2FAOperations();
+      final ops = await _minkasu2FA.getAvailableMinkasu2FAOperations();
       setState(() {
         operations = ops;
       });
@@ -44,7 +44,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     /// currently logged in user, and is the same id used in the payment flow.
     /// The theme settings is for iOS only. Please update the `colors.xml` file for android theme settings
     try {
-      final result = await _minkasu2fa.performMinkasu2FAOperation(
+      final result = await _minkasu2FA.performMinkasu2FAOperation(
         operation,
         merchantCustomerId,
         const Minkasu2FACustomTheme(

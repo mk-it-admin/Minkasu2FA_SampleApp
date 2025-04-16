@@ -1,7 +1,7 @@
 PODS:
   - Flutter (1.0.0)
   - Minkasu2FA (4.1.1)
-  - minkasu2fa_flutter_plugin (0.0.1):
+  - minkasu2fa_flutter_plugin (1.0.0):
     - Flutter
     - Minkasu2FA (= 4.1.1)
     - webview_flutter_wkwebview
@@ -29,7 +29,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Minkasu2FA: 7d9a577e23fd356bbbdfe8ea0291efeb2a02b5b1
-  minkasu2fa_flutter_plugin: 377e87d0fd89a2ccbd61fd0d0917e264582d5cb8
+  minkasu2fa_flutter_plugin: 3d3daf74853d7743c7a0247138d46be668dc0eab
   webview_flutter_wkwebview: 44d4dee7d7056d5ad185d25b38404436d56c547c
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5

@@ -24,17 +24,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final WebViewController _controller = WebViewController();
 
   /// Initializing the Minkasu2FAFlutterPlugin instance
-  final _minkasu2fa = Minkasu2FAFlutterPlugin();
+  final _minkasu2FA = Minkasu2FAFlutterPlugin();
 
   /// This method will be invoked by Minkasu2FAFlutterPlugin for every update
   ///
   /// This method will take a `Minkasu2FACallBackData` as an argument
-  void minkasuCallback(Minkasu2FACallbackInfo minkasuCallbackInfo) {
-    if (minkasuCallbackInfo.infoType == 1) {
+  void minkasu2FACallback(Minkasu2FACallbackInfo minkasu2FACallbackInfo) {
+    if (minkasu2FACallbackInfo.infoType == 1) {
       // INFO_TYPE_RESULT
-    } else if (minkasuCallbackInfo.infoType == 2) {
+    } else if (minkasu2FACallbackInfo.infoType == 2) {
       // INFO_TYPE_EVENT
-    } else if (minkasuCallbackInfo.infoType == 3) {
+    } else if (minkasu2FACallbackInfo.infoType == 3) {
       // INFO_TYPE_PROGRESS
     }
   }
@@ -137,10 +137,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     //Initializing Minkasu2FA SDK with WebViewController object, the config object and the callback method
     try {
-      final result = await _minkasu2fa.init(
+      final result = await _minkasu2FA.init(
         _controller,
         config,
-        minkasuCallback,
+        minkasu2FACallback,
       );
     } catch (_) {}
   }
