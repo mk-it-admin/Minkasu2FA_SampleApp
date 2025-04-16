@@ -36,7 +36,7 @@
 
 	```yaml
 	dependencies:
-	   minkasu2fa_flutter_plugin: ^0.0.1
+	   minkasu2fa_flutter_plugin: ^1.0.0
 	```
 
 	Then run:
@@ -124,10 +124,10 @@
 | id | String | :white_check_mark: | Merchant’s Id (Contact Minkasu, Inc.) |
 | token | String | :white_check_mark: | Merchant’s Access Token (Contact Minkasu, Inc.) |
 | merchantCustomerId | String | :white_check_mark: | Merchant’s Customer Id is a Unique Id assigned by the Merchant to every customer |
-| customerInfo | Minkasu2FACustomerInfo | :white_check_mark: | Customer’s info |
-| orderInfo | Minkasu2FAOrderInfo | :white_check_mark: | Order info |
+| customerInfo | Minkasu2FACustomerInfo | :white_check_mark: | Customer Info |
+| orderInfo | Minkasu2FAOrderInfo | :white_check_mark: | Order Info |
 | sdkMode | Integer | :white_large_square: | Set PRODUCTION_MODE or SANDBOX_MODE. Default is PRODUCTION_MODE. |
-| customTheme | Minkasu2FACustomTheme | :white_large_square: | Custom theme applied to iOS. For android update the `colors.xml` file
+| customTheme | Minkasu2FACustomTheme | :white_large_square: | Custom theme applied to iOS. For Android update the `colors.xml` file
 
 2.  **Minkasu2FACustomerInfo**
 
@@ -255,12 +255,12 @@ final config = Minkasu2FAConfig(
 import 'package:minkasu2fa_flutter_plugin/minkasu2fa_flutter_plugin.dart';
 import 'package:minkasu2fa_flutter_plugin/minkasu2fa_models.dart';
 
-void  minkasu2FACallback(Minkasu2FACallbackInfo minkasuCallbackInfo) {
-	if (minkasuCallbackInfo.infoType == 1) {
+void  minkasu2FACallback(Minkasu2FACallbackInfo minkasu2FACallbackInfo) {
+	if (minkasu2FACallbackInfo.infoType == 1) {
 		// INFO_TYPE_RESULT
-	} else  if (minkasuCallbackInfo.infoType == 2) {
+	} else  if (minkasu2FACallbackInfo.infoType == 2) {
 		// INFO_TYPE_EVENT
-	} else  if (minkasuCallbackInfo.infoType == 3) {
+	} else  if (minkasu2FACallbackInfo.infoType == 3) {
 		// INFO_TYPE_PROGRESS
 	}
 }
