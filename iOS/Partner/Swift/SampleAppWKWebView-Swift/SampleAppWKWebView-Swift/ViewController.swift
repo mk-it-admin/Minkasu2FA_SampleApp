@@ -149,22 +149,8 @@ class ViewController: UIViewController, WKUIDelegate, Minkasu2FACallbackDelegate
                 mkColorTheme.darkModeNavigationBarTextColor = UIColor.white
 
                 var action : UIAlertAction!
-                if (operation == Int(Minkasu2FAOperationType.MINKASU2FA_CHANGE_PAYPIN.rawValue)){
-                    action = UIAlertAction.init(title: "Change PayPIN",
-                                                style:UIAlertAction.Style.default,
-                                                handler: {(alert : UIAlertAction!) in
-                                                    //merchant_customer_id is a unique id associated with the currently logged in user.
-                                                    Minkasu2FA.perform(Minkasu2FAOperationType.MINKASU2FA_CHANGE_PAYPIN, merchantCustomerId: <merchant_customer_id>, customTheme: mkColorTheme)
-                    })
-                } else if(operation == Int(Minkasu2FAOperationType.MINKASU2FA_ENABLE_BIOMETRY.rawValue)){
-                    action = UIAlertAction.init(title: "Enable Touch ID",
-                                                style:UIAlertAction.Style.default,
-                                                handler: {(alert : UIAlertAction!) in
-                                                    //merchant_customer_id is a unique id associated with the currently logged in user.
-                                                    Minkasu2FA.perform(Minkasu2FAOperationType.MINKASU2FA_ENABLE_BIOMETRY, merchantCustomerId: <merchant_customer_id>, customTheme: mkColorTheme)
-                    })
-                } else if(operation == Int(Minkasu2FAOperationType.MINKASU2FA_DISABLE_BIOMETRY.rawValue)){
-                    action = UIAlertAction.init(title: "Disable Touch ID",
+                if(operation == Int(Minkasu2FAOperationType.MINKASU2FA_DISABLE_BIOMETRY.rawValue)){
+                    action = UIAlertAction.init(title: "Disable Biometrics",
                                                 style:UIAlertAction.Style.default,
                                                 handler: {(alert : UIAlertAction!) in
                                                     //merchant_customer_id is a unique id associated with the currently logged in user.

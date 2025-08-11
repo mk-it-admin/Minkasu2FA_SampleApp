@@ -175,8 +175,6 @@ Typedef ```Minkasu2FAOperationType```
 
 | OPERATION TYPE  | Type | Description |
 | ------------- | ------------- | ------------- |
-| CHANGE_PIN  | Minkasu2FAOperationType  | Change pin operation to change the existing pin to a new one |
-| ENABLE_BIOMETRY  | Minkasu2FAOperationType  | Enable biometry operation |
 | DISABLE_BIOMETRY  | Minkasu2FAOperationType  | Disable biometry operation |
 
 To retrieve the list of operations, execute the following code to get the current list of operations available depending on the state of the Minkasu2FA SDK.
@@ -210,6 +208,7 @@ Please make sure the merchant_customer_id is a unique id associated with the cur
 ## Revision History
 | **Version**     | **Date**            | **Summary of Change**                                                                                                                                                                                                                                                                                                                               | **Prepared By**                            | **Approved By**                       |
 |:-----------:    |-----------------    |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    |----------------------------------------    |-----------------------------------    |
+|  <br>5.0.0      |  <br>14 Aug 2025    | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>4.1.1      |  <br>27 Mar 2025    | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>4.1.0      |  <br>27 Dec 2024    | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>4.0.0      |  <br>02 Oct 2024    | <br>• Updated color theme to remove button color customization                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
