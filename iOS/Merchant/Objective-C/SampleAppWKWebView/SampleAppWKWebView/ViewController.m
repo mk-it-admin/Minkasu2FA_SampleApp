@@ -164,30 +164,12 @@
             mkcolorTheme.darkModeNavigationBarTextColor = UIColor.whiteColor;
 
             UIAlertAction *action = nil;
-            if(operation.intValue == MINKASU2FA_CHANGE_PAYPIN) {
+            if(operation.intValue == MINKASU2FA_DISABLE_BIOMETRY) {
                 action = [UIAlertAction
-                          actionWithTitle:@"Change PayPIN"
+                          actionWithTitle:@"Disable Biometrics"
                           style:UIAlertActionStyleDefault
                           handler:^(UIAlertAction * action) {
-                              NSLog(@"Change PayPIN");
-                              //merchant_customer_id is a unique id associated with the currently logged in user.
-                              [Minkasu2FA performMinkasu2FAOperation:MINKASU2FA_CHANGE_PAYPIN merchantCustomerId:<merchant_customer_id> customTheme:mkcolorTheme];
-                          }];
-            } else if(operation.intValue == MINKASU2FA_ENABLE_BIOMETRY) {
-                action = [UIAlertAction
-                          actionWithTitle:@"Enable Touch ID"
-                          style:UIAlertActionStyleDefault
-                          handler:^(UIAlertAction * action) {
-                              NSLog(@"Enable Touch ID");
-                              //merchant_customer_id is a unique id associated with the currently logged in user.
-                              [Minkasu2FA performMinkasu2FAOperation:MINKASU2FA_ENABLE_BIOMETRY merchantCustomerId:<merchant_customer_id> customTheme:mkcolorTheme];
-                          }];
-            } else if(operation.intValue == MINKASU2FA_DISABLE_BIOMETRY) {
-                action = [UIAlertAction
-                          actionWithTitle:@"Disable Touch ID"
-                          style:UIAlertActionStyleDefault
-                          handler:^(UIAlertAction * action) {
-                              NSLog(@"Disable Touch ID");
+                              NSLog(@"Disable Biometrics");
                               //merchant_customer_id is a unique id associated with the currently logged in user.
                               [Minkasu2FA performMinkasu2FAOperation:MINKASU2FA_DISABLE_BIOMETRY merchantCustomerId:<merchant_customer_id> customTheme:mkcolorTheme];
                           }];
