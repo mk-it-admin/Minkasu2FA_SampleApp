@@ -1,0 +1,30 @@
+PODS:
+  - Flutter (1.0.0)
+  - Minkasu2FA (5.0.0)
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - Minkasu2FA (= 5.0.0)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - Minkasu2FA
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Minkasu2FA: 4a7b1f16bb2fb0f3627af3252b021e418c8df16a
+  webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2
+
+PODFILE CHECKSUM: a3c803b3638696ba0eeccdce776e763f73e35b92
+
+COCOAPODS: 1.16.2
