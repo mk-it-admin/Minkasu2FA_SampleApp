@@ -13,20 +13,19 @@
 
 ### Getting the SDK
 
-#### Using Cocoapods (recommended)
+#### Using SPM - Swift Package Manager (recommended)
+
+Add dependency to Package.swift into dependencies section
+```Swift
+.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.0")),
+```
+#### Using Cocoapods (will be deprecated on 2 Dec, 2026)
 
 1. Navigate to iOS Xcode project directory in Terminal
 2. Run ```pod init``` to  create a Podfile.
 3. Add ```pod 'Minkasu2FA'``` to your Podfile.
 4. Run ```pod install``` in Terminal.
 5. Close the Xcode project window if open, and open the Project Workspace.
-
-#### Using SPM (Swift Package Manager)
-
-Add dependency to Package.swift into dependencies section
-```Swift
-.package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.0")),
-```
 
 #### Manual way
 
@@ -224,7 +223,7 @@ Please make sure the merchant_customer_id is a unique id associated with the cur
 ## Revision History
 | **Version**     | **Date**            | **Summary of Change**                                                                                                                                                                                                                                                                                                                               | **Prepared By**                            | **Approved By**                       |
 |:-----------:    |-----------------    |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    |----------------------------------------    |-----------------------------------    |
-|  <br>5.1.0      |  <br>30 Jan 2026    | <br>• Updated error codes for infoType RESULT in Minkasu2faCallbackInfo class.                  | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
+|  <br>5.1.0      |  <br>17 Feb 2026    | <br>• Updated error codes for infoType RESULT in Minkasu2faCallbackInfo class.                  | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>5.0.0      |  <br>14 Aug 2025    | <br>• Removed Minkasu2FAOperationType CHANGE_PIN and ENABLE_BIOMETRY.<br><br>• Removed PayPIN-related values from Minkasu2faCallbackInfo class.                  | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>4.1.1      |  <br>27 Mar 2025    | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |
 |  <br>4.1.0      |  <br>27 Dec 2024    | <br>• No Changes                                   | <br>Habibur <br>Rahuman<br>[Tech Lead]     | <br>Naveen<br>Doraiswamy<br>[CTO]     |

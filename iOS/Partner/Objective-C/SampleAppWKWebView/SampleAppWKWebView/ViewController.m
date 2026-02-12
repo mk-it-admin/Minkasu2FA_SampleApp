@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     //Initializing WKWebView
     WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
-    self.wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y+150, self.view.frame.size.width, self.view.frame.size.height) configuration:theConfiguration];
+    self.wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y+200, self.view.frame.size.width, self.view.frame.size.height) configuration:theConfiguration];
     _wkWebView.UIDelegate = self;
 
     [self.view addSubview:_wkWebView];
