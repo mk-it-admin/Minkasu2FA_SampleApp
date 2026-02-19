@@ -193,16 +193,18 @@ For more details on the native integration process, refer to the [Android SDK](h
     2. Add the `Minkasu2FA` dependency
     
         **Using SPM - Swift Package Manager (recommended)**
-        Add dependency to Package.swift into dependencies section
+        
+        1. Add dependency to Package.swift into dependencies section
 
-            ```swift
-            .package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.0")),
-            ```
+        ```swift
+        .package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.0")),
+        ```
 
         **Using Cocoapods (will be deprecated on 2 Dec, 2026)**
-        Update the Podfile located at ios/Podfile
+        
+        1. Update the Podfile located at ios/Podfile
 
-            ```ruby
+        ```ruby
             # Uncomment this line to define a global platform for your project
             platform :ios, '13.0'
             target 'Runner' do
@@ -213,7 +215,7 @@ For more details on the native integration process, refer to the [Android SDK](h
                     inherit! :search_paths
                 end
             end
-            ```
+        ```
 
     3. Depending on whether your project uses Swift or Objective-C, proceed as follows:
     
