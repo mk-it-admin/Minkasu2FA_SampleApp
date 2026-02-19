@@ -117,11 +117,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ///
     /// Not all the fields are required. Please take a look at `Minkasu2FAConfig` for more details
     final config = Minkasu2FAConfig(
-      id: <id>,
+      id: <merchant_id>,
       merchantCustomerId: <merchant_customer_id>,
       customerInfo: customer,
       orderInfo: order,
-      token: <token>,
+      token: <merchant_access_token>,
       sdkMode: Minkasu2FASDKMode.sandbox,
       customTheme: customTheme,
     );

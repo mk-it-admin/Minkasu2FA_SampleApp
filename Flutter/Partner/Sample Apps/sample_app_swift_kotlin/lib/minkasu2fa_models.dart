@@ -378,6 +378,68 @@ class Minkasu2FAOrderInfo {
   }
 }
 
+/// A model class representing partner information.
+///
+/// This class contains details about the partner.
+class Minkasu2FAPartnerInfo {
+  /// The unique identifier for the merchant.
+  ///
+  /// This field can not be empty or null
+  final String merchantId;
+
+  /// The name of the merchant.
+  ///
+  /// This field can not be empty or null
+  final String merchantName;
+
+  /// The transaction identifier associated with the merchant
+  ///
+  /// This field is optional and can be null.
+  final String? transactionId;
+
+  /// Creates an instance of [Minkasu2FAPartnerInfo].
+  /// Example:
+  /// ```dart
+  /// final partner = Minkasu2FAPartnerInfo(
+  ///   merchantId: '12345',
+  ///   merchantName: 'Test Merchant',
+  /// );
+  /// ```
+  ///
+  /// Throws [ArgumentError] if:
+  ///   - merchantId is empty
+  ///   - merchant name is empty
+  Minkasu2FAPartnerInfo({
+    required this.merchantId,
+    required this.merchantName,
+    this.transactionId,
+  }) {
+    validate();
+  }
+
+  /// Validates the merchant information.
+  ///
+  /// Throws [ArgumentError] if any on the fields are invalid.
+  void validate() {
+    if (merchantId.trim().isEmpty) {
+      throw ArgumentError('Merchant id cannot be empty');
+    }
+
+    if (merchantName.trim().isEmpty) {
+      throw ArgumentError('Merchant name cannot be empty');
+    }
+  }
+
+  /// Converts the [Minkasu2FAPartnerInfo] information to a map representation.
+  Map<String, dynamic> toMap() {
+    return {
+      'merchantId': merchantId,
+      'merchantName': merchantName,
+      'transactionId': transactionId,
+    };
+  }
+}
+
 /// A model class representing config information.
 ///
 /// This class encapsulates all the required and optional configuration
@@ -392,6 +454,11 @@ class Minkasu2FAConfig {
   ///
   /// This field is required and can not be null.
   final String merchantCustomerId;
+
+  /// The partner info details.
+  ///
+  /// This field is optional and can be null.
+  final Minkasu2FAPartnerInfo? partnerInfo;
 
   /// The customer's information.
   ///
@@ -458,6 +525,7 @@ class Minkasu2FAConfig {
     required this.token,
     this.sdkMode = Minkasu2FASDKMode.production,
     this.customTheme,
+    this.partnerInfo,
   }) {
     validate();
   }
@@ -489,6 +557,7 @@ class Minkasu2FAConfig {
       'token': token,
       'sdkMode': sdkMode.value,
       'customTheme': customTheme?.toMap(),
+      'partnerInfo': partnerInfo?.toMap(),
     };
   }
 }

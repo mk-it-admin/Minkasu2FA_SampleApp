@@ -99,6 +99,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
       orderDetails: jsonEncode({"<key_1>": "<data_1>", "<key_2>": "<data_2>"}),
     );
 
+    /// Creating a Minkasu2FAPartnerInfo instance
+    /// 
+    /// merchantId, merchantName are required fields. Please take a look at `Minkasu2FAPartnerInfo` for more details
+    final partnerInfo = Minkasu2FAPartnerInfo(
+      merchantId: <partner_merchant_id>,
+      merchantName: <partner_merchant_name>,
+      transactionId: <partner_transaction_id>,
+    );
+
     /// Creating a Minkasu2FACustomTheme instance
     ///
     /// Not all the fields are required. Please take a look at `Minkasu2FACustomTheme` for more details
@@ -117,13 +126,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ///
     /// Not all the fields are required. Please take a look at `Minkasu2FAConfig` for more details
     final config = Minkasu2FAConfig(
-      id: <id>,
+      id: <partner_id>,
       merchantCustomerId: <merchant_customer_id>,
       customerInfo: customer,
       orderInfo: order,
-      token: <token>,
+      token: <partner_access_token>,
       sdkMode: Minkasu2FASDKMode.sandbox,
       customTheme: customTheme,
+      partnerInfo: partnerInfo,
     );
 
     //Initializing Minkasu2FA SDK with WebViewController object, the config object and the callback method
