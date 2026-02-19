@@ -48,7 +48,7 @@ For more details on the native integration process, refer to the [Android SDK](h
           darkModeNavigationBarColor: Colors.yellow,
           darkModeNavigationBarTextColor: Colors.green,
           supportDarkMode:
-              true, // Set supportDarkMode to true if the Merchant App supports Dark Mode
+              true, // Set supportDarkMode to true if the app supports dark mode
         );
         final config = Minkasu2FAConfig(
           id: "merchant_id",
@@ -191,13 +191,15 @@ For more details on the native integration process, refer to the [Android SDK](h
         <string>Please allow AppName to use Face ID.</string>
         ```
     2. Add the `Minkasu2FA` dependency
-        1. Using SPM - Swift Package Manager (recommended)
+    
+        **Using SPM - Swift Package Manager (recommended)**
         Add dependency to Package.swift into dependencies section
 
             ```swift
             .package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.0")),
             ```
-        1. Using Cocoapods (will be deprecated on 2 Dec, 2026)
+
+        **Using Cocoapods (will be deprecated on 2 Dec, 2026)**
         Update the Podfile located at ios/Podfile
 
             ```ruby

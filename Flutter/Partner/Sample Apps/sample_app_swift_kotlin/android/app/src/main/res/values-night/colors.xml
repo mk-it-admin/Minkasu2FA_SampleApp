@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--START Minkasu2FA  -->
+    <color name="mkActionBarColor">#3F51B5</color>
+    <color name="mkActionBarTextColor">#ffffff</color>
+    <!--END Minkasu2FA  -->
+</resources>
