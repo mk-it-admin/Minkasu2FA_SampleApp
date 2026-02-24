@@ -135,7 +135,6 @@ public class Minkasu2FAUtils {
             if (customerInfoMap != null && !customerInfoMap.isEmpty()) {
                 customerInfo.setFirstName((String) customerInfoMap.get("firstName"));
                 customerInfo.setLastName((String) customerInfoMap.get("lastName"));
-                customerInfo.setMiddleName((String) customerInfoMap.get("middleName"));
                 customerInfo.setEmail((String) customerInfoMap.get("email"));
                 customerInfo.setPhone((String) customerInfoMap.get("phone"));
 
@@ -144,7 +143,6 @@ public class Minkasu2FAUtils {
                     Address address = new Address();
                     address.setAddressLine1((String) addressInfoMap.get("line1"));
                     address.setAddressLine2((String) addressInfoMap.get("line2"));
-                    address.setAddressLine3((String) addressInfoMap.get("line3"));
                     address.setCity((String) addressInfoMap.get("city"));
                     address.setState((String) addressInfoMap.get("state"));
                     address.setCountry((String) addressInfoMap.get("country"));
