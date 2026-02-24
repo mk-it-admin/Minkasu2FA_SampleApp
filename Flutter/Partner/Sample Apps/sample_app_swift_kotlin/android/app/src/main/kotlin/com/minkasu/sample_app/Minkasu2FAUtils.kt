@@ -134,7 +134,6 @@ object Minkasu2FAUtils {
     private fun constructCustomerInfoFromMap(customerInfoMap: Map<String, Any>?): CustomerInfo {
         val firstName = customerInfoMap!!["firstName"] as String?
         val lastName = customerInfoMap["lastName"] as String?
-        val middleName = customerInfoMap["middleName"] as String?
         val email = customerInfoMap["email"] as String?
         val phone = customerInfoMap["phone"] as String?
 
@@ -143,9 +142,6 @@ object Minkasu2FAUtils {
         val customerInfo = CustomerInfo()
         customerInfo.firstName = firstName
         customerInfo.lastName = lastName
-        if (!middleName.isNullOrEmpty()) {
-            customerInfo.middleName = middleName
-        }
         customerInfo.email = email
         customerInfo.phone = phone
         if (addressMap != null) {
@@ -159,7 +155,6 @@ object Minkasu2FAUtils {
     private fun constructAddressFromMap(addressInfoMap: Map<String, Any>): Address {
         val line1 = addressInfoMap["line1"] as String?
         val line2 = addressInfoMap["line2"] as String?
-        val line3 = addressInfoMap["line3"] as String?
         val city = addressInfoMap["city"] as String?
         val state = addressInfoMap["state"] as String?
         val country = addressInfoMap["country"] as String?
@@ -171,9 +166,6 @@ object Minkasu2FAUtils {
         }
         if (!line2.isNullOrEmpty()) {
             address.setAddressLine2(line2)
-        }
-        if (!line3.isNullOrEmpty()) {
-            address.setAddressLine3(line3)
         }
         if (!city.isNullOrEmpty()) {
             address.setCity(city)

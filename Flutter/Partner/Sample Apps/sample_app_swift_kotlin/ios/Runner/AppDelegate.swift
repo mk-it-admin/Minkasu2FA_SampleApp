@@ -10,7 +10,7 @@ import UIKit
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
     
-    let controller = window.rootViewController as! FlutterViewController
+    let controller = window?.rootViewController as! FlutterViewController
       Minkasu2FAUtils.shared.setUpMinkasu2FAWithEngine(engine: controller.engine)
       
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
