@@ -26,7 +26,7 @@ class ViewController: UIViewController, WKUIDelegate , Minkasu2FACallbackDelegat
         //Initializing WKWebView
         let wkWebViewConfig = WKWebViewConfiguration()
         wkWebView = WKWebView(frame: CGRect(x: view.frame.origin.x ,
-            y: view.frame.origin.y+150,
+            y: view.frame.origin.y+200,
             width: view.frame.size.width,
             height: view.frame.size.height), configuration: wkWebViewConfig)
 
