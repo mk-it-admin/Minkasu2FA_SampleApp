@@ -119,7 +119,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       darkModeNavigationBarColor: Colors.yellow,
       darkModeNavigationBarTextColor: Colors.green,
       supportDarkMode:
-          true, // Set supportDarkMode to true if the Merchant App supports Dark Mode
+          true, // Set supportDarkMode to true if the App supports Dark Mode
     );
 
     /// Creating a Minkasu2FAConfig instance
