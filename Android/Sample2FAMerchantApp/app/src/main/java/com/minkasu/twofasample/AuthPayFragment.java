@@ -216,7 +216,7 @@ public class AuthPayFragment extends Fragment {
             orderDetails.put(<key>,<value>);
             orderDetails.put(<key>,<value>);
             orderDetails.put(<key>,<value>);
-            orderInfo.setCustomData(orderDetails.toString());
+            orderInfo.setOrderDetails(orderDetails.toString());
             config.setOrderInfo(orderInfo);
 
             //Initialize Minkasu 2FA SDK with the Config object and the Webview

@@ -65,14 +65,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Gets the list of Operations that is available according to the state of Minkasu 2FA SDK.
         List<Minkasu2faOperationType> operationTypes = Minkasu2faSDK.getAvailableMinkasu2faOperations(getApplicationContext());
 
-        nav_Menu.findItem(R.id.nav_change_pin).setVisible(false);
-        nav_Menu.findItem(R.id.nav_enablebiometrics).setVisible(false);
+        /*nav_Menu.findItem(R.id.nav_change_pin).setVisible(false);
+        nav_Menu.findItem(R.id.nav_enablebiometrics).setVisible(false);*/
         nav_Menu.findItem(R.id.nav_disablebiometrics).setVisible(false);
 
 
         for (int i = 0; i < operationTypes.size(); i++) {
             MenuItem item;
-            if (operationTypes.get(i) == Minkasu2faOperationType.CHANGE_PAYPIN) {
+            /*if (operationTypes.get(i) == Minkasu2faOperationType.CHANGE_PAYPIN) {
                 item = nav_Menu.findItem(R.id.nav_change_pin).setVisible(true);
                 //set custom title string for menu item
                 item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.CHANGE_PAYPIN));
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 item = nav_Menu.findItem(R.id.nav_enablebiometrics).setVisible(true);
                 //set custom title string for menu item
                 item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.ENABLE_BIOMETRICS));
-            } else if (operationTypes.get(i) == Minkasu2faOperationType.DISABLE_BIOMETRICS) {
+            } else */if (operationTypes.get(i) == Minkasu2faOperationType.DISABLE_BIOMETRICS) {
                 item = nav_Menu.findItem(R.id.nav_disablebiometrics).setVisible(true);
                 //set custom title string for menu item
                 item.setTitle(Minkasu2faOperationType.valueOf(Minkasu2faOperationType.DISABLE_BIOMETRICS));
@@ -97,11 +97,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         popAllFragmentsInStack();
         if (id == R.id.nav_auth_pay) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, getAuthPayFragment(), "PayFragment").commit();
-        } else if (id == R.id.nav_change_pin) {
+        } /*else if (id == R.id.nav_change_pin) {
             performMinkasu2faOperation(Minkasu2faOperationType.CHANGE_PAYPIN);
         } else if (id == R.id.nav_enablebiometrics) {
             performMinkasu2faOperation(Minkasu2faOperationType.ENABLE_BIOMETRICS);
-        } else if (id == R.id.nav_disablebiometrics) {
+        } */else if (id == R.id.nav_disablebiometrics) {
             performMinkasu2faOperation(Minkasu2faOperationType.DISABLE_BIOMETRICS);
         }
         return true;
