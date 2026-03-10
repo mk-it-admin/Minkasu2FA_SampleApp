@@ -12,7 +12,7 @@ To initialize the native SDKs, two things are required: Config details and a ref
 
 Since the native WebView reference is only accessible from the platform-specific (native) layer, you will send the configuration details from Flutter to the native side via a MethodChannel. The native layer will then use those details to initialize the SDKs.
 
-For more details on the native integration process, refer to the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.0.pdf) and [iOS SDK](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Merchant) documentation.
+For more details on the native integration process, refer to the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.1.pdf) and [iOS SDK](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Merchant) documentation.
 
 1.  **Flutter Configurations**
 
@@ -60,7 +60,7 @@ For more details on the native integration process, refer to the [Android SDK](h
           customTheme: customTheme,
         );
         ```
-    3. Create a callback function to receive updates from `Minkasu2FA`. Refer to the [Android](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.0.pdf) and [iOS](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Merchant) documentation for more details about the payload.
+    3. Create a callback function to receive updates from `Minkasu2FA`. Refer to the [Android](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.1.pdf) and [iOS](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Merchant) documentation for more details about the payload.
         ```dart
         void minkasu2FACallback(dynamic minkasu2FACallbackInfo) {
             // infoType 1 indicates RESULT
@@ -98,7 +98,7 @@ For more details on the native integration process, refer to the [Android SDK](h
     
         dependencies {
             // other dependencies
-            implementation("com.minkasu:minkasu-2fa:5.1.0") // Add the Minkasu2FA dependency here
+            implementation("com.minkasu:minkasu-2fa:5.1.1") // Add the Minkasu2FA dependency here
         }
         ```
     2.  Add an activity declaration to your `AndroidManifest.xml` file located at `android/app/src/main`:

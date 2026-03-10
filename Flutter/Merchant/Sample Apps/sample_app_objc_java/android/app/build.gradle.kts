@@ -31,7 +31,7 @@ android {
     }
 
     dependencies {
-        implementation("com.minkasu:minkasu-2fa:5.1.0")
+        implementation("com.minkasu:minkasu-2fa:5.1.1")
     }
 
     buildTypes {
