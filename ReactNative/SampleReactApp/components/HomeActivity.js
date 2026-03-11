@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, View, Text, Button, StyleSheet, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Picker, PickerIOS } from '@react-native-picker/picker';
-const MERCHANT_CUSTOMER_ID = "WebViewCustomerID";
+const MERCHANT_CUSTOMER_ID = "<merchant_customer_id>";
 const NET_BANKING_TYPE = 1;
 const CARD_TYPE = 2;
 
@@ -104,14 +104,14 @@ export default class Home extends Component {
             "key3": "val3"
         }; */
         let orderInfo = {
-            [Minkasu2FAConstants.CUSTOMER_ORDER_ID]: "Ord01_" + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase() // The order id is used to later identify
+            [Minkasu2FAConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify
             //[Minkasu2FAConstants.CUSTOMER_BILLING_CATEGORY]: "FLIGHT",
             //[Minkasu2FAConstants.CUSTOMER_CUSTOM_DATA]: JSON.stringify(orderDetails),
 
         };
         let configObj = {
-            [Minkasu2FAConstants.MERCHANT_ID]: "13579",
-            [Minkasu2FAConstants.MERCHANT_TOKEN]: "789385aed6e4e3ff3e097f57dc58b4d8",
+            [Minkasu2FAConstants.MERCHANT_ID]: "<merchant_id>",
+            [Minkasu2FAConstants.MERCHANT_TOKEN]: "<merchant_token>",
             //merchant_customer_id is a unique id associated with the currently logged in user.
             [Minkasu2FAConstants.CUSTOMER_ID]: MERCHANT_CUSTOMER_ID,
             [Minkasu2FAConstants.CUSTOMER_INFO]: customerInfo,
