@@ -113,7 +113,8 @@ static NSString *channelName = @"minkasu2fa_method_channel";
                     config:(Minkasu2FAConfig *)config
                  andResult:(FlutterResult)result {
     NSError *error = nil;
-    [Minkasu2FA initWithWKWebView:webView andConfiguration:config error:&error];
+    NSString *hybridSDKDetails = @"{\"platform\":\"flutter\"}";
+    [Minkasu2FA initHybridSDKWithWKWebView:webView andConfiguration:config hybridSDKDetails: hybridSDKDetails inViewController:nil error:&error];
     if (error) {
         result(@{
             @"status" : @"failed",

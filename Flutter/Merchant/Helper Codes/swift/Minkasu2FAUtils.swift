@@ -80,7 +80,8 @@ class Minkasu2FAUtils:NSObject, Minkasu2FACallbackDelegate {
     
     private func initializeMinkasu2FASDK(webView: WKWebView, config: Minkasu2FAConfig, result: FlutterResult) {
         do {
-            try Minkasu2FA.initWith(webView, andConfiguration: config)
+            let hybridSDKDetails = "{\"platform:\" \"flutter\"}"
+            try Minkasu2FA.initHybridSDK(with: webView, andConfiguration: config, hybridSDKDetails: hybridSDKDetails, in: nil)
             result([
                 "status": "success"
             ])

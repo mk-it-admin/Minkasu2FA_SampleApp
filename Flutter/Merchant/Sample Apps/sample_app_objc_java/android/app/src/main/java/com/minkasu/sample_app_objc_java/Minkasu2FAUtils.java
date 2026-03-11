@@ -93,7 +93,8 @@ public class Minkasu2FAUtils {
 
         if (config != null) {
             try {
-                Minkasu2faSDK.init(this.activity, config, webView, new Minkasu2faCallback() {
+                String hybridSDKDetails = "{\"platform\": \"flutter\"}";
+                Minkasu2faSDK.initHybridSDK(this.activity, config, webView, hybridSDKDetails, new Minkasu2faCallback() {
                     @Override
                     public void handleInfo(Minkasu2faCallbackInfo callbackInfo) {
                         Map<String, Object> callBackInfoMap = new HashMap<>();
@@ -157,7 +158,7 @@ public class Minkasu2FAUtils {
                 orderInfo = new OrderInfo();
                 orderInfo.setOrderId((String) orderInfoMap.get("orderId"));
                 orderInfo.setBillingCategory((String) orderInfoMap.get("billingCategory"));
-                orderInfo.setOrderDetails((String) orderInfoMap.get("orderDetails"));
+                // orderInfo.setOrderDetails((String) orderInfoMap.get("orderDetails"));
             }
 
             String sdkMode = Config.PRODUCTION_MODE;
