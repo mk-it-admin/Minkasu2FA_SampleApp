@@ -58,28 +58,15 @@ export default class Home extends Component {
     }
 
     renderOperationTypes = (opTypes) => {
-        let changePinBtn;
-        if (opTypes[Minkasu2FAConstants.CHANGE_PIN]) {
-            changePinBtn = <Button title={opTypes[Minkasu2FAConstants.CHANGE_PIN]} style={{ padding: 10 }}
-                onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAConstants.CHANGE_PIN])
-                }} />
-        }
-        let enableDisableBiometricBtn;
-        if (opTypes[Minkasu2FAConstants.ENABLE_BIOMETRICS]) {
-            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAConstants.ENABLE_BIOMETRICS]} style={{ padding: 10 }}
-                onPress={() => {
-                    this.performMinkasu2FAOperation(opTypes[Minkasu2FAConstants.ENABLE_BIOMETRICS]);
-                }} />
-        } else if (opTypes[Minkasu2FAConstants.DISABLE_BIOMETRICS]) {
-            enableDisableBiometricBtn = <Button title={opTypes[Minkasu2FAConstants.DISABLE_BIOMETRICS]} style={{ padding: 10 }}
+        let disableBiometricBtn;
+        if (opTypes[Minkasu2FAConstants.DISABLE_BIOMETRICS]) {
+            disableBiometricBtn = <Button title={opTypes[Minkasu2FAConstants.DISABLE_BIOMETRICS]} style={{ padding: 10 }}
                 onPress={() => {
                     this.performMinkasu2FAOperation(opTypes[Minkasu2FAConstants.DISABLE_BIOMETRICS]);
                 }} />
         }
         return <View style={{ flexDirection: "row", marginTop: 10, justifyContent: 'space-between' }}>
-            {changePinBtn}
-            {enableDisableBiometricBtn}
+            {disableBiometricBtn}
         </View>
     }
 

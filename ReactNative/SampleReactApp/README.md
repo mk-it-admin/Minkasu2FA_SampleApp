@@ -1,5 +1,5 @@
-# React Native WebView With Minkasu2FA SDK Integration Guide
-This document walks you through the steps to integrate Minkasu2FA Mobile SDK with React Native WebView.
+# React Native WebView With Minkasu 2FA SDK Integration Guide
+This document walks you through the steps to integrate Minkasu 2FA SDK with React Native WebView.
 ## Contents
 - [`Supported Platforms`](README.md#supported-platforms)
 - [`Setup`](README.md#setup)
@@ -12,9 +12,9 @@ This document walks you through the steps to integrate Minkasu2FA Mobile SDK wit
 
 ### Setup
 
-#### 1. Add react-native-webview to your dependencies
+#### 1. Remove existing react-native-webview from your dependencies
 
-The library [@mk-it-admin/react-native-webview](https://github.com/mk-it-admin/react-native-webview) is a customized fork of the [@react-native-webview/react-native-webview](https://github.com/react-native-webview/react-native-webview) library, tailored to support the Minkasu2FA SDK. Before adding this forked library as a dependency, ensure that any previously installed version of react-native-webview is removed. To remove react-native-webview from your dependencies, run the following command:
+The library [@mk-it-admin/react-native-webview](https://github.com/mk-it-admin/react-native-webview) is a customized fork of the [@react-native-webview/react-native-webview](https://github.com/react-native-webview/react-native-webview) library, tailored to support the Minkasu 2FA SDK. Before adding this forked library as a dependency, ensure that any previously installed version of react-native-webview is removed. To remove react-native-webview from your dependencies, run the following command:
 ```
 $ npm uninstall --save react-native-webview
 ```
@@ -23,7 +23,7 @@ or
 $ yarn remove react-native-webview
 ```
 
-#### 2. Add this @mk-it-admin/react-native-webview to your dependencies
+#### 2. Add @mk-it-admin/react-native-webview to your dependencies
 ```
 $ npm install --save mk-it-admin/react-native-webview.git#Minkasu2FA_v4.0.13161
 ```
@@ -34,9 +34,9 @@ $ yarn add react-native-webview@https://github.com/mk-it-admin/react-native-webv
 
 Note: The existing properties and methods of `@react-native-webview/react-native-webview` can be used in your application.
 
-#### 3. Native Dependenices
+#### 3. Configure Native Dependenices
 
-Since this library is built based on react-native >0.60, autolinking will take care of the link step, but don't forget to run `pod install`
+Since this library is built based on react-native >0.60, autolinking will take care of the link step.
 
 **iOS**
 
@@ -48,7 +48,7 @@ Add NSFaceIDUsageDescription to Info.plist
 
 ```xml
 <key>NSFaceIDUsageDescription</key>
-<string>Please allow AppName to use Face ID.</string>
+<string>Please allow [AppName] to use Face ID.</string>
 ```
 **Android**
 
@@ -75,7 +75,8 @@ Add the following lines to your `AndroidManifest.xml` file at the path **android
 ```java
 <activity
    android:name="com.minkasu.android.twofa.sdk.MinkasuSDKActivity"
-   android:configChanges="keyboard|orientation|screenSize|screenLayout|keyboardHidden|uiMode|layoutDirection|smallestScreenSize"
+   android:configChanges="keyboard|orientation|screenSize|screenLayout|
+keyboardHidden|uiMode|layoutDirection|smallestScreenSize"
    android:theme="@style/Minkasu2FACustomTheme" />
 ```
 If you are using Proguard, add the following lines in its configuration
@@ -85,7 +86,7 @@ If you are using Proguard, add the following lines in its configuration
 -keep class com.minkasu.android.twofa.** { *; }
 ```
 
-The Minkasu2FA SDK screens can be customized to fit your application’s look and feel by specifying the Minkasu2FATheme as a parent style of your own theme. The following screen elements can be customized
+The Minkasu 2FA SDK screens can be customized to fit your application’s look and feel by specifying the Minkasu2FATheme as a parent style of your own theme. The following screen elements can be customized
 - Action Bar: title color and action bar background
 
 Add the following lines to your `styles.xml` file at the path **android/app/src/main/res/values**:
@@ -118,13 +119,13 @@ Add the following lines to your `colors.xml(night)` file for the night mode at t
 
 ### Integration
 
-There are two ways to integrate Minkasu2FA Mobile SDK with the WebView which are explained below.
+There are two ways to integrate Minkasu 2FA SDK with the WebView which are explained below.
 
 Note: Check that the device is not jailbroken/rooted before creating the config object.
 
-#### Minkasu2FA Config Object
+#### Minkasu 2FA Config Object
 
-To initialize the Minkasu2FA Mobile SDK, the config object is mandatory. The below list show the available properties in the config object
+To initialize the Minkasu 2FA SDK, the config object is mandatory. The below list show the available properties in the config object
 
 | Property Name                         | Type   | Required | Platform     |
 | ------------------------------------- | ------ | -------- | ------------ |
@@ -226,13 +227,13 @@ class MyComponent extends Component {
 }
 ```
 
-#### Handle Minkasu2FA Initialization Event
+#### Handle Minkasu 2FA Initialization Event
 
-The initialization event of Minkasu2FA Mobile SDK will be captured by specifying the `onMinkasu2FAInit` props function.
+The initialization event of Minkasu 2FA SDK will be captured by specifying the `onMinkasu2FAInit` props function.
 
 **onMinkasu2FAInit**
 
-Function that is invoked when the Webview completes the initialization of Minkasu2FA Mobile SDK.
+Function that is invoked when the Webview completes the initialization of Minkasu 2FA SDK.
 
 | Type      |  Required |
 | --------  |  -------- |
@@ -247,13 +248,13 @@ ERROR_CODE
 INIT_TYPE
 ```
 
-#### Handle Minkasu2FA Result Event
+#### Handle Minkasu 2FA Result Event
 
-The result event of Minkasu2FA Mobile SDK will be captured by specifying the `onMinkasu2FAResult` props function.
+The result event of Minkasu 2FA SDK will be captured by specifying the `onMinkasu2FAResult` props function.
 
 **onMinkasu2FAResult**
 
-Function that is invoked during the various points such as RESULT or EVENT or PROGRESS information of Minkasu2FA flow
+Function that is invoked during the various points such as RESULT or EVENT or PROGRESS information of Minkasu 2FA flow
 
 | Type      |  Required |
 | --------  |  -------- |
@@ -270,7 +271,7 @@ For sample code, please refer the below integration options.
 
 #### Option 1: Using minkasu2FAConfig Props
 
-This is the first option to intialize the Minkasu2FA Mobile SDK. Pass the config object to the `minkasu2FAConfig` props. Here's sample code to do that.
+This is the first option to intialize the Minkasu 2FA SDK. Pass the config object to the `minkasu2FAConfig` props. Here's sample code to do that.
 
 ```jsx
 import React, { Component } from 'react';
@@ -311,8 +312,8 @@ class Minkasu2FAAttributeFlowComponent extends Component {
     setSourceUrl = () => {
         let url;
         let bankPhoneNumber = "";
-        if (this.configObj != null) {
-            bankPhoneNumber = this.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
+        if (this.state.configObj != null) {
+            bankPhoneNumber = this.state.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
             if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
                 bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
             }
@@ -407,7 +408,7 @@ class Minkasu2FAAttributeFlowComponent extends Component {
 
 #### Option 2: Using initMinkasu2FA Method
 
-This is another option to intialize the Minkasu2FA Mobile SDK. Pass the config object to the `initMinkasu2FA` method. Here's sample code to do that.
+This is another option to intialize the Minkasu 2FA SDK. Pass the config object to the `initMinkasu2FA` method. Here's sample code to do that.
 
 ```jsx
 import React, { Component } from 'react';
@@ -450,8 +451,8 @@ class Minkasu2FAMethodFlowComponent extends Component {
     setSourceUrl = () => {
         let url;
         let bankPhoneNumber = "";
-        if (this.configObj != null) {
-            bankPhoneNumber = this.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
+        if (this.state.configObj != null) {
+            bankPhoneNumber = this.state.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
             if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
                 bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
             }
@@ -545,19 +546,19 @@ class Minkasu2FAMethodFlowComponent extends Component {
 
 Note: In both options, load the source url in the `onMinkasu2FAInit` method. 
 
-#### Minkasu2FA Operations
+#### Minkasu 2FA Operations
 
-**List of Minkasu2FA Operations**
+**List of Minkasu 2FA Operations**
 
-The Minkasu2FA SDK operations type constants:
+The Minkasu 2FA SDK operations type constants:
 
 ``` 
 Minkasu2FAConstants.DISABLE_BIOMETRICS
 ```
 
-**Retrieving Minkasu2FA Operations**
+**Retrieving Minkasu 2FA Operations**
 
-To retrieve the list of operations, use the following code to get the current list of operations available depending on the state of the Minkasu2FA SDK
+To retrieve the list of operations, use the following code to get the current list of operations available depending on the state of the Minkasu 2FA SDK
 
 ```jsx
 import React, { Component } from 'react';
@@ -585,7 +586,7 @@ class MyComponent extends Component {
 }
 ```
 
-**Performing Minkasu2FA Operations**
+**Performing Minkasu 2FA Operations**
 
 Use the following code to perform an available operation.
 
@@ -619,3 +620,22 @@ class MyComponent extends Component {
 
 Please make sure the merchant_customer_id is a unique id associated with the currently logged in user, and is the same id used in the payment flow.
 
+### Google Play’s Data Safety Section (Android)
+
+Google Play's Data safety section provides developers with a transparent way to show users if and how they collect, share, and protect user data, before users install their app. Developers are required to tell Google Play about their app's privacy and security practices by completing a form in Play Console.
+
+You must ensure that your app’s Data safety section accurately reflects your app’s data collection, sharing, and handling practices. This includes data collected and handled through any third-party libraries or SDKs used in your app. This is a requirement even if your app does not collect any user data. This information is then shown on your app's store listing on Google Play. 
+
+Below is the information specific to MinkasuPay 2FA SDK, which collects Device ID, to be used in completing Google Play’s Data Safety Section. 
+
+Open Google Play Console and select your app. Click Policy->App content (at the bottom of the menu to left), scroll to Data safety section (on the right side), and click Manage. In Overview section, click Next. In the Data collection and security section, answer the questions as below, and click Next.
+- Does your app collect or share any of the required user data types? **Yes**
+- Is all of the user data collected by your app encrypted in transit? **Yes**
+- Do you provide a way for users to request that their data is deleted? **Yes**
+
+In the Data types section, check Device or other IDs (at the bottom) and click Next. In the Data usage and handling section, click Start (next to Device or other IDs), answer the questions as below, and click Save. Finally, in the Preview section, click Submit.
+- Is this data collected, shared, or both? **Collected, Shared**
+- Is this data processed ephemerally? **No**
+- Is this data required for your app, or can users choose whether it's
+collected? **Required**
+- Why is this user data collected/shared? **Fraud prevention, security, and compliance**
