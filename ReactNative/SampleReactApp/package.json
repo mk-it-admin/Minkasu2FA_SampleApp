@@ -17,7 +17,7 @@
         "react-native": "0.76.1",
         "react-native-safe-area-context": "^4.14.0",
         "react-native-screens": "4.1.0",
-        "react-native-webview": "https://github.com/mk-it-admin/react-native-webview#mk2fa_v13161"
+        "react-native-webview": "https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.0.13161"
     },
     "devDependencies": {
         "@babel/core": "^7.25.2",

@@ -27,6 +27,10 @@ $ yarn remove react-native-webview
 ```
 $ npm install --save mk-it-admin/react-native-webview.git#Minkasu2FA_v4.0.13161
 ```
+or
+```
+$ yarn add react-native-webview@https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.0.13161
+``` 
 
 Note: The existing properties and methods of `@react-native-webview/react-native-webview` can be used in your application.
 
@@ -39,6 +43,12 @@ Since this library is built based on react-native >0.60, autolinking will take c
 In the ios/ directory run:
 ```
 $ pod install
+```
+Add NSFaceIDUsageDescription to Info.plist
+
+```xml
+<key>NSFaceIDUsageDescription</key>
+<string>Please allow AppName to use Face ID.</string>
 ```
 **Android**
 
@@ -345,7 +355,7 @@ class Minkasu2FAAttributeFlowComponent extends Component {
                 /*
                 {
                     "reference_id": "<minkasu_transaction_ref>",  // UUID string
-                    "screen": "<FTU_SETUP_CODE_SCREEN|FTU_AUTH_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
+                    "screen": "<FTU_SETUP_CODE_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
                     "event": "<ENTRY>"
                 }
                 */
@@ -484,7 +494,7 @@ class Minkasu2FAMethodFlowComponent extends Component {
                 /*
                 {
                     "reference_id": "<minkasu_transaction_ref>",  // UUID string
-                    "screen": "<FTU_SETUP_CODE_SCREEN|FTU_AUTH_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
+                    "screen": "<FTU_SETUP_CODE_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
                     "event": "<ENTRY>"
                 }
                 */
