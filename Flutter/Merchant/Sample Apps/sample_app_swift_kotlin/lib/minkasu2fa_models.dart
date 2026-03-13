@@ -175,23 +175,22 @@ class Minkasu2FACustomTheme {
 class Minkasu2FACustomerInfo {
   /// The customer's first name
   ///
-  /// This field can not be empty or null
-  final String firstName;
+  /// If not provided, it will be automatically set to an empty string.
+  final String? firstName;
 
   /// The customer's last name.
   ///
-  /// This field is optional but non-nullable. If not provided, defaults to an empty string.
-  final String lastName;
+  /// If not provided, it will be automatically set to an empty string.
+  final String? lastName;
 
   /// The customer's email address.
   ///
-  /// Must be a valid email address format and cannot be null.
-  final String email;
+  /// If not provided, it will be automatically set to an empty string.
+  final String? email;
 
   /// The customer's phone number.
   ///
   /// Must be a valid Indian phone number with +91 prefix.
-  /// If prefix is not provided, it will be automatically added.
   final String phone;
 
   /// The customer's address.
@@ -209,80 +208,17 @@ class Minkasu2FACustomerInfo {
   ///   firstName: 'John',
   ///   lastName: 'Doe',
   ///   email: 'john.doe@example.com',
-  ///   phone: '9876543210',  // Will be converted to '+919876543210'
+  ///   phone: '+919876543210',
   /// );
   /// ```
   ///
-  /// Throws [ArgumentError] if:
-  ///   - Phone number is invalid (not 10 digits)
-  ///   - Email format is invalid
-  ///   - First name is empty
   Minkasu2FACustomerInfo({
-    required this.firstName,
-    this.lastName = "",
-    required this.email,
-    required String phone,
+    this.firstName,
+    this.lastName,
+    this.email,
+    required this.phone,
     this.address,
-  }) : phone = _formatPhoneNumber(phone) {
-    validate();
-  }
-
-  /// Formats the phone number by adding +91 prefix if not present.
-  ///
-  /// Throws [ArgumentError] if phone number is invalid.
-  static String _formatPhoneNumber(String phone) {
-    // Remove any whitespace, hyphens, or other separators
-    final cleanPhone = phone.replaceAll(RegExp(r'[\s\-()]'), '');
-
-    // If already has +91 prefix
-    if (cleanPhone.startsWith('+91')) {
-      if (cleanPhone.length != 13) {
-        // +91 + 10 digits
-        throw ArgumentError('Phone number must be 10 digits long');
-      }
-      return cleanPhone;
-    }
-
-    // If starts with 91 without +
-    if (cleanPhone.startsWith('91')) {
-      if (cleanPhone.length != 12) {
-        // 91 + 10 digits
-        throw ArgumentError('Phone number must be 10 digits long');
-      }
-      return '+$cleanPhone';
-    }
-
-    // For just the 10-digit number
-    if (cleanPhone.length != 10) {
-      throw ArgumentError('Phone number must be 10 digits long');
-    }
-
-    // Validate that the phone number contains only digits
-    if (!RegExp(r'^[0-9]+$').hasMatch(cleanPhone)) {
-      throw ArgumentError('Phone number must contain only digits');
-    }
-
-    return '+91$cleanPhone';
-  }
-
-  /// Validates the customer information.
-  ///
-  /// Throws [ArgumentError] if any field is invalid.
-  void validate() {
-    if (firstName.trim().isEmpty) {
-      throw ArgumentError('First name cannot be empty');
-    }
-
-    // Email validation using regex
-    final emailRegExp = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
-    if (!emailRegExp.hasMatch(email)) {
-      throw ArgumentError('Invalid email format');
-    }
-
-    if (!phone.startsWith('+91') || phone.length != 13) {
-      throw ArgumentError('Invalid phone number format');
-    }
-  }
+  });
 
   /// Converts the [Minkasu2FACustomerInfo] information to a map representation.
   Map<String, dynamic> toMap() {
@@ -330,29 +266,11 @@ class Minkasu2FAOrderInfo {
   /// );
   /// ```
   ///
-  /// Throws [ArgumentError] if:
-  ///   - orderId is empty
-  ///   - orderDetails is provided but it is not a json string
   Minkasu2FAOrderInfo({
     required this.orderId,
     this.orderDetails,
     this.billingCategory,
-  }) {
-    validate();
-  }
-
-  /// Validates the order information.
-  ///
-  /// Throws [ArgumentError] if orderDetails is not a json string.
-  void validate() {
-    if (orderId.trim().isEmpty) {
-      throw ArgumentError('Order id cannot be empty');
-    }
-
-    if (orderDetails != null && orderDetails!.isNotEmpty) {
-      final _ = jsonDecode(orderDetails!);
-    }
-  }
+  });
 
   /// Converts the [Minkasu2FAOrderInfo] information to a map representation.
   Map<String, dynamic> toMap() {
@@ -396,7 +314,7 @@ class Minkasu2FAConfig {
 
   /// The SDK mode (sandbox or production).
   ///
-  /// If not provided, defaults to sandbox
+  /// If not provided, defaults to production
   final Minkasu2FASDKMode sdkMode;
 
   /// The custome theme for navigation bar.
@@ -431,10 +349,6 @@ class Minkasu2FAConfig {
   /// );
   /// ```
   ///
-  /// Throws [ArgumentError] if:
-  ///   - id is empty
-  ///   - merchant customer id is empty
-  ///   - token is empty
 
   Minkasu2FAConfig({
     required this.id,
@@ -444,26 +358,7 @@ class Minkasu2FAConfig {
     required this.token,
     this.sdkMode = Minkasu2FASDKMode.production,
     this.customTheme,
-  }) {
-    validate();
-  }
-
-  /// Validates the config information.
-  ///
-  /// Throws [ArgumentError] if any field is invalid.
-  void validate() {
-    if (id.trim().isEmpty) {
-      throw ArgumentError('id cannot be empty');
-    }
-
-    if (merchantCustomerId.trim().isEmpty) {
-      throw ArgumentError('Merchant customer id cannot be empty');
-    }
-
-    if (token.trim().isEmpty) {
-      throw ArgumentError('Token cannot be empty');
-    }
-  }
+  });
 
   /// Converts the [Minkasu2FAConfig] information to a map representation.
   Map<String, dynamic> toMap() {

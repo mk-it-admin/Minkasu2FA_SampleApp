@@ -93,8 +93,7 @@ public class Minkasu2FAUtils {
 
         if (config != null) {
             try {
-                String hybridSDKDetails = "{\"platform\": \"flutter\"}";
-                Minkasu2faSDK.initHybridSDK(this.activity, config, webView, hybridSDKDetails, new Minkasu2faCallback() {
+                Minkasu2faSDK.init(this.activity, config, webView, new Minkasu2faCallback() {
                     @Override
                     public void handleInfo(Minkasu2faCallbackInfo callbackInfo) {
                         Map<String, Object> callBackInfoMap = new HashMap<>();

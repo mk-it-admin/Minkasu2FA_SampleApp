@@ -1,6 +1,6 @@
-# Minkasu2FA
+# Minkasu 2FA
 
-This documentation provides step-by-step instructions for integrating the `Minkasu2FA` native SDKs (Android and iOS) into a Flutter project that uses the `webview_flutter` plugin.
+This documentation provides step-by-step instructions for integrating the `Minkasu 2FA` native SDKs (Android and iOS) into a Flutter project that uses the `webview_flutter` plugin.
 
 ## Requirements
 
@@ -66,7 +66,7 @@ For more details on the native integration process, refer to the [Android SDK](h
           customTheme: customTheme,
         );
         ```
-    3. Create a callback function to receive updates from `Minkasu2FA`. Refer to the [Android](https://docs.minkasupay.com/Minkasu_2FA_SDK_Partner_Integration_Android_v5.1.1.pdf) and [iOS](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Partner) documentation for more details about the payload.
+    3. Create a callback function to receive updates from `Minkasu 2FA`. Refer to the [Android](https://docs.minkasupay.com/Minkasu_2FA_SDK_Partner_Integration_Android_v5.1.1.pdf) and [iOS](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Partner) documentation for more details about the payload.
         ```dart
         void minkasu2FACallback(dynamic minkasu2FACallbackInfo) {
             // infoType 1 indicates RESULT
@@ -84,7 +84,7 @@ For more details on the native integration process, refer to the [Android SDK](h
         }
         ```
 
-    4. Initialize `Minkasu2FA` using the `initializeMinkasu2FA` method from the `minkasu2fa_utils` file before loading the payment URL.
+    4. Initialize `Minkasu 2FA` using the `initializeMinkasu2FA` method from the `minkasu2fa_utils` file before loading the payment URL.
         ```dart
         try {
             final result = await initializeMinkasu2FA(
@@ -96,7 +96,7 @@ For more details on the native integration process, refer to the [Android SDK](h
         ```
 2. **Android Configurations**
 
-    1. Add the `Minkasu2FA` dependency to the `build.gradle.kts` file located at `android/app`:
+    1. Add the `Minkasu 2FA` dependency to the `build.gradle.kts` file located at `android/app`:
         ```kt
         defaultConfig {
             // other configurations
@@ -104,7 +104,7 @@ For more details on the native integration process, refer to the [Android SDK](h
     
         dependencies {
             // other dependencies
-            implementation("com.minkasu:minkasu-2fa:5.1.1") // Add the Minkasu2FA dependency here
+            implementation("com.minkasu:minkasu-2fa:5.1.1") // Add the Minkasu 2FA dependency here
         }
         ```
     2.  Add an activity declaration to your `AndroidManifest.xml` file located at `android/app/src/main`:
@@ -116,7 +116,7 @@ For more details on the native integration process, refer to the [Android SDK](h
             android:theme="@style/Mk2FASDKtheme">
         </activity>
         ```
-    3. The `Minkasu2FA SDK` screens can be customized to fit your application’s look and feel by specifying the `Minkasu2FATheme` as a parent style of your own theme.The following screen elements can be customized:
+    3. The `Minkasu 2FA SDK` screens can be customized to fit your application’s look and feel by specifying the `Minkasu2FATheme` as a parent style of your own theme.The following screen elements can be customized:
 
     - Action Bar Title Color
     - Action Bar Background Color
@@ -166,7 +166,7 @@ For more details on the native integration process, refer to the [Android SDK](h
         
                 override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
                     super.configureFlutterEngine(flutterEngine)
-                    Minkasu2FAUtils.setUpMinkasu2FA(flutterEngine, this); // Minkasu2FA
+                    Minkasu2FAUtils.setUpMinkasu2FA(flutterEngine, this); // Minkasu 2FA
                 }
             }
             ```
@@ -184,7 +184,7 @@ For more details on the native integration process, refer to the [Android SDK](h
                 @Override
                 public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
                     super.configureFlutterEngine(flutterEngine);
-                    Minkasu2FAUtils.getInstance().setUpMinkasu2FAUtils(flutterEngine, this); // Minkasu2FA
+                    Minkasu2FAUtils.getInstance().setUpMinkasu2FAUtils(flutterEngine, this); // Minkasu 2FA
                 }
             }
             ```
@@ -194,9 +194,9 @@ For more details on the native integration process, refer to the [Android SDK](h
 
         ```swift
         <key>NSFaceIDUsageDescription</key>
-        <string>Please allow AppName to use Face ID.</string>
+        <string>Please allow [AppName] to use Face ID.</string>
         ```
-    2. Add the `Minkasu2FA` dependency
+    2. Add the `Minkasu 2FA` dependency
     
         **Using SPM - Swift Package Manager (recommended)**
         
@@ -215,7 +215,7 @@ For more details on the native integration process, refer to the [Android SDK](h
             platform :ios, '13.0'
             target 'Runner' do
                 use_frameworks!
-                pod 'Minkasu2FA', '5.1.0'  # Add Minkasu2FA dependency here
+                pod 'Minkasu2FA', '5.1.0'  # Add Minkasu 2FA dependency here
                 flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
                 target 'RunnerTests' do
                     inherit! :search_paths
@@ -243,7 +243,7 @@ For more details on the native integration process, refer to the [Android SDK](h
                     GeneratedPluginRegistrant.register(with: self)
                     
                     let controller = window.rootViewController as! FlutterViewController
-                    Minkasu2FAUtils.shared.setUpMinkasu2FAWithEngine(engine: controller.engine) // Minkasu2FA
+                    Minkasu2FAUtils.shared.setUpMinkasu2FAWithEngine(engine: controller.engine) // Minkasu 2FA
                     
                     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
                 }
@@ -267,13 +267,18 @@ For more details on the native integration process, refer to the [Android SDK](h
                 [GeneratedPluginRegistrant registerWithRegistry:self];
                 
                 FlutterViewController *controller = (FlutterViewController*)self.window.rootViewController;
-                [[Minkasu2FAUtils sharedInstance] setUpMinkasu2FAWithEngine:controller.engine]); // Minkasu2FA
+                [[Minkasu2FAUtils sharedInstance] setUpMinkasu2FAWithEngine:controller.engine]); // Minkasu 2FA
                 
                 return [super application:application didFinishLaunchingWithOptions:launchOptions];
             }
             
             @end
             ```
+
+## Note: Google Play’s Data Safety Section
+Google Play's Data safety section provides developers with a transparent way to show users if and how they collect, share, and protect user data, before users install their app. Developers are required to tell Google Play about their app's privacy and security practices by completing a form in Play Console.
+
+Please refer the **Google Play’s Data Safety Section** of the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Partner_Integration_Android_v5.1.1.pdf) documentation for more details
 
 ## Sample Apps
 You can refer to the sample apps in the **Sample Apps** folder to see the integration in action.

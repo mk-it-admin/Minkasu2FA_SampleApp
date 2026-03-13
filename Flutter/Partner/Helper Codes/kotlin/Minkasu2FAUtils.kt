@@ -74,9 +74,8 @@ object Minkasu2FAUtils {
 
         if (config != null) {
             try {
-                val hybridSDKDetails = "{\"platform\": \"flutter\"}"
-                Minkasu2faSDK.initHybridSDK(
-                    activity, config, webView, hybridSDKDetails
+                Minkasu2faSDK.init(
+                    activity, config, webView
                 ) { callbackInfo ->
                     val callBackInfoMap: MutableMap<String, Any> =
                         HashMap()
