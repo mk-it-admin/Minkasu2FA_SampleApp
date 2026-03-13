@@ -80,7 +80,7 @@ class Minkasu2FAUtils:NSObject, Minkasu2FACallbackDelegate {
     
     private func initializeMinkasu2FASDK(webView: WKWebView, config: Minkasu2FAConfig, result: FlutterResult) {
         do {
-            try Minkasu2FA.initWith(with: webView, andConfiguration: config)
+            try Minkasu2FA.initWith(webView, andConfiguration: config)
             result([
                 "status": "success"
             ])
