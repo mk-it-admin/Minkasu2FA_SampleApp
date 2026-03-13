@@ -46,11 +46,6 @@ class Minkasu2FAAddress {
   /// This field is optional and can be null.
   final String? line2;
 
-  /// Third line of the street address.
-  ///
-  /// This field is optional and can be null.
-  final String? line3;
-
   /// Name of the city.
   ///
   /// This field is optional and can be null.
@@ -90,7 +85,6 @@ class Minkasu2FAAddress {
   const Minkasu2FAAddress({
     this.line1,
     this.line2,
-    this.line3,
     this.city,
     this.state,
     this.zipCode,
@@ -102,7 +96,6 @@ class Minkasu2FAAddress {
     return {
       'line1': line1,
       'line2': line2,
-      'line3': line3,
       'city': city,
       'state': state,
       'zipCode': zipCode,
@@ -190,11 +183,6 @@ class Minkasu2FACustomerInfo {
   /// This field is optional but non-nullable. If not provided, defaults to an empty string.
   final String lastName;
 
-  /// The customer's middle name.
-  ///
-  /// This field is optional and can be null.
-  final String? middleName;
-
   /// The customer's email address.
   ///
   /// Must be a valid email address format and cannot be null.
@@ -232,7 +220,6 @@ class Minkasu2FACustomerInfo {
   Minkasu2FACustomerInfo({
     required this.firstName,
     this.lastName = "",
-    this.middleName,
     required this.email,
     required String phone,
     this.address,
@@ -302,7 +289,6 @@ class Minkasu2FACustomerInfo {
     return {
       'firstName': firstName,
       'lastName': lastName,
-      'middleName': middleName,
       'email': email,
       'phone': phone,
       'address': address?.toMap(),

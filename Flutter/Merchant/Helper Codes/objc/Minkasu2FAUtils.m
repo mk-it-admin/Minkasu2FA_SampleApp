@@ -169,7 +169,6 @@ static NSString *channelName = @"minkasu2fa_method_channel";
 (NSDictionary *)customerInfoDictionary {
     NSString *firstName = customerInfoDictionary[@"firstName"];
     NSString *lastName = customerInfoDictionary[@"lastName"];
-    NSString *middleName = customerInfoDictionary[@"middleName"];
     NSString *email = customerInfoDictionary[@"email"];
     NSString *phone = customerInfoDictionary[@"phone"];
     
@@ -184,10 +183,6 @@ static NSString *channelName = @"minkasu2fa_method_channel";
     Minkasu2FACustomerInfo *customerInfo = [Minkasu2FACustomerInfo new];
     customerInfo.firstName = firstName;
     customerInfo.lastName = lastName;
-    if (middleName && middleName != nil &&
-        ![middleName isKindOfClass:[NSNull class]]) {
-        customerInfo.middleName = middleName;
-    }
     customerInfo.email = email;
     customerInfo.phone = phone;
     customerInfo.address = address;
@@ -198,7 +193,6 @@ static NSString *channelName = @"minkasu2fa_method_channel";
 - (Minkasu2FAAddress *)constructAddressFrom:(NSDictionary *)addressDictionary {
     NSString *line1 = addressDictionary[@"line1"];
     NSString *line2 = addressDictionary[@"line2"];
-    NSString *line3 = addressDictionary[@"line3"];
     NSString *city = addressDictionary[@"city"];
     NSString *state = addressDictionary[@"state"];
     NSString *country = addressDictionary[@"country"];
@@ -209,10 +203,7 @@ static NSString *channelName = @"minkasu2fa_method_channel";
         address.line1 = line1;
     }
     if (line2 && line2 != nil && ![line2 isKindOfClass:[NSNull class]]) {
-        address.line3 = line2;
-    }
-    if (line3 && line3 != nil && ![line3 isKindOfClass:[NSNull class]]) {
-        address.line3 = line3;
+        address.line2 = line2;
     }
     if (city && city != nil && ![city isKindOfClass:[NSNull class]]) {
         address.city = city;

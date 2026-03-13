@@ -133,7 +133,6 @@ class Minkasu2FAUtils:NSObject, Minkasu2FACallbackDelegate {
         
         let firstName = dict["firstName"] as? String
         let lastName = dict["lastName"] as? String
-        let middleName = dict["middleName"] as? String
         let email = dict["email"] as? String
         let phone = dict["phone"] as? String
         
@@ -145,7 +144,6 @@ class Minkasu2FAUtils:NSObject, Minkasu2FACallbackDelegate {
         let customerInfo = Minkasu2FACustomerInfo()
         customerInfo.firstName = firstName
         customerInfo.lastName = lastName
-        customerInfo.middleName = middleName
         customerInfo.email = email
         customerInfo.phone = phone
         customerInfo.address = address
@@ -161,9 +159,6 @@ class Minkasu2FAUtils:NSObject, Minkasu2FACallbackDelegate {
         }
         if let line2 = dict["line2"] as? String {
             address.line2 = line2
-        }
-        if let line3 = dict["line3"] as? String {
-            address.line3 = line3
         }
         if let city = dict["city"] as? String {
             address.city = city
