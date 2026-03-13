@@ -275,7 +275,7 @@ For more details on the native integration process, refer to the [Android SDK](h
             @end
             ```
 
-## Note: Google Play’s Data Safety Section
+## Google Play’s Data Safety Section
 Google Play's Data safety section provides developers with a transparent way to show users if and how they collect, share, and protect user data, before users install their app. Developers are required to tell Google Play about their app's privacy and security practices by completing a form in Play Console.
 
 Please refer the **Google Play’s Data Safety Section** of the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Partner_Integration_Android_v5.1.1.pdf) documentation for more details
