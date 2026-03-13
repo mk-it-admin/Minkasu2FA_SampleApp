@@ -175,17 +175,14 @@ class Minkasu2FACustomTheme {
 class Minkasu2FACustomerInfo {
   /// The customer's first name
   ///
-  /// If not provided, it will be automatically set to an empty string.
   final String? firstName;
 
   /// The customer's last name.
   ///
-  /// If not provided, it will be automatically set to an empty string.
   final String? lastName;
 
   /// The customer's email address.
   ///
-  /// If not provided, it will be automatically set to an empty string.
   final String? email;
 
   /// The customer's phone number.
