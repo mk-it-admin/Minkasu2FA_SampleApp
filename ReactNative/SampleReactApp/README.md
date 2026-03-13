@@ -1,50 +1,54 @@
-# React Native Minkasu2FA WebView Integration Guide
-This document walks you through the steps to integrate Minkasu 2FA Mobile SDK with React Native using Minkasu2FA WebView.
+# React Native WebView With Minkasu 2FA SDK Integration Guide
+This document walks you through the steps to integrate Minkasu 2FA SDK with React Native WebView.
 ## Contents
-
-- [`Minimum Requirements`](README.md#minimum-requirements)
 - [`Supported Platforms`](README.md#supported-platforms)
 - [`Setup`](README.md#setup)
 - [`Integration`](README.md#integration)
 
-### Minimum Requirements
-
-The minimum requirement for the library is
-
-- React (16.13.1)
-- React Native (0.63.3)
-- React Native Webview (11.6.5)
- 
 ### Supported Platforms
 
-- [x] iOS (10.0 and higher)
-- [x] Android (API Level 21 and higher)
+- [x] iOS (13.0 and higher)
+- [x] Android (API Level 23 and higher)
 
 ### Setup
 
-#### 1. Add react-native-webview to your dependencies
+#### 1. Remove existing react-native-webview from your dependencies
 
-Since the library is built based on [@react-native-community/react-native-webview](https://github.com/react-native-community/react-native-webview). Please ensure the `react-native-webview` is installed prior adding Minkasu2FA WebView dependency. If not installed, add react-native-webview to your dependencies by running:
+The library [@mk-it-admin/react-native-webview](https://github.com/mk-it-admin/react-native-webview) is a customized fork of the [@react-native-webview/react-native-webview](https://github.com/react-native-webview/react-native-webview) library, tailored to support the Minkasu 2FA SDK. Before adding this forked library as a dependency, ensure that any previously installed version of react-native-webview is removed. To remove react-native-webview from your dependencies, run the following command:
 ```
-$ npm install --save react-native-webview
+$ npm uninstall --save react-native-webview
 ```
-
-Note: The properties and methods of `react-native-webview` can be used in your application if required.
-
-#### 2. Add react-native-minkasu2fa-webview to your dependencies
+or 
 ```
-$ npm install --save react-native-minkasu2fa-webview
+$ yarn remove react-native-webview
 ```
 
-#### 3. Native Dependenices
+#### 2. Add @mk-it-admin/react-native-webview to your dependencies
+```
+$ npm install --save mk-it-admin/react-native-webview.git#Minkasu2FA_v4.0.13161
+```
+or
+```
+$ yarn add react-native-webview@https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.0.13161
+``` 
 
-Since the library is built based on react-native >0.60, autolinking will take care of the link step, but don't forget to run `pod install`
+Note: The existing properties and methods of `@react-native-webview/react-native-webview` can be used in your application.
+
+#### 3. Configure Native Dependenices
+
+Since this library is built based on react-native >0.60, autolinking will take care of the link step.
 
 **iOS**
 
 In the ios/ directory run:
 ```
 $ pod install
+```
+Add NSFaceIDUsageDescription to Info.plist
+
+```xml
+<key>NSFaceIDUsageDescription</key>
+<string>Please allow [AppName] to use Face ID.</string>
 ```
 **Android**
 
@@ -71,8 +75,9 @@ Add the following lines to your `AndroidManifest.xml` file at the path **android
 ```java
 <activity
    android:name="com.minkasu.android.twofa.sdk.MinkasuSDKActivity"
-   android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-   android:theme="@style/Mk2FASDKtheme" />
+   android:configChanges="keyboard|orientation|screenSize|screenLayout|
+keyboardHidden|uiMode|layoutDirection|smallestScreenSize"
+   android:theme="@style/Minkasu2FACustomTheme" />
 ```
 If you are using Proguard, add the following lines in its configuration
 
@@ -81,40 +86,46 @@ If you are using Proguard, add the following lines in its configuration
 -keep class com.minkasu.android.twofa.** { *; }
 ```
 
-The Minkasu2FA SDK screens can be customized to fit your application’s look and feel by specifying the Minkasu2FATheme as a parent style of your own theme. The following screen elements can be customized
+The Minkasu 2FA SDK screens can be customized to fit your application’s look and feel by specifying the Minkasu2FATheme as a parent style of your own theme. The following screen elements can be customized
 - Action Bar: title color and action bar background
-- Button: button text and button background
 
 Add the following lines to your `styles.xml` file at the path **android/app/src/main/res/values**:
 
 ```xml
 <!--START Minkasu2FA  -->
-<style name="Mk2FASDKtheme" parent="Minkasu2FATheme">
+<style name="Minkasu2FACustomTheme" parent="Minkasu2FATheme">
  <!--Customize your theme here. -->
  <item name="colorPrimary">@color/mkActionBarColor</item>
 </style>
 <!--END Minkasu2FA  -->
 ```
-Add the following lines to your `colors.xml` file at the path **android/app/src/main/res/values**:
+Add the following lines to your `colors.xml` file for the light mode at the path **android/app/src/main/res/values**:
 
 ```xml
 <!--START Minkasu2FA  -->
 <color name="mkActionBarColor">#3F51B5</color>
 <color name="mkActionBarTextColor">#ffffff</color>
-<color name="mkButtonBackground">#3F51B5</color>
-<color name="mkButtonTextColor">#ffffff</color>
+<!--END Minkasu2FA  -->
+```
+
+Add the following lines to your `colors.xml(night)` file for the night mode at the path **android/app/src/main/res/values**:
+
+```xml
+<!--START Minkasu2FA  -->
+<color name="mkActionBarColor">#3F51B5</color>
+<color name="mkActionBarTextColor">#ffffff</color>
 <!--END Minkasu2FA  -->
 ```
 
 ### Integration
 
-Minkasu2FA WebView supports two options to integrate Minkasu 2FA Mobile SDK which are explained below.
+There are two ways to integrate Minkasu 2FA SDK with the WebView which are explained below.
 
 Note: Check that the device is not jailbroken/rooted before creating the config object.
 
-#### Minkasu2FA Config Object
+#### Minkasu 2FA Config Object
 
-To initialize the Minkasu 2FA Mobile SDK, the config object is mandatory. The below list show the available properties in the config object
+To initialize the Minkasu 2FA SDK, the config object is mandatory. The below list show the available properties in the config object
 
 | Property Name                         | Type   | Required | Platform     |
 | ------------------------------------- | ------ | -------- | ------------ |
@@ -135,76 +146,80 @@ To initialize the Minkasu 2FA Mobile SDK, the config object is mandatory. The be
 | CUSTOMER_ADDRESS_ZIP_CODE             | string | No       | Android, iOS |
 | CUSTOMER_ORDER_INFO                   | object | Yes      | Android, iOS |
 | CUSTOMER_ORDER_ID                     | string | Yes      | Android, iOS |
+| CUSTOMER_BILLING_CATEGORY             | string | No       | Android, iOS |
+| CUSTOMER_ORDER_DETAILS                  | string | No       | Android, iOS |
 | SDK_MODE_SANDBOX                      | bool   | No       | Android, iOS |      
 | SKIP_INIT                             | bool   | No       | Android, iOS |
 | IOS_THEME_OBJ                         | object | No       | iOS          |
 | NAVIGATION_BAR_COLOR                  | string | No       | iOS          |
-| NAVIGATION_BAR_TEXT_COLOR             | string | No       | iOS          | 
-| BUTTON_BACKGROUND_COLOR               | string | No       | iOS          |
-| BUTTON_TEXT_COLOR                     | string | No       | iOS          |
+| NAVIGATION_BAR_TEXT_COLOR             | string | No       | iOS          |
 | SUPPORT_DARK_MODE                     | bool   | No       | iOS          |
 | DARK_MODE_NAVIGATION_BAR_COLOR        | string | No       | iOS          |
 | DARK_MODE_NAVIGATION_BAR_TEXT_COLOR   | string | No       | iOS          |
-| DARK_MODE_BUTTON_BACKGROUND_COLOR     | string | No       | iOS          |
-| DARK_MODE_BUTTON_TEXT_COLOR           | string | No       | iOS          |
 
 Here's the sample code to create the config object:
 
 ```jsx
 import React, { Component } from 'react';
 import { View, Button, Platform } from 'react-native';
-import { Minkasu2FAUIConstants } from 'react-native-minkasu2fa-webview';
+import { WebView } from 'react-native-webview';
+
+const Minkasu2FA = WebView.Minkasu2FA;
+let Minkasu2FAConstants = Minkasu2FA.Constants;
 
 class MyComponent extends Component {
     ...
     getiOSThemeObj = () => {
         return {
             //Use the following properties to set custom color theme
-            [Minkasu2FAUIConstants.NAVIGATION_BAR_COLOR]: "#0433FF",
-            [Minkasu2FAUIConstants.NAVIGATION_BAR_TEXT_COLOR]: "#FFFFFF",
-            [Minkasu2FAUIConstants.BUTTON_BACKGROUND_COLOR]: "0433FF",
-            [Minkasu2FAUIConstants.BUTTON_TEXT_COLOR]: "#FFFFFF",
-            //Set supportDarkMode to true if the app supports Dark Mode
-            [Minkasu2FAUIConstants.SUPPORT_DARK_MODE]: true, 
+            [Minkasu2FAConstants.NAVIGATION_BAR_COLOR]: "#0433FF",
+            [Minkasu2FAConstants.NAVIGATION_BAR_TEXT_COLOR]: "#FFFFFF",
             //Use the following properties to set a separate color theme for Dark Mode
-            [Minkasu2FAUIConstants.DARK_MODE_NAVIGATION_BAR_COLOR]: "#942192",
-            [Minkasu2FAUIConstants.DARK_MODE_NAVIGATION_BAR_TEXT_COLOR]: "#FFFFFF",
-            [Minkasu2FAUIConstants.DARK_MODE_BUTTON_BACKGROUND_COLOR]: "#942192",
-            [Minkasu2FAUIConstants.DARK_MODE_BUTTON_TEXT_COLOR]: "#FFFFFF"
+            [Minkasu2FAConstants.DARK_MODE_NAVIGATION_BAR_COLOR]: "#942192",
+            [Minkasu2FAConstants.DARK_MODE_NAVIGATION_BAR_TEXT_COLOR]: "#FFFFFF",
+            //Set supportDarkMode to true if the app supports Dark Mode
+            [Minkasu2FAConstants.SUPPORT_DARK_MODE]: true
         }
     }
 
-    createMinkasu2FAConfigObj = () => {
+    createMinkasuConfigObj = () => {
         let customerInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_FIRST_NAME]: "TestFirstName",
-            [Minkasu2FAUIConstants.CUSTOMER_LAST_NAME]: "TestLastName",
-            [Minkasu2FAUIConstants.CUSTOMER_EMAIL]: "test@xyz.com",
-            [Minkasu2FAUIConstants.CUSTOMER_PHONE]: "<mobile_no>" // Format: +91XXXXXXXXXX (no spaces)
+            [Minkasu2FAConstants.CUSTOMER_FIRST_NAME]: "TestFirstName",
+            [Minkasu2FAConstants.CUSTOMER_LAST_NAME]: "TestLastName",
+            [Minkasu2FAConstants.CUSTOMER_EMAIL]: "test@xyz.com",
+            [Minkasu2FAConstants.CUSTOMER_PHONE]: "<mobile_no>" // Format: +91XXXXXXXXXX (no spaces)
         };
         let addressInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_1]: "123 Test Way",
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_LINE_2]: "Test Apartments",
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_CITY]: "Mumbai",
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_STATE]: "Maharastra", // Unabbreviated e.g. Maharashtra (not MH)
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_COUNTRY]: "India",
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_ZIP_CODE]: "400068" // Format: XXXXXX (no spaces)
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_LINE_1]: "123 Test Way",
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_LINE_2]: "Test Apartments",
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_CITY]: "Mumbai",
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_STATE]: "Maharastra",// Unabbreviated e.g. Maharashtra (not MH)
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_COUNTRY]: "India",
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_ZIP_CODE]: "400068"// Format: XXXXXX (no spaces)
         };
+        /* let orderDetails = {
+            "key1": "val1",
+            "key2": "val2",
+            "key3": "val3"
+        }; */
         let orderInfo = {
-            [Minkasu2FAUIConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify the transaction
+            [Minkasu2FAConstants.CUSTOMER_ORDER_ID]: "<order_id>" // The order id is used to later identify
+            //[MK2FAConstants.CUSTOMER_BILLING_CATEGORY]: "FLIGHT",
+            //[MK2FAConstants.CUSTOMER_ORDER_DETAILS]: JSON.stringify(orderDetails),
+
         };
         let configObj = {
-            [Minkasu2FAUIConstants.MERCHANT_ID]: "<merchant_id>",
-            [Minkasu2FAUIConstants.MERCHANT_TOKEN]: "<merchant_token>",
+            [Minkasu2FAConstants.MERCHANT_ID]: "<merchant_id>",
+            [Minkasu2FAConstants.MERCHANT_TOKEN]: "<merchant_token>",
             //merchant_customer_id is a unique id associated with the currently logged in user.
-            [Minkasu2FAUIConstants.CUSTOMER_ID]: "<merchant_customer_id>", 
-            [Minkasu2FAUIConstants.CUSTOMER_INFO]: customerInfo,
-            [Minkasu2FAUIConstants.CUSTOMER_ADDRESS_INFO]: addressInfo,
-            [Minkasu2FAUIConstants.CUSTOMER_ORDER_INFO]: orderInfo,
-            [Minkasu2FAUIConstants.SDK_MODE_SANDBOX]: true, // pass false for production
-            [Minkasu2FAUIConstants.SKIP_INIT]:false //pass true to skip the Minkasu 2FA Flow
+            [Minkasu2FAConstants.CUSTOMER_ID]: "<merchant_customer_id>",
+            [Minkasu2FAConstants.CUSTOMER_INFO]: customerInfo,
+            [Minkasu2FAConstants.CUSTOMER_ADDRESS_INFO]: addressInfo,
+            [Minkasu2FAConstants.CUSTOMER_ORDER_INFO]: orderInfo,
+            [Minkasu2FAConstants.SDK_MODE_SANDBOX]: true
         };
         if (Platform.OS === 'ios') {
-            configObj[Minkasu2FAUIConstants.IOS_THEME_OBJ] = this.getiOSThemeObj();
+            configObj[Minkasu2FAConstants.IOS_THEME_OBJ] = this.getiOSThemeObj();
         }
         return configObj;
     }
@@ -212,13 +227,13 @@ class MyComponent extends Component {
 }
 ```
 
-#### Handle Minkasu2FA Initialization Event
+#### Handle Minkasu 2FA Initialization Event
 
-The initialization event of Minkasu2FA Mobile SDK will be captured by specifying the `onMinkasu2FAInit` props function.
+The initialization event of Minkasu 2FA SDK will be captured by specifying the `onMinkasu2FAInit` props function.
 
 **onMinkasu2FAInit**
 
-Function that is invoked when the Webview completes the initialization of Minkasu2FA Mobile SDK.
+Function that is invoked when the Webview completes the initialization of Minkasu 2FA SDK.
 
 | Type      |  Required |
 | --------  |  -------- |
@@ -233,128 +248,60 @@ ERROR_CODE
 INIT_TYPE
 ```
 
+#### Handle Minkasu 2FA Result Event
+
+The result event of Minkasu 2FA SDK will be captured by specifying the `onMinkasu2FAResult` props function.
+
+**onMinkasu2FAResult**
+
+Function that is invoked during the various points such as RESULT or EVENT or PROGRESS information of Minkasu 2FA flow
+
+| Type      |  Required |
+| --------  |  -------- |
+| function  |  Yes      |
+
+Function passed to onMinkasu2FAResult is called with a SyntheticEvent wrapping a nativeEvent with these properties:
+
+```
+RESULT_INFO_TYPE   
+RESULT_DATA
+```
+
 For sample code, please refer the below integration options.
 
 #### Option 1: Using minkasu2FAConfig Props
 
-This is the first option to intialize the Minkasu 2FA Mobile SDK. Pass the config object to the `minkasu2FAConfig` props. Here's sample code to do that.
+This is the first option to intialize the Minkasu 2FA SDK. Pass the config object to the `minkasu2FAConfig` props. Here's sample code to do that.
 
 ```jsx
 import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
-import Minkasu2FAWebView, { Minkasu2FAUIConstants } from 'react-native-minkasu2fa-webview';
+import WebView from 'react-native-webview';
+
+const Minkasu2FA = WebView.Minkasu2FA;
+let Minkasu2FAConstants = Minkasu2FA.Constants;
 
 class Minkasu2FAAttributeFlowComponent extends Component {
 
-    state = {
-        sourceUrl: undefined
-    }
-
-    configObj = null;
-    webview = null;
-    isCardEnabled = false;
-
     constructor(props) {
         super(props);
-        const { route } = this.props;
-        if (route && route.params) {
-            this.configObj = route.params.configObj;
-            this.isCardEnabled = route.params.isCardEnabled;
+        this.webView = React.createRef();
+        this.state = {
+            sourceUrl: undefined,
+            configObj: null,
+            isCardEnabled: false
         }
     }
-
-    componentDidMount() {
-        if (this.configObj == null) {
-            this.setSourceUrl();
-        }
-    }
-
-    setSourceUrl = () => {
-        let url;
-        let bankPhoneNumber = "";
-        if (this.configObj != null) {
-            bankPhoneNumber = this.configObj[Minkasu2FAUIConstants.CUSTOMER_INFO][Minkasu2FAUIConstants.CUSTOMER_PHONE];
-            if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
-                bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
-            }
-        }
-        if (this.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
-        } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
-        }
-        this.setState({ sourceUrl: url });
-    }
-
-    onMinkasu2FAInit = (event) => {
-        const data = event.nativeEvent;
-        let errorMessage;
-        if (data) {
-            const status = data[Minkasu2FAUIConstants.STATUS];
-            if (!status || (status && status == Minkasu2FAUIConstants.STATUS_FAILURE)) {
-                errorMessage = "";
-                if (data[Minkasu2FAUIConstants.ERROR_CODE]) {
-                    errorMessage = data[Minkasu2FAUIConstants.ERROR_CODE] + " : ";
-                }
-                errorMessage += data[Minkasu2FAUIConstants.ERROR_MESSAGE];
-            }
-        } else {
-            errorMessage = "Minkasu 2FA is not initialized";
-        }
-        if (errorMessage)
-            Alert.alert("Error", errorMessage);
-        this.setSourceUrl();
-    };
-
-    render() {
-        return (
-            <>
-                <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor: '#444' }}>
-                    <Minkasu2FAWebView
-                        ref={ref => (this.webview = ref)}
-                        source={this.state.sourceUrl}
-                        javaScriptEnabled={true}
-                        minkasu2FAConfig={this.configObj}
-                        onMinkasu2FAInit={this.onMinkasu2FAInit}
-                    />
-                </View>
-            </>
-        );
-    };
-}
-```
-
-#### Option 2: Using initMinkasu2FA Method
-
-This is another option to intialize the Minkasu 2FA Mobile SDK. Pass the config object to the `initMinkasu2FA` method. Here's sample code to do that.
-
-```jsx
-import React, { Component } from 'react';
-import { View, Alert } from 'react-native';
-import Minkasu2FAWebView, { Minkasu2FAUIConstants } from 'react-native-minkasu2fa-webview';
-
-class Minkasu2FAMethodFlowComponent extends Component {
-
-    state = {
-        sourceUrl: undefined
-    }
-
-    configObj = null;
-    webview = null;
-    isCardEnabled = false;
 
     componentDidMount() {
         try {
             const { route } = this.props;
             if (route && route.params) {
-                this.configObj = route.params.configObj;
-                this.isCardEnabled = route.params.isCardEnabled;
-                if (this.configObj != null && this.webview) {
-                    this.webview.initMinkasu2FA(this.configObj);
-                }
-            }
-            if (this.configObj == null) {
-                this.setSourceUrl();
+                this.setState({ configObj: route.params.configObj, isCardEnabled: route.params.isCardEnabled }, () => {
+                    if (!this.state.configObj || this.state.configObj == null) {
+                        this.setSourceUrl();
+                    }
+                })
             }
         }
         catch (e) {
@@ -365,16 +312,16 @@ class Minkasu2FAMethodFlowComponent extends Component {
     setSourceUrl = () => {
         let url;
         let bankPhoneNumber = "";
-        if (this.configObj != null) {
-            bankPhoneNumber = this.configObj[Minkasu2FAUIConstants.CUSTOMER_INFO][Minkasu2FAUIConstants.CUSTOMER_PHONE];
+        if (this.state.configObj != null) {
+            bankPhoneNumber = this.state.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
             if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
                 bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
             }
         }
         if (this.isCardEnabled) {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Welcome_to_Net.html?bankPhone=" + bankPhoneNumber };
+            url = { uri: "https://sandbox.minkasupay.com/demo/card.html?bankPhone=" + bankPhoneNumber };
         } else {
-            url = { uri: "https://sandbox.minkasupay.com/demo/Bank_Internet_Banking_login.htm?bankPhone=" + bankPhoneNumber }
+            url = { uri: "https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone=" + bankPhoneNumber }
         }
         this.setState({ sourceUrl: url });
     }
@@ -383,31 +330,212 @@ class Minkasu2FAMethodFlowComponent extends Component {
         const data = event.nativeEvent;
         let errorMessage;
         if (data) {
-            const status = data[Minkasu2FAUIConstants.STATUS];
-            if (!status || (status && status == Minkasu2FAUIConstants.STATUS_FAILURE)) {
+            const status = data[Minkasu2FAConstants.STATUS];
+            if (!status || (status && status == Minkasu2FAConstants.STATUS_FAILURE)) {
                 errorMessage = "";
-                if (data[Minkasu2FAUIConstants.ERROR_CODE]) {
-                    errorMessage = data[Minkasu2FAUIConstants.ERROR_CODE] + " : ";
+                if (data[Minkasu2FAConstants.ERROR_CODE]) {
+                    errorMessage = data[Minkasu2FAConstants.ERROR_CODE] + " : ";
                 }
-                errorMessage += data[Minkasu2FAUIConstants.ERROR_MESSAGE];
+                errorMessage += data[Minkasu2FAConstants.ERROR_MESSAGE];
             }
         } else {
             errorMessage = "Minkasu 2FA is not initialized";
         }
         if (errorMessage)
-            Alert.alert("Error", errorMessage);
+            Alert.alert("Error", errorMessage); // Optional
         this.setSourceUrl();
     };
+
+    onMinkasu2FAResult = (event) => {
+        const data = event.nativeEvent;
+        let infoType = data[Minkasu2FAConstants.RESULT_INFO_TYPE];
+        let resultData = data[Minkasu2FAConstants.RESULT_DATA];
+        let result = resultData ? JSON.parse(resultData) : null;
+        if (infoType && result) {
+            if (infoType == Minkasu2FAConstants.INFO_TYPE_EVENT) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "screen": "<FTU_SETUP_CODE_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
+                    "event": "<ENTRY>"
+                }
+                */
+                console.log("Minkasu Info Event", result);
+            } else if (infoType == Minkasu2FAConstants.INFO_TYPE_PROGRESS) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "visibility": "<true/false>",
+                    "start_timer": "<true/false>",
+                    "redirect_url_loading":"<true/false>"
+                }
+                */
+                console.log("Minkasu Info Progress", result);
+
+            } else if (infoType == Minkasu2FAConstants.INFO_TYPE_RESULT) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "status": "<SUCCESS|FAILED|TIMEOUT|CANCELLED|DISABLED>", 
+                    "source": "<SDK|SERVER|BANK>", 
+                    "code": <result/error code>, // 0 => Status SUCCESS, Non-zero values => Other status
+                    "message": "<result/error message>"
+                }
+                */
+                console.log("Minkasu Info Result", result);
+            }
+        }
+    }
     
     render() {
         return (
             <>
                 <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor: '#444' }}>
-                    <Minkasu2FAWebView
-                        ref={ref => (this.webview = ref)}
+                    <WebView
+                        ref={this.webView}
+                        source={this.state.sourceUrl}
+                        javaScriptEnabled={true}
+                        minkasu2FAConfig={this.state.configObj}
+                        onMinkasu2FAInit={this.onMinkasu2FAInit}
+                        onMinkasu2FAResult={this.onMinkasu2FAResult}
+                    />
+                </View>
+            </>
+        );
+    };
+}
+```
+
+#### Option 2: Using initMinkasu2FA Method
+
+This is another option to intialize the Minkasu 2FA SDK. Pass the config object to the `initMinkasu2FA` method. Here's sample code to do that.
+
+```jsx
+import React, { Component } from 'react';
+import { View, Alert } from 'react-native';
+import WebView from 'react-native-webview';
+
+const Minkasu2FA = WebView.Minkasu2FA;
+let Minkasu2FAConstants = Minkasu2FA.Constants;
+
+class Minkasu2FAMethodFlowComponent extends Component {
+
+    constructor(props) {
+        super(props);
+        this.webView = React.createRef();
+        this.state = {
+            sourceUrl: undefined,
+            configObj: null,
+            isCardEnabled: false
+        }
+    }
+
+    componentDidMount() {
+        try {
+            const { route } = this.props;
+            if (route && route.params) {
+                this.setState({ configObj: route.params.configObj, isCardEnabled: route.params.isCardEnabled }, () => {
+                    if (!this.state.configObj || this.state.configObj == null) {
+                        this.setSourceUrl();
+                    } else if (this.webView) {
+                        this.webView.current.initMinkasu2FA(this.state.configObj);
+                    }
+                })
+            }
+        }
+        catch (e) {
+            console.log(e.getMessage());
+        }
+    }
+
+    setSourceUrl = () => {
+        let url;
+        let bankPhoneNumber = "";
+        if (this.state.configObj != null) {
+            bankPhoneNumber = this.state.configObj[Minkasu2FAConstants.CUSTOMER_INFO][Minkasu2FAConstants.CUSTOMER_PHONE];
+            if (bankPhoneNumber != null && bankPhoneNumber.length > 0) {
+                bankPhoneNumber = encodeURIComponent(bankPhoneNumber);
+            }
+        }
+        if (this.isCardEnabled) {
+            url = { uri: "https://sandbox.minkasupay.com/demo/card.html?bankPhone=" + bankPhoneNumber };
+        } else {
+            url = { uri: "https://sandbox.minkasupay.com/demo/nb_login.html?bankPhone=" + bankPhoneNumber }
+        }
+        this.setState({ sourceUrl: url });
+    }
+
+    onMinkasu2FAInit = (event) => {
+        const data = event.nativeEvent;
+        let errorMessage;
+        if (data) {
+            const status = data[Minkasu2FAConstants.STATUS];
+            if (!status || (status && status == Minkasu2FAConstants.STATUS_FAILURE)) {
+                errorMessage = "";
+                if (data[Minkasu2FAConstants.ERROR_CODE]) {
+                    errorMessage = data[Minkasu2FAConstants.ERROR_CODE] + " : ";
+                }
+                errorMessage += data[Minkasu2FAConstants.ERROR_MESSAGE];
+            }
+        } else {
+            errorMessage = "Minkasu 2FA is not initialized";
+        }
+        if (errorMessage)
+            Alert.alert("Error", errorMessage); // Optional
+        this.setSourceUrl();
+    };
+
+    onMinkasu2FAResult = (event) => {
+        const data = event.nativeEvent;
+        let infoType = data[Minkasu2FAConstants.RESULT_INFO_TYPE];
+        let resultData = data[Minkasu2FAConstants.RESULT_DATA];
+        let result = resultData ? JSON.parse(resultData) : null;
+        if (infoType && result) {
+            if (infoType == Minkasu2FAConstants.INFO_TYPE_EVENT) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "screen": "<FTU_SETUP_CODE_SCREEN|REPEAT_AUTH_SCREEN>", // Refer Native Doc For
+                    "event": "<ENTRY>"
+                }
+                */
+                console.log("Minkasu Info Event", result);
+            } else if (infoType == Minkasu2FAConstants.INFO_TYPE_PROGRESS) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "visibility": "<true/false>",
+                    "start_timer": "<true/false>",
+                    "redirect_url_loading":"<true/false>"
+                }
+                */
+                console.log("Minkasu Info Progress", result);
+
+            } else if (infoType == Minkasu2FAConstants.INFO_TYPE_RESULT) {
+                /*
+                {
+                    "reference_id": "<minkasu_transaction_ref>",  // UUID string
+                    "status": "<SUCCESS|FAILED|TIMEOUT|CANCELLED|DISABLED>", 
+                    "source": "<SDK|SERVER|BANK>", 
+                    "code": <result/error code>, // 0 => Status SUCCESS, Non-zero values => Other status
+                    "message": "<result/error message>"
+                }
+                */
+                console.log("Minkasu Info Result", result);
+            }
+        }
+    }
+    
+    render() {
+        return (
+            <>
+                <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor: '#444' }}>
+                    <WebView
+                        ref={this.webView}
                         source={this.state.sourceUrl}
                         javaScriptEnabled={true}
                         onMinkasu2FAInit={this.onMinkasu2FAInit}
+                        onMinkasu2FAResult={this.onMinkasu2FAResult}
                     />
                 </View>
             </>
@@ -418,26 +546,27 @@ class Minkasu2FAMethodFlowComponent extends Component {
 
 Note: In both options, load the source url in the `onMinkasu2FAInit` method. 
 
-#### Minkasu2FA Operations
+#### Minkasu 2FA Operations
 
-**List of Minkasu2FA Operations**
+**List of Minkasu 2FA Operations**
 
-The Minkasu2FA SDK operations type constants:
+The Minkasu 2FA SDK operations type constants:
 
-```
-Minkasu2FAModuleConstants.CHANGE_PIN   
-Minkasu2FAModuleConstants.ENABLE_BIOMETRICS      
-Minkasu2FAModuleConstants.DISABLE_BIOMETRICS
+``` 
+Minkasu2FAConstants.DISABLE_BIOMETRICS
 ```
 
-**Retrieving Minkasu2FA Operations**
+**Retrieving Minkasu 2FA Operations**
 
-To retrieve the list of operations, use the following code to get the current list of operations available depending on the state of the Minkasu2FA SDK
+To retrieve the list of operations, use the following code to get the current list of operations available depending on the state of the Minkasu 2FA SDK
 
 ```jsx
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
-import { Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
+import { WebView } from 'react-native-webview';
+
+const Minkasu2FA = WebView.Minkasu2FA;
+let Minkasu2FAConstants = Minkasu2FA.Constants;
 
 class MyComponent extends Component {
     state = {
@@ -445,7 +574,7 @@ class MyComponent extends Component {
     };
     
     getAvailableMinkasu2FAOperationTypes() {
-        Minkasu2FAWebViewModule.getAvailableMinkasu2faOperations()
+        Minkasu2FA.getAvailableMinkasu2FAOperations()
             .then((data) => {
                 this.setState({ availableMinkasu2FAOperationTypes: data });
             })
@@ -457,14 +586,17 @@ class MyComponent extends Component {
 }
 ```
 
-**Performing Minkasu2FA Operations**
+**Performing Minkasu 2FA Operations**
 
 Use the following code to perform an available operation.
 
 ```jsx
 import React, { Component } from 'react';
 import { View, Platform } from 'react-native';
-import { Minkasu2FAWebViewModule } from 'react-native-minkasu2fa-webview';
+import { WebView } from 'react-native-webview';
+
+const Minkasu2FA = WebView.Minkasu2FA;
+let Minkasu2FAConstants = Minkasu2FA.Constants;
 
 class MyComponent extends Component {
     ...
@@ -473,9 +605,9 @@ class MyComponent extends Component {
     async performMinkasu2FAOperation(opType) {  
         try {
             if (Platform.OS == 'ios') {
-                await Minkasu2FAWebViewModule.performMinkasu2FAOperation("<merchant_customer_id>", opType, this.getiOSThemeObj());
+                await Minkasu2FA.performMinkasu2FAOperation("<merchant_customer_id>", opType, this.getiOSThemeObj());
             } else {
-                await Minkasu2FAWebViewModule.performMinkasu2FAOperation("<merchant_customer_id>", opType);
+                await Minkasu2FA.performMinkasu2FAOperation("<merchant_customer_id>", opType);
             }
         }
         catch (e) {
@@ -488,3 +620,22 @@ class MyComponent extends Component {
 
 Please make sure the merchant_customer_id is a unique id associated with the currently logged in user, and is the same id used in the payment flow.
 
+### Google Play’s Data Safety Section (Android)
+
+Google Play's Data safety section provides developers with a transparent way to show users if and how they collect, share, and protect user data, before users install their app. Developers are required to tell Google Play about their app's privacy and security practices by completing a form in Play Console.
+
+You must ensure that your app’s Data safety section accurately reflects your app’s data collection, sharing, and handling practices. This includes data collected and handled through any third-party libraries or SDKs used in your app. This is a requirement even if your app does not collect any user data. This information is then shown on your app's store listing on Google Play. 
+
+Below is the information specific to MinkasuPay 2FA SDK, which collects Device ID, to be used in completing Google Play’s Data Safety Section. 
+
+Open Google Play Console and select your app. Click Policy->App content (at the bottom of the menu to left), scroll to Data safety section (on the right side), and click Manage. In Overview section, click Next. In the Data collection and security section, answer the questions as below, and click Next.
+- Does your app collect or share any of the required user data types? **Yes**
+- Is all of the user data collected by your app encrypted in transit? **Yes**
+- Do you provide a way for users to request that their data is deleted? **Yes**
+
+In the Data types section, check Device or other IDs (at the bottom) and click Next. In the Data usage and handling section, click Start (next to Device or other IDs), answer the questions as below, and click Save. Finally, in the Preview section, click Submit.
+- Is this data collected, shared, or both? **Collected, Shared**
+- Is this data processed ephemerally? **No**
+- Is this data required for your app, or can users choose whether it's
+collected? **Required**
+- Why is this user data collected/shared? **Fraud prevention, security, and compliance**
