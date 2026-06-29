@@ -25,11 +25,11 @@ $ yarn remove react-native-webview
 
 #### 2. Add @mk-it-admin/react-native-webview to your dependencies
 ```
-$ npm install --save mk-it-admin/react-native-webview.git#Minkasu2FA_v4.0.13161
+$ npm install --save mk-it-admin/react-native-webview.git#Minkasu2FA_v4.1.13161
 ```
 or
 ```
-$ yarn add react-native-webview@https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.0.13161
+$ yarn add react-native-webview@https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.1.13161
 ``` 
 
 Note: The existing properties and methods of `@react-native-webview/react-native-webview` can be used in your application.
