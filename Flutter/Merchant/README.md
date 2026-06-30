@@ -12,7 +12,7 @@ To initialize the native SDKs, two things are required: Config details and a ref
 
 Since the native WebView reference is only accessible from the platform-specific (native) layer, you will send the configuration details from Flutter to the native side via a MethodChannel. The native layer will then use those details to initialize the SDKs.
 
-For more details on the native integration process, refer to the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.1.pdf) and [iOS SDK](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Merchant) documentation.
+For more details on the native integration process, refer to the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.2.pdf) and [iOS SDK](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.1/iOS/Merchant) documentation.
 
 1.  **Flutter Configurations**
 
@@ -60,7 +60,7 @@ For more details on the native integration process, refer to the [Android SDK](h
           customTheme: customTheme,
         );
         ```
-    3. Create a callback function to receive updates from `Minkasu 2FA`. Refer to the [Android](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.1.pdf) and [iOS](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.0/iOS/Merchant) documentation for more details about the payload.
+    3. Create a callback function to receive updates from `Minkasu 2FA`. Refer to the [Android](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.2.pdf) and [iOS](https://github.com/mk-it-admin/Minkasu2FA_SampleApp/tree/iOS_v5.1.1/iOS/Merchant) documentation for more details about the payload.
         ```dart
         void minkasu2FACallback(dynamic minkasu2FACallbackInfo) {
             // infoType 1 indicates RESULT
@@ -98,7 +98,7 @@ For more details on the native integration process, refer to the [Android SDK](h
     
         dependencies {
             // other dependencies
-            implementation("com.minkasu:minkasu-2fa:5.1.1") // Add the Minkasu 2FA dependency here
+            implementation("com.minkasu:minkasu-2fa:5.1.2") // Add the Minkasu 2FA dependency here
         }
         ```
     2.  Add an activity declaration to your `AndroidManifest.xml` file located at `android/app/src/main`:
@@ -197,7 +197,7 @@ For more details on the native integration process, refer to the [Android SDK](h
         1. Add dependency to Package.swift into dependencies section
 
         ```swift
-        .package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.0")),
+        .package(url: "https://github.com/mk-it-admin/Minkasu2FA_Pod.git", .upToNextMajor(from: "5.1.1")),
         ```
 
         **Using Cocoapods (will be deprecated on 2 Dec, 2026)**
@@ -209,7 +209,7 @@ For more details on the native integration process, refer to the [Android SDK](h
             platform :ios, '13.0'
             target 'Runner' do
                 use_frameworks!
-                pod 'Minkasu2FA', '5.1.0'  # Add Minkasu 2FA dependency here
+                pod 'Minkasu2FA', '5.1.1'  # Add Minkasu 2FA dependency here
                 flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
                 target 'RunnerTests' do
                     inherit! :search_paths
@@ -272,7 +272,7 @@ For more details on the native integration process, refer to the [Android SDK](h
 ## Google Play’s Data Safety Section
 Google Play's Data safety section provides developers with a transparent way to show users if and how they collect, share, and protect user data, before users install their app. Developers are required to tell Google Play about their app's privacy and security practices by completing a form in Play Console.
 
-Please refer the **Google Play’s Data Safety Section** of the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.1.pdf) documentation for more details
+Please refer the **Google Play’s Data Safety Section** of the [Android SDK](https://docs.minkasupay.com/Minkasu_2FA_SDK_Merchant_Integration_Android_v5.1.2.pdf) documentation for more details
 
 ## Sample Apps
 You can refer to the sample apps in the **Sample Apps** folder to see the integration in action.

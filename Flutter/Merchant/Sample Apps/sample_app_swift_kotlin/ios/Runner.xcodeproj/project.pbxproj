@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
-		272CC8B32F4D869D00C0776B /* Minkasu2FA in Frameworks */ = {isa = PBXBuildFile; productRef = 272CC8B22F4D869D00C0776B /* Minkasu2FA */; };
+		271939832FF38FB400ECD874 /* Minkasu2FA in Frameworks */ = {isa = PBXBuildFile; productRef = 271939822FF38FB400ECD874 /* Minkasu2FA */; };
 		2747FEC62E420EE300D5706D /* Minkasu2FAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2747FEC52E420EDB00D5706D /* Minkasu2FAUtils.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
@@ -84,7 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4A925758C4B99B3281DF7A4 /* Pods_Runner.framework in Frameworks */,
-				272CC8B32F4D869D00C0776B /* Minkasu2FA in Frameworks */,
+				271939832FF38FB400ECD874 /* Minkasu2FA in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +243,7 @@
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
-				272CC8B12F4D867D00C0776B /* XCRemoteSwiftPackageReference "Minkasu2FA_Pod" */,
+				271939812FF38FB400ECD874 /* XCRemoteSwiftPackageReference "Minkasu2FA_Pod" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -301,9 +301,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -748,20 +752,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		272CC8B12F4D867D00C0776B /* XCRemoteSwiftPackageReference "Minkasu2FA_Pod" */ = {
+		271939812FF38FB400ECD874 /* XCRemoteSwiftPackageReference "Minkasu2FA_Pod" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mk-it-admin/Minkasu2FA_Pod.git";
+			repositoryURL = "https://github.com/mk-it-admin/Minkasu2FA_Pod";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.0;
+				kind = exactVersion;
+				version = 5.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		272CC8B22F4D869D00C0776B /* Minkasu2FA */ = {
+		271939822FF38FB400ECD874 /* Minkasu2FA */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 272CC8B12F4D867D00C0776B /* XCRemoteSwiftPackageReference "Minkasu2FA_Pod" */;
+			package = 271939812FF38FB400ECD874 /* XCRemoteSwiftPackageReference "Minkasu2FA_Pod" */;
 			productName = Minkasu2FA;
 		};
 /* End XCSwiftPackageProductDependency section */

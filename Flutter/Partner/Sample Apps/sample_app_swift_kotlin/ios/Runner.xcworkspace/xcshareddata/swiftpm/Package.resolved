@@ -1,13 +1,13 @@
 {
-  "originHash" : "5c690a1706fdc1e1f5e5f466d33cf2809ca2e39b98ba363851a548573412ce8e",
+  "originHash" : "ec7d68512e283193188226be3efff99a05e601a80f013a4c5b3e98cdba0c4235",
   "pins" : [
     {
       "identity" : "minkasu2fa_pod",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mk-it-admin/Minkasu2FA_Pod.git",
       "state" : {
-        "revision" : "1ccb3aa2c0d69cc4037b69d852e8a6ccbbacd711",
-        "version" : "5.1.0"
+        "revision" : "75b3b79946560b1f7004abcb2fa00b0278da4810",
+        "version" : "5.1.1"
       }
     }
   ],
