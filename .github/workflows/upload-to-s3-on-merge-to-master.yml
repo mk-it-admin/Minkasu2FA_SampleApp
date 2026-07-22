@@ -1,0 +1,41 @@
+name: Upload repo on PR merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master        # change to your target branch
+
+jobs:
+  upload:
+    # Only run when the PR was actually merged, not just closed
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0   # full history; use 1 for a shallow clone
+
+      - name: Create archive
+        run: |
+          REPO="${{ github.event.repository.name }}"
+          SHA="${{ github.sha }}"
+          ARCHIVE="${REPO}-${SHA}.tar.gz"
+          git archive --format=tar.gz --output="${ARCHIVE}" HEAD
+          echo "ARCHIVE=${ARCHIVE}" >> "$GITHUB_ENV"
+          S3_URL="s3://${{ secrets.BACKUP_AWS_S3_BUCKET_NAME }}/${REPO}/${ARCHIVE}"
+          echo "S3_URL=${S3_URL}" >> "$GITHUB_ENV"
+
+      # ── Option A: Upload to AWS S3 ────────────────────────────────────────
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.1.0
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            ap-south-1   # change as needed
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp "$ARCHIVE" "$S3_URL"
