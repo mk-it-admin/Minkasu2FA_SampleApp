@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mk-it-admin/Minkasu2FA_Pod.git",
       "state" : {
-        "revision" : "75b3b79946560b1f7004abcb2fa00b0278da4810",
-        "version" : "5.1.1"
+        "revision" : "ada6891ec78a2680d64acf3c604a67fdeb9e5c79",
+        "version" : "5.1.2"
       }
     }
   ],
