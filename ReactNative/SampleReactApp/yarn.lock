@@ -2940,7 +2940,7 @@ __metadata:
     react-native: "npm:0.76.1"
     react-native-safe-area-context: "npm:^4.14.0"
     react-native-screens: "npm:4.1.0"
-    react-native-webview: "https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.1.13161"
+    react-native-webview: "https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.2.13161"
     react-test-renderer: "npm:18.3.1"
     typescript: "npm:5.0.4"
   languageName: unknown
@@ -7970,16 +7970,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-webview@https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.1.13161":
+"react-native-webview@https://github.com/mk-it-admin/react-native-webview#Minkasu2FA_v4.2.13161":
   version: 13.16.1
-  resolution: "react-native-webview@https://github.com/mk-it-admin/react-native-webview.git#commit=1740347b0f88768c9ad94c82760cfa401db2e9e9"
+  resolution: "react-native-webview@https://github.com/mk-it-admin/react-native-webview.git#commit=6484d8df85f204ab3204c339dc58b08540ca87b8"
   dependencies:
     escape-string-regexp: "npm:^4.0.0"
     invariant: "npm:2.2.4"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/adfd2b3f2d2040091be31963472c9f237c61c872e41c994f2ad2f4aeebc43d14a369b18c2a5d221b66f5f0e0363658c9bd764f43c061cf39215dd3368b3a50e9
+  checksum: 10c0/524699b874f76c1aa5c643908703cd0bb9d7899fd6a02730a794add36503416ae50d60a19a7a93f3bff130063a404a36b9ddbac670809de2c85cbb60d9d9f0a5
   languageName: node
   linkType: hard
 
